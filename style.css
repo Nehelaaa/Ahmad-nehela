@@ -262,7 +262,7 @@ section .title::after{
 .services .title::after,
 .accomplishments .title::after{
 	background: #111;
-	content: "what i provide";
+	content: "My Services";
 
 
 }
