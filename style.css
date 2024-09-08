@@ -262,7 +262,7 @@ section .title::after{
 .services .title::after,
 .accomplishments .title::after{
 	background: #111;
-	content: "My Services";
+	content: "Plans";
 
 
 }
@@ -457,7 +457,7 @@ section .title::after{
 
 /* contact section styling */
 .contact .title::after{
-    content: "get in touch";
+    content: "Get in touch";
 }
 .contact .contact-content .column{
     width: calc(50% - 30px);
