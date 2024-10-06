@@ -6,30 +6,25 @@
     text-decoration: none;
 }
 
-/* Global paragraph styling to ensure proper word spacing */
+/* Paragraph styling fix */
 p {
-    margin: 10px 0; /* Minimal margin for paragraph spacing */
-    padding: 0; /* Reset padding */
-    line-height: 1.6; /* Adjust line spacing */
+    margin: 0; /* Remove all paragraph margins */
+    padding: 0; /* Remove all padding */
+    line-height: 1.6; /* Set consistent line height */
     letter-spacing: normal; /* Reset letter spacing */
     word-spacing: normal; /* Reset word spacing */
+    white-space: normal; /* Ensure normal text flow */
+    word-break: normal; /* Prevent words from breaking unnaturally */
+    overflow-wrap: normal; /* Prevent word wrapping */
     font-size: 16px; /* Set font size */
-    text-align: justify; /* Ensure text is evenly spaced */
-}
-
-/* Responsive paragraph adjustments for mobile */
-@media (max-width: 991px) {
-    p {
-        margin: 8px 0; /* Slightly adjust margin for smaller screens */
-        font-size: 15px; /* Reduce font size for better readability */
-    }
+    text-align: justify; /* Set justified text alignment */
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-/* all similar content styling code */
+/* All similar content styling */
 section {
     padding: 100px 0;
 }
@@ -79,6 +74,7 @@ section .title::after {
     background: #fff;
     transform: translateX(-50%);
 }
+
 
 /* navbar styling */
 .navbar{
