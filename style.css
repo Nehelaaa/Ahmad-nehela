@@ -6,18 +6,16 @@
     text-decoration: none;
 }
 
-/* Paragraph styling fix */
 p {
-    margin: 0; /* Remove all paragraph margins */
-    padding: 0; /* Remove all padding */
-    line-height: 1.6; /* Set consistent line height */
+    margin: 10px 0; /* Standard spacing */
+    padding: 0; /* Reset padding */
+    line-height: 1.6; /* Set a comfortable line height */
     letter-spacing: normal; /* Reset letter spacing */
     word-spacing: normal; /* Reset word spacing */
+    text-align: left; /* Change alignment to left */
     white-space: normal; /* Ensure normal text flow */
-    word-break: normal; /* Prevent words from breaking unnaturally */
-    overflow-wrap: normal; /* Prevent word wrapping */
-    font-size: 16px; /* Set font size */
-    text-align: justify; /* Set justified text alignment */
+    word-break: break-word; /* Ensure proper word wrapping */
+    overflow-wrap: break-word; /* Ensure text wraps within the container */
 }
 
 html {
