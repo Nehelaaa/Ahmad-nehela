@@ -1,92 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+
+}
+html{
+	scroll-behavior: smooth;
 }
 
-p {
-    margin: 10px 0; /* Standard spacing */
-    padding: 0; /* Reset padding */
-    line-height: 1.6; /* Set a comfortable line height */
-    letter-spacing: normal; /* Reset letter spacing */
-    word-spacing: normal; /* Reset word spacing */
-    text-align: left; /* Change alignment to left */
-    white-space: normal; /* Ensure normal text flow */
-    word-break: break-word; /* Ensure proper word wrapping */
-    overflow-wrap: break-word; /* Ensure text wraps within the container */
+/* all similar content stlying code */
+section{
+	padding: 100px 0;
 }
-.fix-spacing {
-    margin: 10px 0; /* Standard spacing */
-    padding: 0; /* Reset any padding */
-    line-height: 1.6; /* Set comfortable line height */
-    letter-spacing: 0; /* Remove any extra letter spacing */
-    word-spacing: 0; /* Remove any extra word spacing */
-    text-align: left; /* Align text to the left */
-    white-space: normal; /* Prevent whitespace issues */
-    word-break: normal; /* Prevent word breaks */
-    overflow-wrap: normal; /* Avoid unexpected word wrapping */
-    font-size: 16px; /* Set consistent font size */
-    font-family: 'Poppins', sans-serif; /* Ensure consistent font */
+.max-width{
+	max-width:  1300px;
+	padding: 0 80px;
+	margin: auto;
 }
-
-html {
-    scroll-behavior: smooth;
-}
-
-/* All similar content styling */
-section {
-    padding: 100px 0;
-}
-.max-width {
-    max-width: 1300px;
-    padding: 0 80px;
-    margin: auto;
-}
-.about, .services, .skills, .accomplishments, .contact, footer {
-    font-family: 'Poppins', sans-serif;
+.about, .services, .skills, .accomplishments, .contact, footer{
+	font-family: 'Poppins', sans-serif;
 }
 .about .about-content,
 .services .serv-content,
 .skills .skills-content,
-.contact .contact-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+.contact .contact-content{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
 }
-section .title {
-    position: relative;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 60px;
-    padding-bottom: 20px;
-    font-family: 'Ubuntu', sans-serif;
+section .title{
+	position: relative;
+	text-align: center;
+	font-size: 40px;
+	font-weight: 500;
+	margin-bottom: 60px;
+	padding-bottom: 20px;
+	font-family: 'Ubuntu', sans-serif;
 }
-section .title::before {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    width: 180px;
-    height: 3px;
-    background: #111;
-    transform: translateX(-50%);
-}
-section .title::after {
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    font-size: 20px;
-    color: crimson;
-    padding: 0 5px;
-    background: #fff;
-    transform: translateX(-50%);
-}
+section .title::before{
+	content: "";
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+	width: 180px;
+	height: 3px;
+	background: #111;
+	transform: translateX(-50%);
 
+}
+section .title::after{
+	position: absolute;
+	bottom: -8px;
+	left: 50%;
+	font-size: 20px;
+	color: crimson;
+	padding: 0 5px;
+	background: #fff;
+	transform: translateX(-50%);
 
+}
 /* navbar styling */
 .navbar{
     position: fixed;
