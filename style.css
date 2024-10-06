@@ -17,6 +17,19 @@ p {
     word-break: break-word; /* Ensure proper word wrapping */
     overflow-wrap: break-word; /* Ensure text wraps within the container */
 }
+.fix-spacing {
+    margin: 10px 0; /* Standard spacing */
+    padding: 0; /* Reset any padding */
+    line-height: 1.6; /* Set comfortable line height */
+    letter-spacing: 0; /* Remove any extra letter spacing */
+    word-spacing: 0; /* Remove any extra word spacing */
+    text-align: left; /* Align text to the left */
+    white-space: normal; /* Prevent whitespace issues */
+    word-break: normal; /* Prevent word breaks */
+    overflow-wrap: normal; /* Avoid unexpected word wrapping */
+    font-size: 16px; /* Set consistent font size */
+    font-family: 'Poppins', sans-serif; /* Ensure consistent font */
+}
 
 html {
     scroll-behavior: smooth;
