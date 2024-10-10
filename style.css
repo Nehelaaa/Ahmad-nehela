@@ -636,10 +636,12 @@ footer span a:hover{
 	.services .serv-content .card{
 		width: 100%;
 	}
-	/* Fix spacing issue in paragraphs on mobile */
-    p {
+	/* Fix spacing issue in the About Me section paragraphs for mobile */
+    .about .about-content p {
         word-spacing: 0;
         line-height: 1.5;
+        margin: 0;  /* Resetting margin */
+        padding: 0; /* Resetting padding */
     }
 }
 @media (max-width: 500px) {
