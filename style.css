@@ -639,11 +639,30 @@ footer span a:hover{
 	/* Fix spacing issue in all paragraphs for mobile */
     p {
         word-spacing: normal;
+        white-space: normal;
         line-height: 1.5;
         margin: 0;
         padding: 0;
-        white-space: normal; /* Prevent extra spacing */
-        word-break: break-word; /* Ensure long words break to avoid overflow */
+        word-break: break-word; /* Ensures long words break properly */
+    }
+
+    /* Reset any styling applied to the text containing the span */
+    .about .about-content .text {
+        word-spacing: normal;
+        white-space: normal;
+        line-height: 1.5;
+        font-size: 20px;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Ensure the span doesn't cause any extra space */
+    .about .about-content .text span {
+        display: inline;
+        word-spacing: normal;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap; /* Prevents weird line breaks */
     }
 }
 @media (max-width: 500px) {
