@@ -201,7 +201,7 @@ section .title::after{
 
 /*about section stlying */
 .about .title::after{
-	content: "who i am" ;
+	content: "About me" ;
 }
 
 .about .about-content .left{
