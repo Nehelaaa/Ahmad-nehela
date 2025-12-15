@@ -4,7 +4,6 @@
 	padding: 0;
 	box-sizing: border-box;
 	text-decoration: none;
-
 }
 html{
 	scroll-behavior: smooth;
@@ -49,7 +48,6 @@ section .title::before{
 	height: 3px;
 	background: #111;
 	transform: translateX(-50%);
-
 }
 section .title::after{
 	position: absolute;
@@ -60,8 +58,8 @@ section .title::after{
 	padding: 0 5px;
 	background: #fff;
 	transform: translateX(-50%);
-
 }
+
 /* navbar styling */
 .navbar{
     position: fixed;
@@ -163,7 +161,7 @@ section .title::after{
 }
 .home .max-width .row{
 	margin-right: 0;
-  }
+}
 .home .home-content .text-1{
 	font-size: 27px;
 }
@@ -197,44 +195,37 @@ section .title::after{
 	background: none;
 }
 
-
-
 /*about section stlying */
 .about .title::after{
 	content: "About me" ;
 }
-
 .about .about-content .left{
 	width: 45%;
-
 }
 .about .about-content .left img{
     height: 400px;
     width: 400px;
     object-fit: cover;
 	border-radius: 6px;
-    
 }
 .about .about-content .right{
     width: 55%;
-   
 }
 .about .about-content .right .text{
     font-size: 25px;
 	font-weight: 600px;
 	margin-bottom: 10px;
-   
 }
 .about .about-content .right .text span{
 	color: crimson;
 }
-/* Adding specific styles for mobile view to resolve spacing issue in the first paragraph */
+
+/* mobile spacing fix */
 @media (max-width: 500px) {
-    /* Adjusting the font size for better readability and to prevent extra space between words */
     .about .about-content .right p {
-        font-size: 16px; /* Reduced font size */
-        line-height: 1.5; /* Adjusted line height for better word spacing */
-        text-align: justify; /* Ensure text is properly aligned */
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: justify;
     }
 }
 
@@ -263,15 +254,11 @@ section .title::after{
 .services .title::before, 
 .accomplishments .title::before{
 	background: #fff;
-	
 }
-
 .services .title::after,
 .accomplishments .title::after{
 	background: #111;
 	content: "Plans";
-
-
 }
 .services .serv-content .card{
 	width: calc(33% - 20px);
@@ -303,15 +290,12 @@ section .title::after{
 	font-size: 25px;
 	font-weight: 500;
 	margin: 10px 0 7px 0;
-	
 }
-
 
 /* skills section styling */
 .skills .title::after{
     content: "Skill Set";
 }
-
 .skills .skills-content .column{
     width: calc(50% - 30px);
 }
@@ -353,8 +337,6 @@ section .title::after{
     margin-bottom: 5px;
     align-items: center;
     justify-content: space-between;
-	
-	
 }
 .skills .skills-content .right span{
     font-weight: 500;
@@ -390,11 +372,9 @@ section .title::after{
     width: 70%;
 }
 
-
 /*Accomplishments sections styling */
 .accomplishments .title::after{
 	content: "My projects";
-
 }
 .accomplishments .carousel .card{
 	background: #222;
@@ -403,11 +383,9 @@ section .title::after{
 	text-align: center;
 	overflow: hidden;
 	transition: all 0.3s ease;
-
 }
 .accomplishments .carousel .card:hover{
 	background: crimson;
-
 }
 .accomplishments .carousel .box{
 	display: flex;
@@ -415,7 +393,6 @@ section .title::after{
 	align-items: center;
 	justify-content: center;
 	transition: all 0.3s ease;
-
 }
 .accomplishments .carousel .card:hover .box{
 	transform: scale(1.05);
@@ -424,8 +401,6 @@ section .title::after{
 	font-size: 25px;
 	font-weight: 500;
 	margin: 10px 0 7px 0;
-
-
 }
 .accomplishments .carousel .card img{
 	height: 150px;
@@ -434,11 +409,12 @@ section .title::after{
 	border-radius: 50%;
 	border: 5px solid crimson;
 	transition: all 0.3s ease;
-	
 }
 .accomplishments .carousel .card:hover img{
 	border-color: #fff;
 }
+
+/* Owl dots */
 .owl-dots{
 	text-align: center;
 	margin-top: 20px;
@@ -461,6 +437,31 @@ section .title::after{
 	background: crimson!important;
 }
 
+/* NEW: OwlCarousel nav arrows for accomplishments */
+.accomplishments .owl-nav{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+}
+.accomplishments .owl-nav button.owl-prev,
+.accomplishments .owl-nav button.owl-next{
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 32px;
+	color: #fff;
+	cursor: pointer;
+	transition: color 0.3s ease, transform 0.3s ease;
+}
+.accomplishments .owl-nav button.owl-prev:hover,
+.accomplishments .owl-nav button.owl-next:hover{
+	color: crimson;
+	transform: scale(1.15);
+}
+.accomplishments .owl-nav i{
+	pointer-events: none;
+}
 
 /* contact section styling */
 .contact .title::after{
@@ -568,39 +569,28 @@ footer{
 footer span a{
 	color: crimson;
 	text-decoration: none;
-	
 }
 footer span a:hover{
 	text-decoration: underline;
-	
 }
-
-
 
 /* responsive media query start */
 @media (max-width: 1300px){
 	.home .max-width{
 		margin-left: 0px;
 	}
-
 }
 @media (max-width: 1104px){
 	.about .about-content .left img{
 		height: 350px;
 		width: 350px;
-
 	}
 }
-
-
 @media (max-width: 991px){
 	.max-width{
 		padding: 0 50px;
-
 	}
-
 }
-
 @media (max-width: 947px){
 	.menu-btn{
 		display: block;
@@ -622,7 +612,6 @@ footer span a:hover{
 	}
 	.navbar .menu.active{
 		left: 0;
-
 	}
 	.navbar .menu li{
 		display: block;
@@ -634,17 +623,14 @@ footer span a:hover{
 	}
 	.home .home-content .text-2{
 		font-size: 70px;
-		
 	}
 	.home .home-content .text-3{
 		font-size: 35px;
-		
 	}
 	.home .home-content a{
 		font-size: 23px;
 		padding: 10px 30px;
 	}
-
 	.max-width{
 		max-width:  930px;
 	}
@@ -663,15 +649,11 @@ footer span a:hover{
 		width: calc(50% - 10px);
 		margin-bottom: 20px;
 	}
-	
 	.skills .skills-content .column,
 	.contact .contact-content .column{
 		width: 100%;
 		margin-bottom: 35px;
 	}
-
-
-
 }
 @media (max-width: 690px){
 	.max-width{
@@ -679,22 +661,17 @@ footer span a:hover{
 	}
 	.home .home-content .text-2{
 		font-size: 60px;
-		
 	}
 	.home .home-content .text-3{
 		font-size: 32px;
-		
 	}
 	.home .home-content a{
 		font-size: 20px;	
 	}
-
 	.services .serv-content .card{
 		width: 100%;
 	}
-
 }
-
 @media (max-width: 500px) {
     .home .home-content .text-2{
         font-size: 50px;
