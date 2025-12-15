@@ -703,3 +703,60 @@ footer span a:hover{
         line-height: 38px;
     }
 }
+/* ================================
+   ACCOMPLISHMENTS ARROW STYLING
+================================ */
+
+.accomplishments {
+  position: relative;
+}
+
+/* Arrow container */
+.accomplishments .owl-nav {
+  position: absolute;
+  top: 50%;
+  left: -80px;
+  right: -80px;
+  width: calc(100% + 160px);
+  display: flex !important;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Arrow buttons */
+.accomplishments .owl-nav button {
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid crimson;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28px;
+  transition: all 0.3s ease;
+}
+
+.accomplishments .owl-nav button:hover {
+  background: crimson;
+  transform: scale(1.15);
+}
+
+/* Mobile adjustment */
+@media (max-width: 900px) {
+  .accomplishments .owl-nav {
+    left: -45px;
+    right: -45px;
+    width: calc(100% + 90px);
+  }
+
+  .accomplishments .owl-nav button {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+}
+
