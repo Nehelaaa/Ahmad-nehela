@@ -1,67 +1,86 @@
-$(document).ready(function(){
-    $(window).scroll(function(){
-        if(this.scrollY > 20){
+$(document).ready(function () {
+
+    /* =============================
+       Sticky navbar & scroll button
+    ============================== */
+    $(window).scroll(function () {
+        if (this.scrollY > 20) {
             $('.navbar').addClass("sticky");
-        }else{
+        } else {
             $('.navbar').removeClass("sticky");
         }
-        if(this.scroll > 500){
+
+        if (this.scrollY > 500) {
             $('.scroll-up-btn').addClass("show");
-        }else{
+        } else {
             $('.scroll-up-btn').removeClass("show");
         }
     });
-   
 
-    // slide-up script
-
-    $('.scroll-up-btn').click(function(){
-        $('html').animate({scrollTop: 0});
+    $('.scroll-up-btn').click(function () {
+        $('html').animate({ scrollTop: 0 });
     });
 
-    /*toggle menu/navbar script */
-    $('.menu-btn').click(function(){
+    /* =============================
+       Toggle menu
+    ============================== */
+    $('.menu-btn').click(function () {
         $('.navbar .menu').toggleClass("active");
         $('.menu-btn i').toggleClass("active");
     });
 
-
-    //yping animation script 
-    var typed = new Typed(".typing", {
+    /* =============================
+       Typing animation
+    ============================== */
+    new Typed(".typing", {
         strings: ["Developer", "Designer", "Innovator", "Freelancer"],
         typeSpeed: 100,
         backSpeed: 60,
         loop: true
     });
 
-    var typed = new Typed(".typing-2", {
-        strings: ["Developer", "Designer", "Innovator","Freelancer"],
+    new Typed(".typing-2", {
+        strings: ["Developer", "Designer", "Innovator", "Freelancer"],
         typeSpeed: 100,
         backSpeed: 60,
         loop: true
     });
 
-    // owl carousel script
-
+    /* =============================
+       Owl Carousel (FIXED)
+    ============================== */
     $('.carousel').owlCarousel({
-        margin: 20,
         loop: true,
-        autoplayTimeOut: 2000,
-        autoplayHoverPause: true,
+        margin: 25,
+
+        autoplay: true,                 // ✅ ENABLE AUTOPLAY
+        autoplayTimeout: 3000,           // ✅ every 3 seconds
+        autoplayHoverPause: false,       // ✅ keep sliding
+        smartSpeed: 800,                 // smooth animation
+
+        nav: true,                       // ✅ SHOW ARROWS
+        dots: true,
+        slideBy: 1,                      // ✅ move 1 card at a time
+
+        navText: [
+            '<i class="fas fa-chevron-left"></i>',
+            '<i class="fas fa-chevron-right"></i>'
+        ],
+
         responsive: {
-            0:{
+            0: {
                 items: 1,
-                nav: false
+                nav: true
             },
-            600:{
+            600: {
                 items: 2,
-                nav: false
+                nav: true
             },
-            1000:{
+            1000: {
                 items: 3,
-                nav: false
+                nav: true                 // ✅ FORCE arrows on desktop
             }
         }
-
     });
-});   
+
+});
