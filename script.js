@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
-    /* =============================
-       Sticky navbar & scroll button
-    ============================== */
+    /* Sticky navbar & scroll button */
     $(window).scroll(function () {
         if (this.scrollY > 20) {
             $('.navbar').addClass("sticky");
@@ -21,17 +19,13 @@ $(document).ready(function () {
         $('html').animate({ scrollTop: 0 });
     });
 
-    /* =============================
-       Toggle menu
-    ============================== */
+    /* Toggle menu */
     $('.menu-btn').click(function () {
         $('.navbar .menu').toggleClass("active");
         $('.menu-btn i').toggleClass("active");
     });
 
-    /* =============================
-       Typing animation
-    ============================== */
+    /* Typing animation */
     new Typed(".typing", {
         strings: ["Developer", "Designer", "Innovator", "Freelancer"],
         typeSpeed: 100,
@@ -46,21 +40,19 @@ $(document).ready(function () {
         loop: true
     });
 
-    /* =============================
-       Owl Carousel (FIXED)
-    ============================== */
+    /* Accomplishments carousel */
     $('.carousel').owlCarousel({
         loop: true,
         margin: 25,
 
-        autoplay: true,                 // ✅ ENABLE AUTOPLAY
-        autoplayTimeout: 3000,           // ✅ every 3 seconds
-        autoplayHoverPause: false,       // ✅ keep sliding
-        smartSpeed: 800,                 // smooth animation
+        autoplay: true,
+        autoplayTimeout: 3000,      // ⏱️ 3 seconds
+        autoplayHoverPause: false,
+        smartSpeed: 800,
 
-        nav: true,                       // ✅ SHOW ARROWS
+        nav: true,
         dots: true,
-        slideBy: 1,                      // ✅ move 1 card at a time
+        slideBy: 1,
 
         navText: [
             '<i class="fas fa-chevron-left"></i>',
@@ -72,13 +64,13 @@ $(document).ready(function () {
                 items: 1,
                 nav: true
             },
-            600: {
+            768: {
                 items: 2,
                 nav: true
             },
-            1000: {
+            1024: {
                 items: 3,
-                nav: true                 // ✅ FORCE arrows on desktop
+                nav: true
             }
         }
     });
