@@ -219,8 +219,7 @@ section .title::after{
 .about .about-content .right .text span{
 	color: crimson;
 }
-
-/* mobile spacing fix */
+/* Adding specific styles for mobile view to resolve spacing issue in the first paragraph */
 @media (max-width: 500px) {
     .about .about-content .right p {
         font-size: 16px;
@@ -228,7 +227,6 @@ section .title::after{
         text-align: justify;
     }
 }
-
 .about .about-content .right a{
 	display: inline-block;
 	background: crimson;
@@ -376,6 +374,9 @@ section .title::after{
 .accomplishments .title::after{
 	content: "My projects";
 }
+.accomplishments .carousel{
+	position: relative;
+}
 .accomplishments .carousel .card{
 	background: #222;
 	border-radius: 6px;
@@ -437,30 +438,30 @@ section .title::after{
 	background: crimson!important;
 }
 
-/* NEW: OwlCarousel nav arrows for accomplishments */
+/* ✅ NEW: OwlCarousel Arrows */
 .accomplishments .owl-nav{
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	margin-top: 15px;
-}
-.accomplishments .owl-nav button.owl-prev,
-.accomplishments .owl-nav button.owl-next{
-	background: transparent;
-	border: none;
-	outline: none;
-	font-size: 32px;
-	color: #fff;
-	cursor: pointer;
-	transition: color 0.3s ease, transform 0.3s ease;
-}
-.accomplishments .owl-nav button.owl-prev:hover,
-.accomplishments .owl-nav button.owl-next:hover{
-	color: crimson;
-	transform: scale(1.15);
-}
-.accomplishments .owl-nav i{
+	transform: translateY(-50%);
 	pointer-events: none;
+}
+.accomplishments .owl-nav button{
+	pointer-events: all;
+	background: none !important;
+	border: none !important;
+	outline: none !important;
+	font-size: 36px;
+	color: #fff;
+	padding: 0 20px;
+	transition: 0.3s ease;
+}
+.accomplishments .owl-nav button:hover{
+	color: crimson;
+	transform: scale(1.2);
 }
 
 /* contact section styling */
