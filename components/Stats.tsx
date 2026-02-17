@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { stats } from "@/lib/content";
 
@@ -44,7 +44,9 @@ function AnimatedNumber({
 
 export default function Stats() {
   const ref = useRef(null);
+  const reduceMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const vp = { once: true, margin: "-40px" as const };
 
   return (
     <section
@@ -54,18 +56,19 @@ export default function Stats() {
     >
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={vp}
+          transition={{ duration: reduceMotion ? 0.2 : 0.3 }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 text-center"
         >
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: reduceMotion ? 0.2 : 0.3, delay: reduceMotion ? 0 : i * 0.08 }}
               className="group"
             >
               <p className="font-display text-4xl sm:text-5xl font-bold text-brand-400 mb-1 tabular-nums">

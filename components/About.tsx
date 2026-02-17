@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/lib/content";
 
 const highlights = [
@@ -11,6 +11,11 @@ const highlights = [
 ];
 
 export default function About() {
+  const reduceMotion = useReducedMotion();
+  const vp = { once: true, margin: "-40px" as const };
+  const anim = reduceMotion
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
+    : { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
   return (
     <section
       id="about"
@@ -19,9 +24,8 @@ export default function About() {
     >
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...anim}
+          viewport={vp}
           className="text-center max-w-2xl mx-auto mb-12 sm:mb-14"
         >
           <h2
@@ -45,10 +49,10 @@ export default function About() {
           {highlights.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: reduceMotion ? 0.2 : 0.3, delay: reduceMotion ? 0 : i * 0.06 }}
               className="group rounded-xl bg-surface border border-slate-700/50 p-5 hover:border-brand-500/40 transition-all duration-200"
             >
               <p className="font-display font-bold text-white text-base mb-1.5">
@@ -64,7 +68,8 @@ export default function About() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={vp}
+          transition={{ duration: 0.25 }}
           className="text-center text-slate-500 text-sm mt-8"
         >
           From landing pages to full sites — built to perform.

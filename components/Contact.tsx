@@ -1,13 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { site, services } from "@/lib/content";
+
+const vp = { once: true, margin: "-40px" as const };
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
   );
+  const reduceMotion = useReducedMotion();
+  const animLeft = reduceMotion
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
+    : { initial: { opacity: 0, x: -24 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.3 } };
+  const animRight = reduceMotion
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
+    : { initial: { opacity: 0, x: 24 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.3 } };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,11 +48,7 @@ export default function Contact() {
     >
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <motion.div {...animLeft} viewport={vp}>
             <h2
               id="contact-heading"
               className="font-display text-3xl sm:text-4xl font-bold text-white mb-4"
@@ -89,12 +94,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl bg-surface border border-slate-700/50 p-6 sm:p-8"
-          >
+          <motion.div {...animRight} viewport={vp} className="rounded-2xl bg-surface border border-slate-700/50 p-6 sm:p-8">
             <h3 className="font-display text-xl font-bold text-white mb-6">
               Send a message
             </h3>

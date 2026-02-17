@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/lib/content";
 
 const SLIDE_INTERVAL_MS = 5000;
@@ -12,6 +12,7 @@ export default function Work() {
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [slideIndex, setSlideIndex] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const reduceMotion = useReducedMotion();
 
   const totalSlides = Math.ceil(projects.length / CARDS_PER_SLIDE);
   const slides = Array.from({ length: totalSlides }, (_, i) =>
@@ -55,9 +56,10 @@ export default function Work() {
     >
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: reduceMotion ? 0.2 : 0.3 }}
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2
@@ -78,7 +80,7 @@ export default function Work() {
               animate={{ x: `${-slideIndex * 100}%` }}
               transition={{
                 type: "tween",
-                duration: transitionEnabled ? 0.5 : 0,
+                duration: reduceMotion ? 0 : transitionEnabled ? 0.5 : 0,
                 ease: "easeInOut",
               }}
             >

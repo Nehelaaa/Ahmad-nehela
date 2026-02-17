@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const roles = ["Web Developer", "Designer", "Problem Solver", "Freelancer"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -15,6 +16,10 @@ export default function Hero() {
     }, 2800);
     return () => clearInterval(t);
   }, []);
+
+  const anim = reduceMotion
+    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
+    : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
   return (
     <section
@@ -27,25 +32,22 @@ export default function Hero() {
 
       <div className="section-container relative z-10 text-center">
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...anim}
+          transition={{ ...anim.transition, delay: 0 }}
           className="text-brand-400 font-medium tracking-wide uppercase text-sm mb-4"
         >
           Hello, I&apos;m
         </motion.p>
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          {...anim}
+          transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.1 }}
           className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-3 px-1"
         >
           Ahmad Nehela
         </motion.h1>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          {...anim}
+          transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.2 }}
           className="text-lg sm:text-2xl md:text-3xl text-slate-400 mb-8 sm:mb-10 min-h-[2rem] sm:min-h-[2.5rem]"
         >
           <span className="text-white">I build </span>
@@ -57,17 +59,15 @@ export default function Hero() {
           </span>
         </motion.div>
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          {...anim}
+          transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.3 }}
           className="max-w-xl mx-auto text-slate-400 text-base sm:text-lg mb-8 sm:mb-10 px-1"
         >
           Custom sites and web apps for your business — SEO, Google Analytics, and WordPress built in. Whether you need a site or an application, let&apos;s build something that works for you.
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          {...anim}
+          transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
@@ -87,8 +87,8 @@ export default function Hero() {
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          animate={reduceMotion ? { y: 0 } : { y: [0, 8, 0] }}
+          transition={reduceMotion ? {} : { repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="w-6 h-10 rounded-full border-2 border-slate-500 flex items-start justify-center p-2"
         >
           <div className="w-1 h-2 rounded-full bg-brand-500" />

@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/lib/content";
 
 export default function Services() {
+  const reduceMotion = useReducedMotion();
+  const anim = reduceMotion
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
+
   return (
     <section
       id="services"
@@ -13,9 +18,8 @@ export default function Services() {
     >
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...anim}
+          viewport={{ once: true, margin: "-40px" }}
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2
@@ -33,11 +37,11 @@ export default function Services() {
           {services.map((plan, i) => (
             <motion.article
               key={plan.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className={`relative rounded-2xl p-6 sm:p-8 flex flex-col border transition-all duration-300 card-hover ${
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: reduceMotion ? 0.2 : 0.3, delay: reduceMotion ? 0 : i * 0.08 }}
+              className={`relative rounded-2xl p-6 sm:p-8 flex flex-col border transition-all duration-300 card-hover text-center md:text-left ${
                 plan.highlighted
                   ? "bg-brand-500/10 border-brand-500/50 ring-2 ring-brand-500/20 hover:shadow-brand-500/15"
                   : "bg-surface-elevated border-slate-700/50 hover:border-slate-600"
@@ -55,11 +59,11 @@ export default function Services() {
                 ${plan.price.toLocaleString()}
               </p>
               <p className="text-slate-400 text-sm mb-6">{plan.description}</p>
-              <ul className="space-y-3 mb-8 flex-1">
+              <ul className="space-y-3 mb-8 flex-1 flex flex-col items-center md:items-start">
                 {plan.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-slate-300 text-sm"
+                    className="flex items-center gap-2 text-slate-300 text-sm w-full justify-center md:justify-start"
                   >
                     <span className="text-brand-500 shrink-0">✓</span>
                     {feature}
