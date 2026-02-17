@@ -1,0 +1,9 @@
+# Next.js on Netlify – build and publish settings
+# App lives at repo root; do not set "Base directory" in Netlify UI.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
