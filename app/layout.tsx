@@ -70,6 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ahmad Nehela | Web Development & Design",
     description: "Professional website development. SEO, WordPress, Google Analytics. Boston, MA.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
