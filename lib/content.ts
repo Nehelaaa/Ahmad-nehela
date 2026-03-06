@@ -185,4 +185,12 @@ export const projects = [
     image: "/images/bit.png",
     category: "Web App",
   },
+  {
+    title: "Ray's Auto",
+    description:
+      "Auto repair shop in Milford, MA. Trust-building site with services, reviews, and contact—same-day service when you need it.",
+    url: "https://rays-auto.vercel.app/",
+    image: "/images/rays-auto.png?v=2",
+    category: "Local Business",
+  },
 ];
