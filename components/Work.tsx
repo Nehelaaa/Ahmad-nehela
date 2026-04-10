@@ -5,23 +5,34 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/lib/content";
 
-const SLIDE_INTERVAL_MS = 5000;
+/** Desktop/tablet only — auto-advance is off on small screens so links are easy to tap. */
+const SLIDE_INTERVAL_MS = 8000;
 const CARDS_PER_SLIDE = 4;
 
 export default function Work() {
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [slideIndex, setSlideIndex] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const [autoAdvanceEnabled, setAutoAdvanceEnabled] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  // Match Tailwind `sm` — no auto carousel on phones (dots still work).
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    const sync = () => setAutoAdvanceEnabled(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const totalSlides = Math.ceil(projects.length / CARDS_PER_SLIDE);
   const slides = Array.from({ length: totalSlides }, (_, i) =>
     projects.slice(i * CARDS_PER_SLIDE, (i + 1) * CARDS_PER_SLIDE)
   );
 
-  // Auto-advance: always slide left; when at end, instantly reset to start (no backward animation)
+  // Auto-advance on sm+ only — on mobile, slides stay put until the user uses the dots.
   useEffect(() => {
-    if (totalSlides <= 1) return;
+    if (totalSlides <= 1 || !autoAdvanceEnabled) return;
     const t = setInterval(() => {
       setSlideIndex((prev) => {
         if (prev === totalSlides - 1) {
@@ -32,7 +43,7 @@ export default function Work() {
       });
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(t);
-  }, [totalSlides]);
+  }, [totalSlides, autoAdvanceEnabled]);
 
   // Re-enable transition after instant reset
   useEffect(() => {
@@ -95,7 +106,7 @@ export default function Work() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group block rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10"
+                      className="group block rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10 touch-manipulation"
                     >
                       <div className="aspect-video relative bg-slate-800 overflow-hidden">
                         {!failedImages.has(project.image) ? (

@@ -5,12 +5,12 @@ export const site = {
   location: "Boston, MA",
   yearStarted: 2016,
   yearsExperience: 8,
-  projectCount: 25,
+  projectCount: 26,
 };
 
 export const stats = [
   { value: 8, suffix: "+", label: "Years experience" },
-  { value: 25, suffix: "+", label: "Projects delivered" },
+  { value: 26, suffix: "+", label: "Projects delivered" },
   { value: 100, suffix: "%", label: "Client-focused" },
 ];
 
@@ -192,5 +192,13 @@ export const projects = [
     url: "https://rays-auto.vercel.app/",
     image: "/images/rays-auto.png?v=2",
     category: "Local Business",
+  },
+  {
+    title: "Grub Kebab",
+    description:
+      "Middle Eastern kitchen showcase: shawarma, skewers, and halal grill—bold typography, menu flow, and a warm brand story.",
+    url: "https://kebabit.netlify.app/",
+    image: "/images/GK.png",
+    category: "Restaurant",
   },
 ];
