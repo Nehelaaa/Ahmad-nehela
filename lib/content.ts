@@ -5,12 +5,12 @@ export const site = {
   location: "Boston, MA",
   yearStarted: 2016,
   yearsExperience: 8,
-  projectCount: 27,
+  projectCount: 28,
 };
 
 export const stats = [
   { value: 8, suffix: "+", label: "Years experience" },
-  { value: 27, suffix: "+", label: "Projects delivered" },
+  { value: 28, suffix: "+", label: "Projects delivered" },
   { value: 100, suffix: "%", label: "Client-focused" },
 ];
 
@@ -208,5 +208,13 @@ export const projects = [
     url: "https://petvibee.netlify.app/",
     image: "/images/paw-co.jpg",
     category: "E‑commerce",
+  },
+  {
+    title: "Jordan Ellis Photography",
+    description:
+      "Editorial & portrait photographer portfolio: hero carousel, gallery, booking flow, and investment sections with a calm editorial feel.",
+    url: "https://personal-brandd.netlify.app/",
+    image: "/images/jordan-ellis.jpg",
+    category: "Photography",
   },
 ];
