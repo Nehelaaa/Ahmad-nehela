@@ -5,12 +5,12 @@ export const site = {
   location: "Boston, MA",
   yearStarted: 2016,
   yearsExperience: 8,
-  projectCount: 26,
+  projectCount: 27,
 };
 
 export const stats = [
   { value: 8, suffix: "+", label: "Years experience" },
-  { value: 26, suffix: "+", label: "Projects delivered" },
+  { value: 27, suffix: "+", label: "Projects delivered" },
   { value: 100, suffix: "%", label: "Client-focused" },
 ];
 
@@ -200,5 +200,13 @@ export const projects = [
     url: "https://kebabit.netlify.app/",
     image: "/images/GK.png",
     category: "Restaurant",
+  },
+  {
+    title: "Paw & Co.",
+    description:
+      "Premium pet supplies storefront: categories, featured products, cart flow, and trust-focused copy for nutrition and gear.",
+    url: "https://petvibee.netlify.app/",
+    image: "/images/paw-co.jpg",
+    category: "E‑commerce",
   },
 ];
