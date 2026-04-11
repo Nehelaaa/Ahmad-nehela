@@ -87,7 +87,7 @@ export default function Work() {
         <div className="relative">
           <div className="overflow-hidden">
             <motion.div
-              className="flex"
+              className="flex items-start"
               animate={{ x: `${-slideIndex * 100}%` }}
               transition={{
                 type: "tween",
@@ -98,7 +98,7 @@ export default function Work() {
               {slides.map((slideProjects, slideIdx) => (
                 <div
                   key={slideIdx}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-shrink-0 w-full"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-shrink-0 w-full items-start"
                 >
                   {slideProjects.map((project) => (
                     <a
@@ -106,16 +106,16 @@ export default function Work() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group block rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10 touch-manipulation"
+                      className="group block h-fit rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10 touch-manipulation"
                     >
-                      <div className="aspect-video relative bg-slate-800 overflow-hidden">
+                      <div className="aspect-video relative shrink-0 bg-slate-100 overflow-hidden">
                         {!failedImages.has(project.image) ? (
                           <Image
                             src={project.image}
                             alt={`${project.title} - project by Ahmad Nehela`}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="object-contain p-4 sm:p-5 transition-transform duration-500 group-hover:scale-105"
                             onError={() =>
                               setFailedImages((prev) =>
                                 new Set(prev).add(project.image)
@@ -123,7 +123,7 @@ export default function Work() {
                             }
                           />
                         ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 to-slate-800 flex items-center justify-center p-4">
+                          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 to-slate-700 flex items-center justify-center p-4">
                             <span className="text-brand-400 font-display font-bold text-center text-sm sm:text-base">
                               {project.title}
                             </span>
@@ -138,7 +138,7 @@ export default function Work() {
                         <h3 className="font-display font-semibold text-white group-hover:text-brand-400 transition-colors">
                           {project.title}
                         </h3>
-                        <p className="text-slate-500 text-sm mt-1 line-clamp-2">
+                        <p className="text-slate-500 text-sm mt-1 line-clamp-2 leading-snug">
                           {project.description}
                         </p>
                       </div>
