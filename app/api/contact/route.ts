@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { site } from "@/lib/content";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
@@ -8,13 +9,15 @@ const TO_EMAIL =
   process.env.CONTACT_TO_EMAIL?.trim() || "topwebdeveloperan@gmail.com";
 
 /**
- * Must be an address on a domain you verify in Resend (SPF/DKIM).
- * Shared senders like onboarding@resend.dev often land in spam.
+ * Set `RESEND_FROM_EMAIL` in Netlify to an address on a domain you verify in Resend.
+ * Sending from `onboarding@resend.dev` often goes to Gmail Spam — use your own domain.
  * Example: `Ahmad Nehela <hello@yourdomain.com>`
  */
-const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL?.trim() ||
-  "Portfolio Contact <onboarding@resend.dev>";
+function getFromAddress(): string {
+  const configured = process.env.RESEND_FROM_EMAIL?.trim();
+  if (configured) return configured;
+  return `${site.name} <onboarding@resend.dev>`;
+}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "";
 
@@ -56,22 +59,22 @@ export async function POST(request: Request) {
         ? stripHeaderUnsafe(subjectField, 200)
         : "";
       const mailSubject = safeSubject
-        ? `${safeSubject} — ${stripHeaderUnsafe(name, 80)}`
-        : `Website inquiry from ${stripHeaderUnsafe(name, 120)}`;
+        ? `${stripHeaderUnsafe(name, 80)}: ${safeSubject}`
+        : `Message from ${stripHeaderUnsafe(name, 120)}`;
 
       const text = [
+        `${name} sent you a note through your website.`,
+        "",
         `Name: ${name}`,
         `Email: ${email}`,
         businessName ? `Business: ${businessName}` : null,
         plan ? `Plan: ${plan}` : null,
-        safeSubject ? `Subject line: ${safeSubject}` : null,
+        safeSubject ? `Topic: ${safeSubject}` : null,
         "",
-        "Message:",
         message,
         "",
-        SITE_URL
-          ? `Sent via contact form at ${SITE_URL}`
-          : "Sent via portfolio contact form.",
+        "—",
+        SITE_URL ? `Form: ${SITE_URL}` : `${site.name} · contact form`,
       ]
         .filter(Boolean)
         .join("\n");
@@ -82,7 +85,7 @@ export async function POST(request: Request) {
 <body style="margin:0;padding:24px;font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5;color:#1e293b;background:#f8fafc;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e2e8f0;">
     <tr><td>
-      <p style="margin:0 0 16px;font-size:13px;color:#64748b;">New contact form submission</p>
+      <p style="margin:0 0 16px;font-size:15px;color:#334155;">${escapeHtml(name)} sent you a note through your website.</p>
       <p style="margin:0 0 8px;"><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p style="margin:0 0 8px;"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
       ${businessName ? `<p style="margin:0 0 8px;"><strong>Business:</strong> ${escapeHtml(businessName)}</p>` : ""}
@@ -90,14 +93,14 @@ export async function POST(request: Request) {
       ${safeSubject ? `<p style="margin:0 0 8px;"><strong>Subject:</strong> ${escapeHtml(safeSubject)}</p>` : ""}
       <p style="margin:16px 0 8px;"><strong>Message</strong></p>
       <div style="border-left:3px solid #f59e0b;padding-left:12px;margin:0;color:#334155;">${escapeHtml(message).replace(/\n/g, "<br />")}</div>
-      <p style="margin:24px 0 0;font-size:12px;color:#94a3b8;">${escapeHtml(SITE_URL ? `Form: ${SITE_URL}` : "Portfolio contact form")}</p>
+      <p style="margin:24px 0 0;font-size:12px;color:#94a3b8;">${escapeHtml(SITE_URL ? SITE_URL : `${site.name} · website`)}</p>
     </td></tr>
   </table>
 </body>
 </html>`;
 
       const { error } = await resend.emails.send({
-        from: FROM_EMAIL,
+        from: getFromAddress(),
         to: TO_EMAIL,
         replyTo: email,
         subject: mailSubject,
