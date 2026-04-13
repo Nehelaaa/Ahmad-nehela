@@ -55,9 +55,21 @@ export default function Services() {
               <h3 className="font-display text-xl font-bold text-white mb-1">
                 {plan.name}
               </h3>
-              <p className="text-2xl sm:text-3xl font-bold text-brand-400 mb-2">
-                ${plan.price.toLocaleString()}
-              </p>
+              <div className="mb-2">
+                {"regularPrice" in plan && plan.regularPrice != null && (
+                  <p className="text-slate-500 line-through text-lg font-semibold">
+                    ${plan.regularPrice.toLocaleString()}
+                  </p>
+                )}
+                <p className="text-2xl sm:text-3xl font-bold text-brand-400">
+                  ${plan.price.toLocaleString()}
+                </p>
+                {"promoLabel" in plan && plan.promoLabel && (
+                  <span className="inline-block mt-1.5 text-xs font-semibold text-amber-400 tracking-wide">
+                    {plan.promoLabel}
+                  </span>
+                )}
+              </div>
               <p className="text-slate-400 text-sm mb-6">{plan.description}</p>
               <ul className="space-y-3 mb-8 flex-1 flex flex-col items-center md:items-start">
                 {plan.features.map((feature) => (

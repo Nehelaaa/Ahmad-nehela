@@ -40,7 +40,9 @@ export const processSteps = [
 export const services = [
   {
     name: "Basic",
-    price: 2000,
+    price: 1500,
+    regularPrice: 2000,
+    promoLabel: "Expires soon",
     description: "Ideal for small businesses and personal brands.",
     features: [
       "Responsive design",
@@ -55,7 +57,9 @@ export const services = [
   },
   {
     name: "Standard",
-    price: 5000,
+    price: 3700,
+    regularPrice: 5000,
+    promoLabel: "Expires soon",
     description: "Best for growing businesses that need more reach.",
     features: [
       "Everything in Basic",
