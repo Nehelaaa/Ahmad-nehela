@@ -230,4 +230,28 @@ export const projects = [
     image: "/images/jordan-ellis.jpg",
     category: "Photography",
   },
+  {
+    title: "Nouve Bakery",
+    description:
+      "Neighborhood bakery in Lexington, MA on Mass Ave — artisan breads and pastries, menu, story, and visit hours. Slow fermentation, laminated pastries, baked daily.",
+    url: "https://nouveau-sweet-lexington.lovable.app/",
+    image: "/images/nouve-bakery.jpg",
+    category: "Food & Hospitality",
+  },
+  {
+    title: "Bill's Auto Services",
+    description:
+      "Family-owned auto repair shop in Waltham, MA. Services, monthly specials, and reviews — built to win local customers and drive calls.",
+    url: "https://bill-waltham-revamp.lovable.app/",
+    image: "/images/bills-auto.jpg",
+    category: "Local Business",
+  },
+  {
+    title: "MK Detailing",
+    description:
+      "Mobile car detailing site — pricing, booking flow, and service highlights tuned for conversions and SEO.",
+    url: "https://mk-detailing.lovable.app/",
+    image: "/images/car-detailing.jpg",
+    category: "Local Business",
+  },
 ];
