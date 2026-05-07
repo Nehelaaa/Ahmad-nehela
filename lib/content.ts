@@ -154,8 +154,7 @@ export const projects = [
     description:
       "Auto repair shop website built to earn trust and drive calls—services, reviews, and clear contact info.",
     url: "https://expert-auto-boost.lovable.app/",
-    image:
-      "https://images.unsplash.com/photo-1698382318239-2b134ca8fa4c?auto=format&fit=crop&w=1400&q=80",
+    image: "/images/expert-auto-shop.jpg?v=1",
     category: "Local Business",
   },
   {
