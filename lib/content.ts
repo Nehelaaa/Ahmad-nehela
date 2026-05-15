@@ -253,4 +253,12 @@ export const projects = [
     image: "/images/car-detailing.jpg?v=3",
     category: "Local Business",
   },
+  {
+    title: "Kleins Auto Perfection",
+    description:
+      "Mobile car wash and detailing in Massachusetts — ceramic coating, paint correction, and interior detail. Fully mobile: we come to your driveway or office.",
+    url: "https://gleam-ride-hub.vercel.app/",
+    image: "/images/kleins-auto-perfection.jpg?v=1",
+    category: "Local Business",
+  },
 ];
