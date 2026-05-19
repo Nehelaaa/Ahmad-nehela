@@ -261,4 +261,12 @@ export const projects = [
     image: "/images/kleins-auto-perfection.jpg?v=1",
     category: "Local Business",
   },
+  {
+    title: "Maison Noir",
+    description:
+      "Luxury barbering atelier — precision cuts, hot towel shaves, booking flow, gallery, and VIP membership. Premium grooming experience, mobile-first design.",
+    url: "https://luxe-trim-co.vercel.app/",
+    image: "/images/maison-noir.jpg?v=1",
+    category: "Beauty",
+  },
 ];
