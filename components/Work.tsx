@@ -108,14 +108,14 @@ export default function Work() {
                       rel="noopener noreferrer"
                       className="group block h-fit rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10 touch-manipulation"
                     >
-                      <div className="aspect-video relative shrink-0 bg-slate-100 overflow-hidden">
+                      <div className="aspect-video relative shrink-0 bg-slate-800 overflow-hidden">
                         {!failedImages.has(project.image) ? (
                           <Image
                             src={project.image}
                             alt={`${project.title} - project by Ahmad Nehela`}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-contain p-4 sm:p-5 transition-transform duration-500 group-hover:scale-105"
+                            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                             onError={() =>
                               setFailedImages((prev) =>
                                 new Set(prev).add(project.image)
