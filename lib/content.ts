@@ -277,4 +277,12 @@ export const projects = [
     image: "/images/zoumi-rentals.jpg?v=1",
     category: "Local Business",
   },
+  {
+    title: "Cambridge Black Limo",
+    description:
+      "Nationwide luxury limo service from Cambridge, MA — fleet, airport transfers, corporate travel, booking, and 24/7 chauffeur service across all 50 states.",
+    url: "https://elite-drive-network.vercel.app/",
+    image: "/images/cambridge-black-limo.jpg?v=1",
+    category: "Local Business",
+  },
 ];
