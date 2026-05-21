@@ -290,8 +290,7 @@ export const projects = [
     description:
       "Native wildflower plant communities in metroWest, MA — proof-of-concept plots, learning resources, and low-maintenance protocols to turn turf back into habitat.",
     url: "https://entoscapes-dream-refresh.vercel.app/",
-    image: "/images/entoscapes.png?v=1",
+    image: "/images/entoscapes.png?v=2",
     category: "Environmental",
-    thumbnailFit: "contain",
   },
 ];
