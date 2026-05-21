@@ -274,7 +274,7 @@ export const projects = [
     description:
       "Weekly Nissan Rogue rentals in Boston and Greater Boston — fleet, policies, booking, and transparent pricing from $350/week. Insured, licensed in MA.",
     url: "https://www.zoumirentals.com/",
-    image: "/images/zoumi-rentals.jpg?v=1",
+    image: "/images/zoumi-rentals.jpg?v=2",
     category: "Local Business",
   },
   {
@@ -282,7 +282,7 @@ export const projects = [
     description:
       "Nationwide luxury limo service from Cambridge, MA — fleet, airport transfers, corporate travel, booking, and 24/7 chauffeur service across all 50 states.",
     url: "https://elite-drive-network.vercel.app/",
-    image: "/images/cambridge-black-limo.jpg?v=1",
+    image: "/images/cambridge-black-limo.jpg?v=2",
     category: "Local Business",
   },
   {
@@ -290,7 +290,8 @@ export const projects = [
     description:
       "Native wildflower plant communities in metroWest, MA — proof-of-concept plots, learning resources, and low-maintenance protocols to turn turf back into habitat.",
     url: "https://entoscapes-dream-refresh.vercel.app/",
-    image: "/images/entoscapes.jpg?v=1",
+    image: "/images/entoscapes.png?v=1",
     category: "Environmental",
+    thumbnailFit: "contain",
   },
 ];

@@ -115,7 +115,11 @@ export default function Work() {
                             alt={`${project.title} - project by Ahmad Nehela`}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                            className={
+                              "thumbnailFit" in project && project.thumbnailFit === "contain"
+                                ? "object-contain object-center p-8 sm:p-10 transition-transform duration-500 group-hover:scale-105"
+                                : "object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                            }
                             onError={() =>
                               setFailedImages((prev) =>
                                 new Set(prev).add(project.image)
