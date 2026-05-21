@@ -285,4 +285,12 @@ export const projects = [
     image: "/images/cambridge-black-limo.jpg?v=1",
     category: "Local Business",
   },
+  {
+    title: "Entoscapes",
+    description:
+      "Native wildflower plant communities in metroWest, MA — proof-of-concept plots, learning resources, and low-maintenance protocols to turn turf back into habitat.",
+    url: "https://entoscapes-dream-refresh.vercel.app/",
+    image: "/images/entoscapes.jpg?v=1",
+    category: "Environmental",
+  },
 ];
