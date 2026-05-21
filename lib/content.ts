@@ -269,4 +269,12 @@ export const projects = [
     image: "/images/maison-noir.jpg?v=1",
     category: "Beauty",
   },
+  {
+    title: "Zoumi Auto Rental",
+    description:
+      "Weekly Nissan Rogue rentals in Boston and Greater Boston — fleet, policies, booking, and transparent pricing from $350/week. Insured, licensed in MA.",
+    url: "https://www.zoumirentals.com/",
+    image: "/images/zoumi-rentals.jpg?v=1",
+    category: "Local Business",
+  },
 ];
