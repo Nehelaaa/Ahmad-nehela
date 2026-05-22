@@ -293,4 +293,12 @@ export const projects = [
     image: "/images/entoscapes.png?v=2",
     category: "Environmental",
   },
+  {
+    title: "Amora Leah Beauty Salon",
+    description:
+      "Luxury hair, bridal makeup, lashes, facials, and spa in Framingham, MA — services, gallery, booking, and team pages for MetroWest clients.",
+    url: "https://suave-salon-space.vercel.app/",
+    image: "/images/amora-leah.jpg?v=1",
+    category: "Beauty",
+  },
 ];
