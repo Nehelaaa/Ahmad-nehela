@@ -301,4 +301,12 @@ export const projects = [
     image: "/images/amora-leah.jpg?v=1",
     category: "Beauty",
   },
+  {
+    title: "Crest Property Showcase",
+    description:
+      "Luxury property showcase site — listings, galleries, and polished presentation built to highlight high-end homes and drive inquiries.",
+    url: "https://crest-property-showcase-q6kmxsatd.vercel.app/",
+    image: "/images/crest-property.jpg?v=1",
+    category: "Real Estate",
+  },
 ];
