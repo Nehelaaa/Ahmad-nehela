@@ -69,9 +69,9 @@ export const services = [
   {
     name: "Launch",
     tagline: "Best for getting online fast",
-    price: 1199,
+    price: 799,
     regularPrice: 1999,
-    promoLabel: "Save $800 · 40% off",
+    promoLabel: "Save $1,200 · 60% off",
     bonus: "Includes free logo polish + 30 days of small tweaks",
     description:
       "A clean, mobile-ready site so your business looks legit and customers can find you — perfect for shops, salons, and local services.",
