@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
-  getBookingHref,
   getPhoneDisplay,
   getPhoneHref,
   site,
@@ -20,8 +18,6 @@ export default function Contact() {
   const reduceMotion = useReducedMotion();
   const phoneHref = getPhoneHref();
   const phoneDisplay = getPhoneDisplay();
-  const bookingHref = getBookingHref();
-  const bookingExternal = Boolean(site.bookingUrl?.trim());
 
   const animLeft = reduceMotion
     ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
@@ -68,32 +64,16 @@ export default function Contact() {
               Book a call or get a quote
             </h2>
             <p className="text-slate-400 leading-relaxed mb-6">
-              Free 15‑minute consult — we&apos;ll talk goals, timeline, and the right package. No obligation. Serving {site.serviceArea}.
+              Free 15‑minute consult — tell me your goals and I&apos;ll follow up with a clear plan. No obligation. Serving {site.serviceArea}.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <Link
-                href={bookingHref}
-                {...(bookingExternal
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-white hover:bg-brand-400 transition-all"
+            {phoneHref && (
+              <a
+                href={phoneHref}
+                className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-white hover:bg-brand-400 transition-all mb-8"
               >
-                {bookingExternal ? "Pick a time on my calendar" : "Request a free call"}
-              </Link>
-              {phoneHref && (
-                <a
-                  href={phoneHref}
-                  className="inline-flex items-center justify-center rounded-full border border-slate-600 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-white hover:border-brand-500 hover:text-brand-400 transition-all"
-                >
-                  Call {phoneDisplay}
-                </a>
-              )}
-            </div>
-            {!bookingExternal && (
-              <p className="text-slate-500 text-sm mb-8 -mt-4">
-                Prefer email? Use the form — mention if you want a call back and the best time to reach you.
-              </p>
+                Call {phoneDisplay}
+              </a>
             )}
 
             <div className="space-y-4">
@@ -150,10 +130,10 @@ export default function Contact() {
 
           <motion.div {...animRight} viewport={vp} className="rounded-2xl bg-surface border border-slate-700/50 p-6 sm:p-8">
             <h3 className="font-display text-xl font-bold text-white mb-2">
-              Send a project brief
+              Send a message
             </h3>
             <p className="text-slate-500 text-sm mb-6">
-              I typically reply within one business day.
+              Choose book a call or get a quote below. I typically reply within one business day.
             </p>
 
             {status === "done" ? (
@@ -204,7 +184,7 @@ export default function Contact() {
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="Phone (optional — for a call back)"
+                    placeholder="Your phone (optional — for a call back)"
                     className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </label>
@@ -218,18 +198,19 @@ export default function Contact() {
                   />
                 </label>
                 <label className="block">
-                  <span className="sr-only">How should we connect?</span>
+                  <span className="sr-only">What do you need?</span>
                   <select
                     name="preferredContact"
+                    required
                     className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
                     }}
-                    defaultValue="email"
+                    defaultValue="call"
                   >
-                    <option value="email">Email me a quote</option>
-                    <option value="call">Book a free 15‑min call</option>
-                    <option value="either">Either email or call</option>
+                    <option value="call">Book a free call</option>
+                    <option value="email">Get a quote</option>
+                    <option value="either">Either — call or quote</option>
                   </select>
                 </label>
                 <label className="block">
@@ -275,6 +256,14 @@ export default function Contact() {
                     <a href={`mailto:${site.email}`} className="underline">
                       {site.email}
                     </a>
+                    {" "}or call{" "}
+                    {phoneHref ? (
+                      <a href={phoneHref} className="underline">
+                        {phoneDisplay}
+                      </a>
+                    ) : (
+                      "me"
+                    )}
                     .
                   </p>
                 )}
@@ -283,7 +272,7 @@ export default function Contact() {
                   disabled={status === "sending"}
                   className="w-full rounded-full bg-brand-500 py-4 min-h-[48px] font-semibold text-white hover:bg-brand-400 disabled:opacity-60 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] touch-manipulation"
                 >
-                  {status === "sending" ? "Sending..." : "Send message"}
+                  {status === "sending" ? "Sending..." : "Submit"}
                 </button>
               </form>
             )}

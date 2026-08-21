@@ -3,12 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  getBookingHref,
-  getPhoneDisplay,
-  getPhoneHref,
-  site,
-} from "@/lib/content";
+import { getPhoneDisplay, getPhoneHref } from "@/lib/content";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -25,8 +20,6 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const phoneHref = getPhoneHref();
   const phoneDisplay = getPhoneDisplay();
-  const bookingHref = getBookingHref();
-  const bookingExternal = Boolean(site.bookingUrl?.trim());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -83,10 +76,7 @@ export default function Header() {
           )}
           <li>
             <Link
-              href={bookingHref}
-              {...(bookingExternal
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
+              href="#contact"
               className="inline-flex items-center justify-center rounded-full border border-brand-500/60 px-4 py-2 text-sm font-semibold text-brand-400 hover:bg-brand-500/10 transition-all duration-200"
             >
               Book a call
@@ -168,10 +158,7 @@ export default function Header() {
               )}
               <li className="pt-2 space-y-2">
                 <Link
-                  href={bookingHref}
-                  {...(bookingExternal
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
+                  href="#contact"
                   className="block text-center rounded-full border border-brand-500/60 py-3.5 min-h-[48px] flex items-center justify-center text-brand-400 font-semibold"
                   onClick={() => setMobileOpen(false)}
                 >

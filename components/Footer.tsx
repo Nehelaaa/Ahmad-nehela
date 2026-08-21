@@ -1,18 +1,11 @@
 import Link from "next/link";
-import {
-  getBookingHref,
-  getPhoneDisplay,
-  getPhoneHref,
-  site,
-} from "@/lib/content";
+import { getPhoneDisplay, getPhoneHref, site } from "@/lib/content";
 
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   const phoneHref = getPhoneHref();
   const phoneDisplay = getPhoneDisplay();
-  const bookingHref = getBookingHref();
-  const bookingExternal = Boolean(site.bookingUrl?.trim());
 
   return (
     <footer className="bg-surface border-t border-slate-800">
@@ -45,10 +38,7 @@ export default function Footer() {
               {site.email}
             </a>
             <Link
-              href={bookingHref}
-              {...(bookingExternal
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
+              href="#contact"
               className="text-slate-500 hover:text-brand-400 transition-colors"
             >
               Book a free call

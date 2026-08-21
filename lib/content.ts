@@ -2,25 +2,13 @@ export const site = {
   name: "Ahmad Nehela",
   tagline: "Web Development & Design",
   email: "topwebdeveloperan@gmail.com",
-  /** Digits or formatted — shown as click-to-call when set (e.g. "6175551234" or "(617) 555-1234") */
-  phone: "",
+  phone: "6175952561",
   location: "Boston, MA",
   serviceArea: "Boston, MetroWest & Massachusetts",
   yearStarted: 2016,
   yearsExperience: 8,
   projectCount: 28,
-  /**
-   * Paste your Calendly (or Cal.com) 15‑min consult URL when ready.
-   * Example: "https://calendly.com/your-name/15min"
-   * Until then, “Book a free call” opens the contact form with call intent.
-   */
-  bookingUrl: "",
 };
-
-/** Href for booking CTAs — Calendly when set, otherwise contact section */
-export function getBookingHref() {
-  return site.bookingUrl?.trim() || "#contact";
-}
 
 export function getPhoneHref() {
   const digits = site.phone.replace(/\D/g, "");

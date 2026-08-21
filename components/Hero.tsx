@@ -3,15 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { getBookingHref, site } from "@/lib/content";
 
 const roles = ["Web Developer", "Designer", "Problem Solver", "Freelancer"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const reduceMotion = useReducedMotion();
-  const bookingHref = getBookingHref();
-  const bookingExternal = Boolean(site.bookingUrl?.trim());
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -74,10 +71,7 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
-            href={bookingHref}
-            {...(bookingExternal
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
+            href="#contact"
             className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 sm:px-8 py-3.5 sm:py-4 min-h-[48px] text-base font-semibold text-white hover:bg-brand-400 transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] glow w-full sm:w-auto"
           >
             Book a free call
