@@ -5,7 +5,16 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { getPhoneDisplay, getPhoneHref } from "@/lib/content";
 
-const navLinks = [
+/** Slim set for desktop — keeps the bar on one clean line */
+const desktopLinks = [
+  { href: "#about", label: "About" },
+  { href: "#services", label: "Services" },
+  { href: "#work", label: "Work" },
+  { href: "#faq", label: "FAQ" },
+];
+
+/** Full set for mobile drawer */
+const mobileLinks = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
@@ -43,56 +52,57 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-surface/95 backdrop-blur-md py-3 shadow-lg border-b border-slate-800/50" : "py-5"
+        scrolled
+          ? "bg-surface/95 backdrop-blur-md py-3 shadow-lg border-b border-slate-800/50"
+          : "py-4 sm:py-5"
       }`}
     >
-      <nav className="section-container flex items-center justify-between gap-3">
+      <nav className="section-container flex items-center justify-between gap-4">
         <Link
           href="#home"
-          className="font-display text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors duration-200 shrink-0"
+          className="font-display text-lg sm:text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors duration-200 shrink-0 whitespace-nowrap"
           aria-label="Ahmad Nehela - Home"
         >
           A.N <span className="text-brand-400">Portfolio</span>
         </Link>
 
-        <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-sm font-medium text-slate-400 hover:text-white transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          {phoneHref && (
-            <li>
+        <div className="hidden lg:flex items-center gap-1 xl:gap-2 min-w-0">
+          <ul className="flex items-center gap-0.5 xl:gap-1">
+            {desktopLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="inline-flex items-center whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2 xl:gap-3 pl-2 xl:pl-3 ml-1 border-l border-slate-700/80">
+            {phoneHref && (
               <a
                 href={phoneHref}
-                className="text-sm font-medium text-brand-400 hover:text-brand-300 transition-colors whitespace-nowrap"
+                className="hidden xl:inline-flex text-sm font-medium text-brand-400 hover:text-brand-300 transition-colors whitespace-nowrap"
               >
                 {phoneDisplay}
               </a>
-            </li>
-          )}
-          <li>
+            )}
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-brand-500/60 px-4 py-2 text-sm font-semibold text-brand-400 hover:bg-brand-500/10 transition-all duration-200"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-brand-500/60 px-3.5 py-2 text-sm font-semibold text-brand-400 hover:bg-brand-500/10 transition-all duration-200"
             >
               Book a call
             </Link>
-          </li>
-          <li>
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400 transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-400 transition-all duration-200 hover:scale-[1.02]"
             >
               Get a quote
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
 
         <button
           type="button"
@@ -133,14 +143,14 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden bg-surface-elevated border-t border-slate-800"
+            className="lg:hidden bg-surface-elevated border-t border-slate-800 max-h-[calc(100dvh-4rem)] overflow-y-auto"
           >
-            <ul className="section-container flex flex-col py-4 gap-2">
-              {navLinks.map((link) => (
+            <ul className="section-container flex flex-col py-4 gap-0.5">
+              {mobileLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="block py-3.5 min-h-[44px] flex items-center text-slate-300 hover:text-white font-medium active:text-white"
+                    className="block py-3 min-h-[44px] flex items-center text-slate-300 hover:text-white font-medium active:text-white"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
@@ -151,24 +161,24 @@ export default function Header() {
                 <li>
                   <a
                     href={phoneHref}
-                    className="block py-3.5 min-h-[44px] flex items-center text-brand-400 font-medium"
+                    className="block py-3 min-h-[44px] flex items-center text-brand-400 font-medium"
                     onClick={() => setMobileOpen(false)}
                   >
                     Call {phoneDisplay}
                   </a>
                 </li>
               )}
-              <li className="pt-2 space-y-2">
+              <li className="pt-3 space-y-2">
                 <Link
                   href="#contact"
-                  className="block text-center rounded-full border border-brand-500/60 py-3.5 min-h-[48px] flex items-center justify-center text-brand-400 font-semibold"
+                  className="block text-center rounded-full border border-brand-500/60 py-3.5 min-h-[48px] flex items-center justify-center text-brand-400 font-semibold whitespace-nowrap"
                   onClick={() => setMobileOpen(false)}
                 >
                   Book a free call
                 </Link>
                 <Link
                   href="#contact"
-                  className="block text-center rounded-full bg-brand-500 py-3.5 min-h-[48px] flex items-center justify-center text-white font-semibold"
+                  className="block text-center rounded-full bg-brand-500 py-3.5 min-h-[48px] flex items-center justify-center text-white font-semibold whitespace-nowrap"
                   onClick={() => setMobileOpen(false)}
                 >
                   Get a quote
