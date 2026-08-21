@@ -52,83 +52,63 @@ export const processSteps = [
   },
 ];
 
-/** Sitewide offer callouts shown above pricing cards */
+/** Shared note under pricing (keep cards uncluttered) */
 export const pricingDeal = {
-  badge: "New local client offer",
-  headline: "Save hundreds on your first site",
-  subcopy:
-    "Lock in discounted package rates, split payments 50/50, and get free extras most freelancers charge for. Free quote — no pressure.",
-  perks: [
-    "50/50 payment plan on every package",
-    "Free strategy call before you pay",
-    "Free domain help & launch checklist",
-  ],
+  note: "New-client rates · 50/50 payment plan available · Free strategy call",
 };
 
 export const services = [
   {
     name: "Launch",
-    tagline: "Best for getting online fast",
+    tagline: "Get online fast",
     price: 799,
     regularPrice: 1999,
-    promoLabel: "Save $1,200 · 60% off",
-    bonus: "Includes free logo polish + 30 days of small tweaks",
     description:
-      "A clean, mobile-ready site so your business looks legit and customers can find you — perfect for shops, salons, and local services.",
+      "A clean, mobile-ready site for shops, salons, and local services.",
     features: [
-      "Looks great on phones & Google",
-      "Up to 5 pages (Home, About, Services, Work, Contact)",
-      "SEO basics so neighbors can find you",
-      "Contact form that sends leads to your inbox",
+      "Up to 5 pages, phone-friendly design",
+      "SEO basics + contact form",
       "Click-to-call & social links",
+      "Logo polish + 30 days of small tweaks",
       "1 round of revisions",
     ],
-    cta: "Claim Launch deal",
+    cta: "Get Launch",
     highlighted: false,
   },
   {
     name: "Grow",
-    tagline: "Most popular for local businesses",
+    tagline: "Get found & booked",
     price: 2999,
     regularPrice: 4999,
-    promoLabel: "Save $2,000 · best value",
-    bonus: "Free Google Business setup + booking-ready forms",
     description:
-      "Built to get found on Google and turn visitors into calls & bookings — ideal when you’re ready for more customers.",
+      "Built to rank on Google and turn visitors into calls and bookings.",
     features: [
       "Everything in Launch",
       "Up to 10 pages + stronger SEO",
-      "Google Business Profile setup help",
-      "Easy updates (WordPress CMS)",
-      "Booking-friendly layout & forms",
-      "Light e‑commerce if you sell products",
-      "Custom design that matches your brand",
+      "Google Business Profile help",
+      "WordPress so you can update content",
+      "Booking-ready forms",
       "2 rounds of revisions",
     ],
-    cta: "Claim Grow deal",
+    cta: "Get Grow",
     highlighted: true,
   },
   {
     name: "Scale",
-    tagline: "For serious growth & ads",
+    tagline: "Full growth setup",
     price: 7999,
     regularPrice: 12999,
-    promoLabel: "Save $5,000 · full stack",
-    bonus: "First month of priority support included free",
     description:
-      "A full online presence — advanced SEO, ads support, training, and ongoing help so your site keeps bringing in business.",
+      "Advanced SEO, ads guidance, training, and support for serious growth.",
     features: [
       "Everything in Grow",
       "Unlimited pages as you expand",
-      "Advanced SEO + content structure",
+      "Blog + newsletter ready",
       "Google Ads setup guidance",
-      "Blog so you keep ranking over time",
-      "Newsletter / email signup ready",
-      "Hands-on training for your team",
-      "Priority support after launch",
+      "Team training + priority support",
       "3 rounds of revisions",
     ],
-    cta: "Claim Scale deal",
+    cta: "Get Scale",
     highlighted: false,
   },
 ];
