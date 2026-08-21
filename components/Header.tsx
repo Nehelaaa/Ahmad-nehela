@@ -63,14 +63,16 @@ export default function Header() {
   const goToSection = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     const hash = `#${id}`;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
+    const wasOpen = mobileOpen;
+    // Instant scroll after closing the drawer so the target lands under the fixed header
+    const behavior: ScrollBehavior = reduced || wasOpen ? "auto" : "smooth";
 
     if (pathname === "/") {
       e.preventDefault();
       setMobileOpen(false);
       document.body.style.overflow = "";
       window.history.pushState(null, "", hash);
-      window.setTimeout(() => scrollToHash(hash, behavior), mobileOpen ? 140 : 0);
+      window.setTimeout(() => scrollToHash(hash, behavior), wasOpen ? 280 : 0);
       return;
     }
 
