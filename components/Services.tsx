@@ -53,67 +53,60 @@ export default function Services() {
                   duration: reduceMotion ? 0.2 : 0.3,
                   delay: reduceMotion ? 0 : i * 0.06,
                 }}
-                className={`relative flex flex-col rounded-2xl border overflow-hidden ${
+                className={`relative flex flex-col rounded-2xl border ${
                   plan.highlighted
                     ? "bg-surface-elevated border-brand-500"
                     : "bg-surface-elevated border-slate-700/60"
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="bg-brand-500 text-center py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+                  <div className="rounded-t-2xl bg-brand-500 text-center py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white">
                     Most popular
                   </div>
                 )}
 
-                <div className="flex flex-col flex-1 p-6 sm:p-7">
-                  {/* Title row */}
-                  <div className="flex items-start justify-between gap-3 mb-6 min-h-[3.25rem]">
-                    <div>
-                      <h3 className="font-display text-xl font-bold text-white leading-tight">
-                        {plan.name}
-                      </h3>
-                      <p className="text-slate-500 text-sm mt-1">{plan.tagline}</p>
-                    </div>
-                    {percentOff > 0 && (
-                      <span className="shrink-0 rounded-md bg-brand-500/15 text-brand-400 text-xs font-bold px-2 py-1 tabular-nums">
-                        −{percentOff}%
-                      </span>
-                    )}
+                <div className="flex flex-col flex-1 p-6 sm:p-8">
+                  <div className="mb-8">
+                    <h3 className="font-display text-xl font-bold text-white">
+                      {plan.name}
+                    </h3>
+                    <p className="text-slate-500 text-sm mt-1">{plan.tagline}</p>
                   </div>
 
-                  {/* Locked price block — same structure on every card */}
-                  <div className="mb-6 pb-6 border-b border-slate-700/60">
-                    <p className="text-slate-500 text-sm h-5">
-                      {plan.regularPrice != null ? (
-                        <>
-                          Was{" "}
-                          <span className="line-through tabular-nums">
-                            ${plan.regularPrice.toLocaleString()}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="invisible">Was</span>
-                      )}
-                    </p>
-                    <p className="mt-1 flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-white tracking-tight tabular-nums leading-none">
+                  {/* One clean price stack */}
+                  <div className="mb-8">
+                    <p className="flex items-end gap-1">
+                      <span className="font-display text-4xl sm:text-[2.75rem] font-bold text-white leading-none tracking-tight tabular-nums">
                         ${plan.price.toLocaleString()}
                       </span>
                     </p>
-                    <p className="mt-2 text-brand-400 text-sm font-semibold h-5 tabular-nums">
-                      {savings > 0 ? (
-                        <>You save ${savings.toLocaleString()}</>
-                      ) : (
-                        <span className="invisible">You save</span>
-                      )}
-                    </p>
+
+                    {plan.regularPrice != null && percentOff > 0 && (
+                      <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                        <span className="text-slate-500 line-through tabular-nums">
+                          ${plan.regularPrice.toLocaleString()}
+                        </span>
+                        <span className="text-slate-600" aria-hidden>
+                          ·
+                        </span>
+                        <span className="text-brand-400 font-medium tabular-nums">
+                          {percentOff}% off
+                        </span>
+                        <span className="text-slate-600" aria-hidden>
+                          ·
+                        </span>
+                        <span className="text-slate-400 tabular-nums">
+                          save ${savings.toLocaleString()}
+                        </span>
+                      </p>
+                    )}
                   </div>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6 min-h-[2.75rem]">
+                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
                     {plan.description}
                   </p>
 
-                  <ul className="space-y-2.5 mb-8 flex-1">
+                  <ul className="space-y-2.5 mb-8 flex-1 border-t border-slate-700/50 pt-6">
                     {plan.features.map((feature) => (
                       <li
                         key={feature}
