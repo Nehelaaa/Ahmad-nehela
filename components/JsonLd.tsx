@@ -72,30 +72,33 @@ const localBusiness = {
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Website packages",
+    name: "Website packages for local businesses",
     itemListElement: [
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Basic website package",
-          description: "Responsive small-business website with SEO and contact form",
+          name: "Launch website package",
+          description:
+            "Mobile-ready small-business site with SEO basics and contact form — get online fast",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Standard website package",
-          description: "Enhanced SEO, CMS, and custom design for growing businesses",
+          name: "Grow website package",
+          description:
+            "SEO-focused site with Google Business help and WordPress so local businesses get more calls and bookings",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Premium website package",
-          description: "Full-service site with advanced SEO and growth features",
+          name: "Scale website package",
+          description:
+            "Full growth site with advanced SEO, blog, ads guidance, and ongoing support",
         },
       },
     ],
