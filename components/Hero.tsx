@@ -24,7 +24,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface"
+      className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-surface pt-20 pb-16 sm:pt-24 sm:pb-20"
       aria-label="Introduction"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(245,158,11,0.15),transparent)]" />
@@ -34,7 +34,7 @@ export default function Hero() {
         <motion.p
           {...anim}
           transition={{ ...anim.transition, delay: 0 }}
-          className="text-brand-400 font-medium tracking-wide uppercase text-sm mb-4"
+          className="text-brand-400 font-medium tracking-wide uppercase text-xs sm:text-sm mb-4 px-2 leading-relaxed"
         >
           Boston &amp; MetroWest · Free 15‑min consult
         </motion.p>
@@ -68,7 +68,7 @@ export default function Hero() {
         <motion.div
           {...anim}
           transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto w-full px-1"
         >
           <Link
             href="/#contact"
@@ -91,7 +91,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block pointer-events-none">
         <motion.div
           animate={reduceMotion ? { y: 0 } : { y: [0, 8, 0] }}
           transition={reduceMotion ? {} : { repeat: Infinity, duration: 2, ease: "easeInOut" }}

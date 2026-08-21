@@ -50,36 +50,45 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  // Close drawer if viewport grows to desktop nav
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   const goToSection = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     const hash = `#${id}`;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
 
-    // Already on the homepage — scroll in place (Next won't re-navigate same path)
     if (pathname === "/") {
       e.preventDefault();
       setMobileOpen(false);
       document.body.style.overflow = "";
       window.history.pushState(null, "", hash);
-      // Slight delay so mobile drawer unlocks overflow before scrolling
-      window.setTimeout(() => scrollToHash(hash, behavior), mobileOpen ? 120 : 0);
+      window.setTimeout(() => scrollToHash(hash, behavior), mobileOpen ? 140 : 0);
       return;
     }
 
-    // Other routes: let Link go to /#id; SmoothHashScroll handles the scroll
     setMobileOpen(false);
     document.body.style.overflow = "";
   };
 
+  const headerSolid = scrolled || mobileOpen;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        headerSolid
           ? "bg-surface/95 backdrop-blur-md py-3 shadow-lg border-b border-slate-800/50"
           : "py-4 sm:py-5"
       }`}
     >
-      <nav className="section-container flex items-center justify-between gap-4">
+      <nav className="section-container flex items-center justify-between gap-3">
         <Link
           href={homeHash("home")}
           onClick={(e) => goToSection(e, "home")}
@@ -130,54 +139,74 @@ export default function Header() {
           </div>
         </div>
 
-        <button
-          type="button"
-          className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-white hover:text-brand-400 active:text-brand-400 transition-colors -mr-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-expanded={mobileOpen}
-          aria-label="Toggle menu"
-        >
-          <svg
-            className="w-6 h-6 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex lg:hidden items-center gap-1.5 shrink-0">
+          {phoneHref && (
+            <a
+              href={phoneHref}
+              className="inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-full text-brand-400 hover:bg-brand-500/10 text-sm font-semibold px-2"
+              aria-label={`Call ${phoneDisplay}`}
+            >
+              Call
+            </a>
+          )}
+          <Link
+            href={homeHash("contact")}
+            onClick={(e) => goToSection(e, "contact")}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-brand-500 px-3.5 py-2 min-h-[40px] text-sm font-semibold text-white hover:bg-brand-400"
           >
-            {mobileOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+            Quote
+          </Link>
+          <button
+            type="button"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-white hover:text-brand-400 active:text-brand-400 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            <svg
+              className="w-6 h-6 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {mobileOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden bg-surface-elevated border-t border-slate-800 max-h-[calc(100dvh-4rem)] overflow-y-auto"
+            className="lg:hidden bg-surface border-t border-slate-800 max-h-[min(70dvh,calc(100dvh-4.5rem))] overflow-y-auto overscroll-contain"
           >
-            <ul className="section-container flex flex-col py-4 gap-0.5">
+            <ul className="section-container flex flex-col py-3 gap-0.5 pb-[max(1rem,env(safe-area-inset-bottom))]">
               {mobileLinks.map((link) => (
                 <li key={link.id}>
                   <Link
                     href={homeHash(link.id)}
                     onClick={(e) => goToSection(e, link.id)}
-                    className="block py-3 min-h-[44px] flex items-center text-slate-300 hover:text-white font-medium active:text-white"
+                    className="block py-3.5 min-h-[48px] flex items-center text-slate-300 hover:text-white font-medium active:text-white text-base"
                   >
                     {link.label}
                   </Link>
@@ -187,7 +216,7 @@ export default function Header() {
                 <li>
                   <a
                     href={phoneHref}
-                    className="block py-3 min-h-[44px] flex items-center text-brand-400 font-medium"
+                    className="block py-3.5 min-h-[48px] flex items-center text-brand-400 font-medium text-base"
                     onClick={() => setMobileOpen(false)}
                   >
                     Call {phoneDisplay}

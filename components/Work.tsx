@@ -7,30 +7,41 @@ import { projects } from "@/lib/content";
 
 /** Desktop/tablet only — auto-advance is off on small screens so links are easy to tap. */
 const SLIDE_INTERVAL_MS = 8000;
-const CARDS_PER_SLIDE = 4;
+
+function cardsPerSlideForWidth(width: number) {
+  if (width >= 1024) return 4;
+  if (width >= 640) return 2;
+  return 1;
+}
 
 export default function Work() {
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [slideIndex, setSlideIndex] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
   const [autoAdvanceEnabled, setAutoAdvanceEnabled] = useState(false);
+  const [cardsPerSlide, setCardsPerSlide] = useState(1);
   const reduceMotion = useReducedMotion();
 
-  // Match Tailwind `sm` — no auto carousel on phones (dots still work).
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
-    const sync = () => setAutoAdvanceEnabled(mq.matches);
+    const sync = () => {
+      setCardsPerSlide(cardsPerSlideForWidth(window.innerWidth));
+      setAutoAdvanceEnabled(window.matchMedia("(min-width: 640px)").matches);
+    };
     sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
   }, []);
 
-  const totalSlides = Math.ceil(projects.length / CARDS_PER_SLIDE);
+  const totalSlides = Math.max(1, Math.ceil(projects.length / cardsPerSlide));
   const slides = Array.from({ length: totalSlides }, (_, i) =>
-    projects.slice(i * CARDS_PER_SLIDE, (i + 1) * CARDS_PER_SLIDE)
+    projects.slice(i * cardsPerSlide, (i + 1) * cardsPerSlide)
   );
 
-  // Auto-advance on sm+ only — on mobile, slides stay put until the user uses the dots.
+  // Keep current slide in range when layout breakpoints change
+  useEffect(() => {
+    setSlideIndex((prev) => Math.min(prev, totalSlides - 1));
+  }, [totalSlides]);
+
   useEffect(() => {
     if (totalSlides <= 1 || !autoAdvanceEnabled) return;
     const t = setInterval(() => {
@@ -45,7 +56,6 @@ export default function Work() {
     return () => clearInterval(t);
   }, [totalSlides, autoAdvanceEnabled]);
 
-  // Re-enable transition after instant reset
   useEffect(() => {
     if (!transitionEnabled) {
       const id = requestAnimationFrame(() => {
@@ -71,7 +81,7 @@ export default function Work() {
           whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: reduceMotion ? 0.2 : 0.3 }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
         >
           <h2
             id="work-heading"
@@ -79,7 +89,7 @@ export default function Work() {
           >
             Web design and development projects
           </h2>
-          <p className="text-slate-400">
+          <p className="text-slate-400 px-1">
             From education and healthcare to local business and e‑commerce: a selection of recent projects.
           </p>
         </motion.div>
@@ -98,7 +108,7 @@ export default function Work() {
               {slides.map((slideProjects, slideIdx) => (
                 <div
                   key={slideIdx}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-shrink-0 w-full items-start"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 flex-shrink-0 w-full items-start"
                 >
                   {slideProjects.map((project) => (
                     <a
@@ -150,19 +160,26 @@ export default function Work() {
           </div>
 
           {totalSlides > 1 && (
-            <div className="flex justify-center gap-1.5 mt-6">
+            <div className="flex justify-center items-center gap-1 mt-6 flex-wrap px-2">
               {slides.map((_, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => goTo(i)}
-                  className={`rounded-full transition-all duration-200 touch-manipulation p-2 ${
-                    i === slideIndex
-                      ? "bg-brand-500 w-5 h-2"
-                      : "bg-slate-600 hover:bg-slate-500 active:bg-slate-500 w-2 h-2"
+                  className={`rounded-full transition-all duration-200 touch-manipulation min-w-[44px] min-h-[44px] inline-flex items-center justify-center ${
+                    i === slideIndex ? "text-brand-500" : "text-slate-600"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
-                />
+                  aria-current={i === slideIndex ? "true" : undefined}
+                >
+                  <span
+                    className={`rounded-full transition-all duration-200 ${
+                      i === slideIndex
+                        ? "bg-brand-500 w-5 h-2"
+                        : "bg-slate-600 w-2 h-2"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           )}

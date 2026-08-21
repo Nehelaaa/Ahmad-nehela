@@ -165,7 +165,7 @@ export default function Contact() {
                       name="name"
                       required
                       placeholder="Your name"
-                      className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </label>
                   <label className="block">
@@ -175,7 +175,7 @@ export default function Contact() {
                       name="email"
                       required
                       placeholder="Email"
-                      className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                     />
                   </label>
                 </div>
@@ -185,7 +185,7 @@ export default function Contact() {
                     type="tel"
                     name="phone"
                     placeholder="Your phone (optional — for a call back)"
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </label>
                 <label className="block">
@@ -194,7 +194,7 @@ export default function Contact() {
                     type="text"
                     name="businessName"
                     placeholder="Business name"
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </label>
                 <label className="block">
@@ -202,7 +202,7 @@ export default function Contact() {
                   <select
                     name="preferredContact"
                     required
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
                     }}
@@ -217,7 +217,7 @@ export default function Contact() {
                   <span className="sr-only">Plan</span>
                   <select
                     name="plan"
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
                     }}
@@ -237,7 +237,7 @@ export default function Contact() {
                     name="subject"
                     required
                     placeholder="Subject (e.g. New business website)"
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </label>
                 <label className="block">
@@ -247,7 +247,7 @@ export default function Contact() {
                     required
                     rows={4}
                     placeholder="Tell me about your project, timeline, and goals..."
-                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 resize-none"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3.5 text-base text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 resize-none"
                   />
                 </label>
                 {status === "error" && (

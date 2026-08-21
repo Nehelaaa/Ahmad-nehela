@@ -51,7 +51,7 @@ export default function Stats() {
   return (
     <section
       ref={ref}
-      className="py-16 sm:py-20 bg-surface-muted/50 border-y border-slate-700/50"
+      className="py-16 sm:py-20 bg-slate-900/40 border-y border-slate-700/50"
       aria-label="Experience and results"
     >
       <div className="section-container">

@@ -28,24 +28,24 @@ export default function SeoServicePageContent({ page }: { page: SeoServicePage }
 
         <p className="text-slate-400 leading-relaxed mb-10">{page.closing}</p>
 
-        <div className="flex flex-col sm:flex-row gap-3 mb-12">
+        <div className="flex flex-col gap-3 mb-12">
           <Link
             href="/#contact"
-            className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3.5 min-h-[48px] font-semibold text-white hover:bg-brand-400 transition-all"
+            className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3.5 min-h-[48px] font-semibold text-white hover:bg-brand-400 transition-all w-full sm:w-auto text-center"
           >
             Book a free call / get a quote
           </Link>
           {phoneHref && (
             <a
               href={phoneHref}
-              className="inline-flex items-center justify-center rounded-full border border-slate-600 px-6 py-3.5 min-h-[48px] font-semibold text-white hover:border-brand-500 hover:text-brand-400 transition-all"
+              className="inline-flex items-center justify-center rounded-full border border-slate-600 px-6 py-3.5 min-h-[48px] font-semibold text-white hover:border-brand-500 hover:text-brand-400 transition-all w-full sm:w-auto"
             >
               Call {phoneDisplay}
             </a>
           )}
           <Link
             href="/#work"
-            className="inline-flex items-center justify-center rounded-full border border-transparent px-6 py-3.5 min-h-[48px] font-semibold text-slate-400 hover:text-white transition-all"
+            className="inline-flex items-center justify-center rounded-full border border-transparent px-6 py-3.5 min-h-[48px] font-semibold text-slate-400 hover:text-white transition-all w-full sm:w-auto"
           >
             View work
           </Link>

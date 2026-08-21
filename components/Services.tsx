@@ -77,15 +77,16 @@ export default function Services() {
                 whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: reduceMotion ? 0.2 : 0.3, delay: reduceMotion ? 0 : i * 0.08 }}
-                className={`relative rounded-2xl p-6 sm:p-8 flex flex-col border transition-all duration-300 card-hover text-center md:text-left ${
+                className={`relative rounded-2xl p-5 sm:p-8 flex flex-col border transition-all duration-300 card-hover text-left ${
                   plan.highlighted
-                    ? "bg-brand-500/10 border-brand-500/50 ring-2 ring-brand-500/20 hover:shadow-brand-500/15 md:scale-[1.02]"
+                    ? "bg-brand-500/10 border-brand-500/50 ring-2 ring-brand-500/20 hover:shadow-brand-500/15 lg:scale-[1.02]"
                     : "bg-surface-elevated border-slate-700/50 hover:border-slate-600"
                 }`}
               >
                 {plan.highlighted && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-brand-500 text-white text-xs font-semibold shadow-lg whitespace-nowrap">
-                    Most popular · biggest value
+                    <span className="sm:hidden">Most popular</span>
+                    <span className="hidden sm:inline">Most popular · biggest value</span>
                   </span>
                 )}
                 <p className="text-brand-400/90 text-xs font-semibold uppercase tracking-wide mb-2">
@@ -121,11 +122,11 @@ export default function Services() {
                   </p>
                 )}
                 <p className="text-slate-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
-                <ul className="space-y-3 mb-8 flex-1 flex flex-col items-center md:items-start">
+                <ul className="space-y-3 mb-8 flex-1 flex flex-col items-start">
                   {plan.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 text-slate-300 text-sm w-full justify-center md:justify-start text-left"
+                      className="flex items-start gap-2 text-slate-300 text-sm w-full text-left"
                     >
                       <span className="text-brand-500 shrink-0 mt-0.5">✓</span>
                       <span>{feature}</span>
