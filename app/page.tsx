@@ -5,6 +5,8 @@ import Services from "@/components/Services";
 import Process from "@/components/Process";
 import WhatIBuild from "@/components/WhatIBuild";
 import Work from "@/components/Work";
+import LocalSeo from "@/components/LocalSeo";
+import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -17,6 +19,8 @@ export default function Home() {
       <Process />
       <WhatIBuild />
       <Work />
+      <LocalSeo />
+      <FAQ />
       <Contact />
     </>
   );

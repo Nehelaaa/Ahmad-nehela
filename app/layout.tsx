@@ -30,11 +30,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ahmadnehela.com"),
   title: {
     default:
-      "Ahmad Nehela | Professional Web Development & Design | Boston, MA",
+      "Web Developer Boston MA | Ahmad Nehela — Sites & Web Apps",
     template: "%s | Ahmad Nehela",
   },
   description:
-    "Ahmad Nehela — freelance web developer in Boston & MetroWest, MA. Custom websites and web apps with SEO, Google Analytics, and WordPress. Free 15‑min consult. Get a quote for your business site.",
+    "Freelance web developer & website designer in Boston and MetroWest, MA. Custom small-business websites with SEO, WordPress, and Google Analytics. Free consult — call (617) 595-2561.",
   keywords: [
     "web developer Boston",
     "website designer Boston MA",
@@ -42,10 +42,10 @@ export const metadata: Metadata = {
     "small business website Boston",
     "WordPress developer Boston",
     "SEO website design Massachusetts",
-    "custom website design Framingham",
     "hire web developer Boston",
-    "Google Analytics setup",
-    "professional website design",
+    "custom website Framingham",
+    "Google Business Profile website",
+    "local SEO Boston",
   ],
   authors: [{ name: "Ahmad Nehela", url: "https://ahmadnehela.com" }],
   creator: "Ahmad Nehela",
@@ -53,23 +53,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://ahmadnehela.com",
-    siteName: "Ahmad Nehela — Web Developer",
-    title: "Ahmad Nehela | Web Development & Design | Boston, MA",
+    siteName: "Ahmad Nehela — Web Developer Boston",
+    title: "Web Developer Boston MA | Ahmad Nehela",
     description:
-      "Professional website development with SEO, Google Analytics & WordPress. 8+ years experience. Get your project quote today.",
+      "Custom websites & web apps for Boston and MetroWest businesses. SEO, WordPress, Google Analytics. Free 15‑min consult.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ahmad Nehela — Web Developer Portfolio",
+        alt: "Ahmad Nehela — Web Developer Boston",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahmad Nehela | Web Development & Design",
-    description: "Professional website development. SEO, WordPress, Google Analytics. Boston, MA.",
+    title: "Web Developer Boston | Ahmad Nehela",
+    description:
+      "Small-business websites with SEO & WordPress. Boston & MetroWest. Free consult.",
     images: ["/og-image.png"],
   },
   robots: {

@@ -1,4 +1,5 @@
 import { site } from "@/lib/content";
+import { faqs, areasServed } from "@/lib/seo-content";
 
 const phoneDigits = site.phone.replace(/\D/g, "");
 const telephone =
@@ -31,11 +32,12 @@ const person = {
     "Google Analytics",
     "Google Business Profile",
     "Small Business Websites",
+    "Local SEO Boston",
   ],
 };
 
 const localBusiness = {
-  "@type": "ProfessionalService",
+  "@type": ["ProfessionalService", "LocalBusiness"],
   "@id": "https://ahmadnehela.com/#business",
   name: `${site.name} — Web Development & Design`,
   url: "https://ahmadnehela.com",
@@ -56,25 +58,79 @@ const localBusiness = {
     latitude: 42.3601,
     longitude: -71.0589,
   },
-  areaServed: [
-    { "@type": "City", name: "Boston" },
-    { "@type": "AdministrativeArea", name: "Massachusetts" },
-    { "@type": "Place", name: "MetroWest Massachusetts" },
-  ],
+  areaServed: areasServed.map((name) => ({
+    "@type": "Place",
+    name,
+  })),
   serviceType: [
     "Website Design",
     "Web Development",
     "WordPress Development",
     "SEO Setup",
     "Google Analytics Setup",
+    "Small Business Websites",
   ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Website packages",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Basic website package",
+          description: "Responsive small-business website with SEO and contact form",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Standard website package",
+          description: "Enhanced SEO, CMS, and custom design for growing businesses",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Premium website package",
+          description: "Full-service site with advanced SEO and growth features",
+        },
+      },
+    ],
+  },
   founder: { "@id": "https://ahmadnehela.com/#person" },
   sameAs: ["https://ahmadnehela.com"],
 };
 
+const website = {
+  "@type": "WebSite",
+  "@id": "https://ahmadnehela.com/#website",
+  url: "https://ahmadnehela.com",
+  name: `${site.name} — Web Developer Boston`,
+  description:
+    "Freelance web developer and website designer in Boston & MetroWest, MA.",
+  publisher: { "@id": "https://ahmadnehela.com/#business" },
+  inLanguage: "en-US",
+};
+
+const faqPage = {
+  "@type": "FAQPage",
+  "@id": "https://ahmadnehela.com/#faq",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
+    },
+  })),
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@graph": [person, localBusiness],
+  "@graph": [person, localBusiness, website, faqPage],
 };
 
 export default function JsonLd() {
