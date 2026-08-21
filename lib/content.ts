@@ -52,13 +52,27 @@ export const processSteps = [
   },
 ];
 
+/** Sitewide offer callouts shown above pricing cards */
+export const pricingDeal = {
+  badge: "New local client offer",
+  headline: "Save hundreds on your first site",
+  subcopy:
+    "Lock in discounted package rates, split payments 50/50, and get free extras most freelancers charge for. Free quote — no pressure.",
+  perks: [
+    "50/50 payment plan on every package",
+    "Free strategy call before you pay",
+    "Free domain help & launch checklist",
+  ],
+};
+
 export const services = [
   {
     name: "Launch",
     tagline: "Best for getting online fast",
-    price: 1500,
-    regularPrice: 2000,
-    promoLabel: "Limited-time rate",
+    price: 1199,
+    regularPrice: 1999,
+    promoLabel: "Save $800 · 40% off",
+    bonus: "Includes free logo polish + 30 days of small tweaks",
     description:
       "A clean, mobile-ready site so your business looks legit and customers can find you — perfect for shops, salons, and local services.",
     features: [
@@ -69,15 +83,16 @@ export const services = [
       "Click-to-call & social links",
       "1 round of revisions",
     ],
-    cta: "Get this package",
+    cta: "Claim Launch deal",
     highlighted: false,
   },
   {
     name: "Grow",
     tagline: "Most popular for local businesses",
-    price: 3700,
-    regularPrice: 5000,
-    promoLabel: "Limited-time rate",
+    price: 2999,
+    regularPrice: 4999,
+    promoLabel: "Save $2,000 · best value",
+    bonus: "Free Google Business setup + booking-ready forms",
     description:
       "Built to get found on Google and turn visitors into calls & bookings — ideal when you’re ready for more customers.",
     features: [
@@ -90,13 +105,16 @@ export const services = [
       "Custom design that matches your brand",
       "2 rounds of revisions",
     ],
-    cta: "Start growing",
+    cta: "Claim Grow deal",
     highlighted: true,
   },
   {
     name: "Scale",
     tagline: "For serious growth & ads",
-    price: 10000,
+    price: 7999,
+    regularPrice: 12999,
+    promoLabel: "Save $5,000 · full stack",
+    bonus: "First month of priority support included free",
     description:
       "A full online presence — advanced SEO, ads support, training, and ongoing help so your site keeps bringing in business.",
     features: [
@@ -110,7 +128,7 @@ export const services = [
       "Priority support after launch",
       "3 rounds of revisions",
     ],
-    cta: "Talk about Scale",
+    cta: "Claim Scale deal",
     highlighted: false,
   },
 ];

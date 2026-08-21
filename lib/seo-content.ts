@@ -4,7 +4,7 @@ export const faqs = [
   {
     question: "How much does a website cost in Boston?",
     answer:
-      "Packages start around $1,500 for a focused small-business site and scale for larger sites, WordPress, SEO, and web apps. You get clear pricing up front — book a free call or request a quote and I’ll recommend the right fit.",
+      "New-client packages start around $1,199 (Launch) with clear discounts on Grow and Scale. Payment plans available. Book a free call or request a quote and I’ll recommend the right fit.",
   },
   {
     question: "Do you build websites for small businesses in Boston and MetroWest?",
