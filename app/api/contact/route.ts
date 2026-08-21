@@ -68,11 +68,11 @@ export async function POST(request: Request) {
 
       const preferLabel =
         preferredContact === "call"
-          ? "Book a free 15-min call"
+          ? "Book a free call"
           : preferredContact === "either"
-            ? "Either email or call"
+            ? "Either — call or quote"
             : preferredContact === "email"
-              ? "Email quote"
+              ? "Get a quote"
               : preferredContact || null;
 
       const text = [
