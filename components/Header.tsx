@@ -3,6 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  getBookingHref,
+  getPhoneDisplay,
+  getPhoneHref,
+  site,
+} from "@/lib/content";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -17,6 +23,10 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const phoneHref = getPhoneHref();
+  const phoneDisplay = getPhoneDisplay();
+  const bookingHref = getBookingHref();
+  const bookingExternal = Boolean(site.bookingUrl?.trim());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -41,16 +51,16 @@ export default function Header() {
         scrolled ? "bg-surface/95 backdrop-blur-md py-3 shadow-lg border-b border-slate-800/50" : "py-5"
       }`}
     >
-      <nav className="section-container flex items-center justify-between">
+      <nav className="section-container flex items-center justify-between gap-3">
         <Link
           href="#home"
-          className="font-display text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors duration-200"
+          className="font-display text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors duration-200 shrink-0"
           aria-label="Ahmad Nehela - Home"
         >
           A.N <span className="text-brand-400">Portfolio</span>
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -61,6 +71,27 @@ export default function Header() {
               </Link>
             </li>
           ))}
+          {phoneHref && (
+            <li>
+              <a
+                href={phoneHref}
+                className="text-sm font-medium text-brand-400 hover:text-brand-300 transition-colors whitespace-nowrap"
+              >
+                {phoneDisplay}
+              </a>
+            </li>
+          )}
+          <li>
+            <Link
+              href={bookingHref}
+              {...(bookingExternal
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className="inline-flex items-center justify-center rounded-full border border-brand-500/60 px-4 py-2 text-sm font-semibold text-brand-400 hover:bg-brand-500/10 transition-all duration-200"
+            >
+              Book a call
+            </Link>
+          </li>
           <li>
             <Link
               href="#contact"
@@ -73,7 +104,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-white hover:text-brand-400 active:text-brand-400 transition-colors -mr-2"
+          className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-white hover:text-brand-400 active:text-brand-400 transition-colors -mr-2"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-label="Toggle menu"
@@ -110,7 +141,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-surface-elevated border-t border-slate-800"
+            className="lg:hidden bg-surface-elevated border-t border-slate-800"
           >
             <ul className="section-container flex flex-col py-4 gap-2">
               {navLinks.map((link) => (
@@ -124,7 +155,28 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
-              <li className="pt-2">
+              {phoneHref && (
+                <li>
+                  <a
+                    href={phoneHref}
+                    className="block py-3.5 min-h-[44px] flex items-center text-brand-400 font-medium"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Call {phoneDisplay}
+                  </a>
+                </li>
+              )}
+              <li className="pt-2 space-y-2">
+                <Link
+                  href={bookingHref}
+                  {...(bookingExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="block text-center rounded-full border border-brand-500/60 py-3.5 min-h-[48px] flex items-center justify-center text-brand-400 font-semibold"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Book a free call
+                </Link>
                 <Link
                   href="#contact"
                   className="block text-center rounded-full bg-brand-500 py-3.5 min-h-[48px] flex items-center justify-center text-white font-semibold"

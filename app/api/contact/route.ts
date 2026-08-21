@@ -44,6 +44,10 @@ export async function POST(request: Request) {
       formData.get("businessName") as string | null
     )?.trim();
     const plan = (formData.get("plan") as string | null)?.trim();
+    const phone = (formData.get("phone") as string | null)?.trim();
+    const preferredContact = (
+      formData.get("preferredContact") as string | null
+    )?.trim();
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -62,11 +66,22 @@ export async function POST(request: Request) {
         ? `${stripHeaderUnsafe(name, 80)}: ${safeSubject}`
         : `Message from ${stripHeaderUnsafe(name, 120)}`;
 
+      const preferLabel =
+        preferredContact === "call"
+          ? "Book a free 15-min call"
+          : preferredContact === "either"
+            ? "Either email or call"
+            : preferredContact === "email"
+              ? "Email quote"
+              : preferredContact || null;
+
       const text = [
         `${name} sent you a note through your website.`,
         "",
         `Name: ${name}`,
         `Email: ${email}`,
+        phone ? `Phone: ${phone}` : null,
+        preferLabel ? `Preferred contact: ${preferLabel}` : null,
         businessName ? `Business: ${businessName}` : null,
         plan ? `Plan: ${plan}` : null,
         safeSubject ? `Topic: ${safeSubject}` : null,
@@ -88,6 +103,8 @@ export async function POST(request: Request) {
       <p style="margin:0 0 16px;font-size:15px;color:#334155;">${escapeHtml(name)} sent you a note through your website.</p>
       <p style="margin:0 0 8px;"><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p style="margin:0 0 8px;"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+      ${phone ? `<p style="margin:0 0 8px;"><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ""}
+      ${preferLabel ? `<p style="margin:0 0 8px;"><strong>Preferred contact:</strong> ${escapeHtml(preferLabel)}</p>` : ""}
       ${businessName ? `<p style="margin:0 0 8px;"><strong>Business:</strong> ${escapeHtml(businessName)}</p>` : ""}
       ${plan ? `<p style="margin:0 0 8px;"><strong>Plan:</strong> ${escapeHtml(plan)}</p>` : ""}
       ${safeSubject ? `<p style="margin:0 0 8px;"><strong>Subject:</strong> ${escapeHtml(safeSubject)}</p>` : ""}

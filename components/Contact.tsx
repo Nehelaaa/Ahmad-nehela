@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { site, services } from "@/lib/content";
+import {
+  getBookingHref,
+  getPhoneDisplay,
+  getPhoneHref,
+  site,
+  services,
+} from "@/lib/content";
 
 const vp = { once: true, margin: "-40px" as const };
 
@@ -11,6 +18,11 @@ export default function Contact() {
     "idle"
   );
   const reduceMotion = useReducedMotion();
+  const phoneHref = getPhoneHref();
+  const phoneDisplay = getPhoneDisplay();
+  const bookingHref = getBookingHref();
+  const bookingExternal = Boolean(site.bookingUrl?.trim());
+
   const animLeft = reduceMotion
     ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
     : { initial: { opacity: 0, x: -24 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.3 } };
@@ -53,11 +65,37 @@ export default function Contact() {
               id="contact-heading"
               className="font-display text-3xl sm:text-4xl font-bold text-white mb-4"
             >
-              Get in touch — start your project
+              Book a call or get a quote
             </h2>
-            <p className="text-slate-400 leading-relaxed mb-8">
-              Have a project in mind? Tell me about your goals and I&apos;ll get back with a clear plan and quote. No obligation — just a straightforward conversation.
+            <p className="text-slate-400 leading-relaxed mb-6">
+              Free 15‑minute consult — we&apos;ll talk goals, timeline, and the right package. No obligation. Serving {site.serviceArea}.
             </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <Link
+                href={bookingHref}
+                {...(bookingExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-white hover:bg-brand-400 transition-all"
+              >
+                {bookingExternal ? "Pick a time on my calendar" : "Request a free call"}
+              </Link>
+              {phoneHref && (
+                <a
+                  href={phoneHref}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-600 px-6 py-3.5 min-h-[48px] text-sm font-semibold text-white hover:border-brand-500 hover:text-brand-400 transition-all"
+                >
+                  Call {phoneDisplay}
+                </a>
+              )}
+            </div>
+            {!bookingExternal && (
+              <p className="text-slate-500 text-sm mb-8 -mt-4">
+                Prefer email? Use the form — mention if you want a call back and the best time to reach you.
+              </p>
+            )}
+
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <span className="text-brand-500 text-xl" aria-hidden>
@@ -73,10 +111,26 @@ export default function Contact() {
                   →
                 </span>
                 <div>
-                  <p className="text-slate-500 text-sm">Location</p>
-                  <p className="text-white font-medium">{site.location}</p>
+                  <p className="text-slate-500 text-sm">Service area</p>
+                  <p className="text-white font-medium">{site.serviceArea}</p>
                 </div>
               </div>
+              {phoneHref && (
+                <div className="flex items-center gap-4">
+                  <span className="text-brand-500 text-xl" aria-hidden>
+                    →
+                  </span>
+                  <div>
+                    <p className="text-slate-500 text-sm">Phone</p>
+                    <a
+                      href={phoneHref}
+                      className="text-brand-400 hover:text-brand-300 font-medium"
+                    >
+                      {phoneDisplay}
+                    </a>
+                  </div>
+                </div>
+              )}
               <div className="flex items-center gap-4">
                 <span className="text-brand-500 text-xl" aria-hidden>
                   →
@@ -95,9 +149,12 @@ export default function Contact() {
           </motion.div>
 
           <motion.div {...animRight} viewport={vp} className="rounded-2xl bg-surface border border-slate-700/50 p-6 sm:p-8">
-            <h3 className="font-display text-xl font-bold text-white mb-6">
-              Send a message
+            <h3 className="font-display text-xl font-bold text-white mb-2">
+              Send a project brief
             </h3>
+            <p className="text-slate-500 text-sm mb-6">
+              I typically reply within one business day.
+            </p>
 
             {status === "done" ? (
               <div className="rounded-xl bg-brand-500/10 border border-brand-500/30 p-6 text-center">
@@ -105,7 +162,7 @@ export default function Contact() {
                   Thank you for reaching out!
                 </p>
                 <p className="text-slate-400 text-sm">
-                  I&apos;ll get back to you as soon as I can.
+                  I&apos;ll get back to you as soon as I can — usually within one business day.
                 </p>
               </div>
             ) : (
@@ -143,6 +200,15 @@ export default function Contact() {
                   </label>
                 </div>
                 <label className="block">
+                  <span className="sr-only">Phone (optional)</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone (optional — for a call back)"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                  />
+                </label>
+                <label className="block">
                   <span className="sr-only">Business name</span>
                   <input
                     type="text"
@@ -150,6 +216,21 @@ export default function Contact() {
                     placeholder="Business name"
                     className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
+                </label>
+                <label className="block">
+                  <span className="sr-only">How should we connect?</span>
+                  <select
+                    name="preferredContact"
+                    className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 appearance-none bg-no-repeat bg-[length:1.25rem] bg-[right_0.75rem_center] pr-10"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                    }}
+                    defaultValue="email"
+                  >
+                    <option value="email">Email me a quote</option>
+                    <option value="call">Book a free 15‑min call</option>
+                    <option value="either">Either email or call</option>
+                  </select>
                 </label>
                 <label className="block">
                   <span className="sr-only">Plan</span>
@@ -174,7 +255,7 @@ export default function Contact() {
                     type="text"
                     name="subject"
                     required
-                    placeholder="Subject"
+                    placeholder="Subject (e.g. New business website)"
                     className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </label>
@@ -183,8 +264,8 @@ export default function Contact() {
                   <textarea
                     name="message"
                     required
-                    rows={5}
-                    placeholder="Your message..."
+                    rows={4}
+                    placeholder="Tell me about your project, timeline, and goals..."
                     className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 resize-none"
                   />
                 </label>
