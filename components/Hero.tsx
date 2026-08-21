@@ -71,19 +71,19 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
-            href="#contact"
+            href="/#contact"
             className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 sm:px-8 py-3.5 sm:py-4 min-h-[48px] text-base font-semibold text-white hover:bg-brand-400 transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] glow w-full sm:w-auto"
           >
             Book a free call
           </Link>
           <Link
-            href="#contact"
+            href="/#contact"
             className="inline-flex items-center justify-center rounded-full border border-slate-600 px-6 sm:px-8 py-3.5 sm:py-4 min-h-[48px] text-base font-semibold text-white hover:border-brand-500 hover:text-brand-400 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
           >
             Get a free quote
           </Link>
           <Link
-            href="#work"
+            href="/#work"
             className="inline-flex items-center justify-center rounded-full border border-transparent px-6 sm:px-8 py-3.5 sm:py-4 min-h-[48px] text-base font-semibold text-slate-400 hover:text-white transition-all duration-200 w-full sm:w-auto"
           >
             View my work

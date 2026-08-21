@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import SmoothHashScroll from "@/components/SmoothHashScroll";
 import JsonLd from "@/components/JsonLd";
 
 const syne = Syne({
@@ -100,6 +101,7 @@ export default function RootLayout({
     >
       <body className="font-body min-h-screen flex flex-col bg-surface text-slate-100">
         <JsonLd />
+        <SmoothHashScroll />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

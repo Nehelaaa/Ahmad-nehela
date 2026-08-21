@@ -60,7 +60,7 @@ export default function WhatIBuild() {
           className="text-center mt-10"
         >
           <Link
-            href="#contact"
+            href="/#contact"
             className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3 min-h-[48px] text-sm font-semibold text-white hover:bg-brand-400 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
           >
             Tell me what you need

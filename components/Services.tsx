@@ -133,7 +133,7 @@ export default function Services() {
                   ))}
                 </ul>
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   className={`block text-center rounded-full py-3.5 min-h-[48px] font-semibold transition-all whitespace-nowrap ${
                     plan.highlighted
                       ? "bg-brand-500 text-white hover:bg-brand-400"
@@ -149,7 +149,7 @@ export default function Services() {
 
         <p className="text-center text-slate-500 text-sm mt-10 max-w-xl mx-auto leading-relaxed">
           Mention you saw the <span className="text-slate-400">new client offer</span> when you reach out.{" "}
-          <Link href="#contact" className="text-brand-400 hover:text-brand-300 font-medium">
+          <Link href="/#contact" className="text-brand-400 hover:text-brand-300 font-medium">
             Book a free call or get a quote
           </Link>{" "}
           — I&apos;ll lock in the deal that fits your business.

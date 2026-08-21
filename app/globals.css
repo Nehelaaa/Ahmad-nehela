@@ -16,6 +16,20 @@ html {
   overflow-x: hidden;
 }
 
+/* Offset fixed header so in-page nav lands cleanly on each section */
+section[id],
+#home,
+#about,
+#services,
+#process,
+#what-i-build,
+#work,
+#areas,
+#faq,
+#contact {
+  scroll-margin-top: 5.5rem;
+}
+
 body {
   @apply bg-surface text-slate-100 antialiased;
   font-feature-settings: "rlig" 1, "calt" 1;
