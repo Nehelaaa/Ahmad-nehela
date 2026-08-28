@@ -12,10 +12,10 @@ function getFromAddress(): string {
 
 function buildSmsBody(offer: StripeOffer, businessName: string): string {
   return (
-    `Hi — this is Ahmad (${site.name}). ` +
+    `Hi — this is ${site.personName} at ${site.name}. ` +
     `Here's your payment link for ${offer.name} (${offer.summary}): ` +
     `${offer.paymentLinkUrl} ` +
-    `Questions? Call/text ${site.phone}. — ${businessName}`
+    `Questions? Call/text ${site.phone}.`
   );
 }
 
@@ -31,8 +31,8 @@ function buildEmail(offer: StripeOffer, businessName: string, contactName: strin
     "",
     `Questions? Reply to this email or call ${site.phone}.`,
     "",
-    `— Ahmad`,
-    `For ${businessName}`,
+    `— ${site.personName}`,
+    `${site.name} · For ${businessName}`,
   ].join("\n");
 
   const html = `<!DOCTYPE html>
@@ -47,7 +47,7 @@ function buildEmail(offer: StripeOffer, businessName: string, contactName: strin
   </p>
   <p style="font-size:13px;color:#64748b;">Or open: ${offer.paymentLinkUrl}</p>
   <p>Questions? Reply to this email or call ${site.phone}.</p>
-  <p>— Ahmad<br/>For ${businessName}</p>
+  <p>— ${site.personName}<br/>${site.name} · For ${businessName}</p>
 </body></html>`;
 
   return { text, html, subject: `Your ${offer.name} payment link — ${site.name}` };

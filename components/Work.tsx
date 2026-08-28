@@ -122,7 +122,7 @@ export default function Work() {
                         {!failedImages.has(project.image) ? (
                           <Image
                             src={project.image}
-                            alt={`${project.title} - project by Ahmad Nehela`}
+                            alt={`${project.title} - project by Top Web Developer`}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             className="object-cover object-center transition-transform duration-500 group-hover:scale-105"

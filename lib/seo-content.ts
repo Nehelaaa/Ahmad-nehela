@@ -82,7 +82,7 @@ export const seoServicePages: SeoServicePage[] = [
     title: "Website Designer Boston",
     metaTitle: "Website Designer Boston MA | Small Business Web Design",
     metaDescription:
-      "Professional website designer in Boston for small businesses. Modern design, SEO, and conversion-focused pages. Free consult with Ahmad Nehela.",
+      "Professional website designer in Boston for small businesses. Modern design, SEO, and conversion-focused pages. Free consult with Top Web Developer.",
     h1: "Website designer for Boston small businesses",
     intro:
       "Your website is often the first impression. I design clean, trustworthy sites for Boston and MetroWest businesses — so visitors understand what you offer and know how to contact you.",
@@ -101,7 +101,7 @@ export const seoServicePages: SeoServicePage[] = [
     title: "Small Business Website Boston",
     metaTitle: "Small Business Website Boston | SEO & Local Visibility",
     metaDescription:
-      "Get a small business website in Boston built to rank locally and convert visitors. SEO setup, mobile design, and free consult. Ahmad Nehela.",
+      "Get a small business website in Boston built to rank locally and convert visitors. SEO setup, mobile design, and free consult. Top Web Developer.",
     h1: "Small business websites built to get found on Google",
     intro:
       "A great small business website does two jobs: look credible and help people find you when they search. I build sites for Boston-area owners who want more calls, bookings, and visibility — not just a digital brochure.",

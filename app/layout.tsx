@@ -26,14 +26,15 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ahmadnehela.com"),
   title: {
     default:
-      "Web Developer Boston MA | Ahmad Nehela — Sites & Web Apps",
-    template: "%s | Ahmad Nehela",
+      "Web Developer Boston MA | Top Web Developer — Sites & Web Apps",
+    template: "%s | Top Web Developer",
   },
   description:
-    "Freelance web developer & website designer in Boston and MetroWest, MA. Custom small-business websites with SEO, WordPress, and Google Analytics. Free consult — call (617) 595-2561.",
+    "Top Web Developer — freelance web developer & website designer in Boston and MetroWest, MA. Custom small-business websites with SEO, WordPress, and Google Analytics. Free consult — call (617) 595-2561.",
   keywords: [
     "web developer Boston",
     "website designer Boston MA",
+    "Top Web Developer",
     "freelance web developer MetroWest",
     "small business website Boston",
     "WordPress developer Boston",
@@ -44,13 +45,13 @@ export const metadata: Metadata = {
     "local SEO Boston",
   ],
   authors: [{ name: "Ahmad Nehela", url: "https://ahmadnehela.com" }],
-  creator: "Ahmad Nehela",
+  creator: "Top Web Developer",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://ahmadnehela.com",
-    siteName: "Ahmad Nehela — Web Developer Boston",
-    title: "Web Developer Boston MA | Ahmad Nehela",
+    siteName: "Top Web Developer — Boston",
+    title: "Web Developer Boston MA | Top Web Developer",
     description:
       "Custom websites & web apps for Boston and MetroWest businesses. SEO, WordPress, Google Analytics. Free 15‑min consult.",
     images: [
@@ -58,13 +59,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ahmad Nehela — Web Developer Boston",
+        alt: "Top Web Developer — Web Developer Boston",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Developer Boston | Ahmad Nehela",
+    title: "Web Developer Boston | Top Web Developer",
     description:
       "Small-business websites with SEO & WordPress. Boston & MetroWest. Free consult.",
     images: ["/og-image.png"],

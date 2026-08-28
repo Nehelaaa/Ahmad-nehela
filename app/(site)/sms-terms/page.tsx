@@ -18,7 +18,7 @@ export default function SmsTermsPage() {
           SMS Terms &amp; Conditions
         </h1>
         <p className="text-sm text-slate-500 mb-10">
-          Program: Top Web Developer / {site.name} · Last updated: August 28, 2026
+          Program: {site.name} · Last updated: August 28, 2026
         </p>
 
         <div className="space-y-6 text-sm leading-relaxed">
@@ -26,8 +26,7 @@ export default function SmsTermsPage() {
             <h2 className="text-white font-semibold text-base mb-2">Program description</h2>
             <p>
               This SMS program sends transactional messages about website projects,
-              proposals, and payment / checkout links for clients of {site.name}
-              (Top Web Developer).
+              proposals, and payment / checkout links for clients of {site.name}.
             </p>
           </section>
 

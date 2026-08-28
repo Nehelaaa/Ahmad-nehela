@@ -95,9 +95,9 @@ export default function Header() {
           href={homeHash("home")}
           onClick={(e) => goToSection(e, "home")}
           className="font-display text-lg sm:text-xl font-bold tracking-tight text-white hover:text-brand-400 transition-colors duration-200 shrink-0 whitespace-nowrap"
-          aria-label="Ahmad Nehela - Home"
+          aria-label="Top Web Developer - Home"
         >
-          A.N <span className="text-brand-400">Portfolio</span>
+          Top Web <span className="text-brand-400">Developer</span>
         </Link>
 
         <div className="hidden lg:flex items-center gap-3 xl:gap-4 min-w-0">

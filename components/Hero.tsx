@@ -40,7 +40,7 @@ export default function Hero() {
           transition={{ ...anim.transition, delay: reduceMotion ? 0 : 0.1 }}
           className="text-slate-400 text-base sm:text-lg mb-3"
         >
-          Ahmad Nehela — web developer &amp; designer
+          Top Web Developer — websites &amp; design for local businesses
         </motion.p>
 
         <motion.p

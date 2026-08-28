@@ -21,9 +21,9 @@ export default function PrivacyPage() {
 
         <div className="space-y-6 text-sm leading-relaxed">
           <p>
-            {site.name} (“we”, “us”) provides web design and development services
-            under the brand Top Web Developer. This policy explains how we handle
-            information when you contact us or receive SMS messages from us.
+            {site.name} (“we”, “us”) provides web design and development services.
+            This policy explains how we handle information when you contact us or
+            receive SMS messages from us.
           </p>
 
           <section>

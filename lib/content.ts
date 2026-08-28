@@ -1,5 +1,6 @@
 export const site = {
-  name: "Ahmad Nehela",
+  name: "Top Web Developer",
+  personName: "Ahmad Nehela",
   tagline: "Web Development & Design",
   email: "topwebdeveloperan@gmail.com",
   phone: "6175952561",

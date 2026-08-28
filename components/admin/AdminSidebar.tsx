@@ -19,7 +19,7 @@ export default function AdminSidebar() {
     <aside className="hidden lg:flex w-60 shrink-0 flex-col border-r border-slate-800 bg-surface-elevated/50">
       <div className="p-5 border-b border-slate-800">
         <Link href="/admin" className="font-display text-lg font-bold text-white">
-          A.N <span className="text-brand-400">Studio</span>
+          Top Web <span className="text-brand-400">Developer</span>
         </Link>
         <p className="text-xs text-slate-500 mt-1">Business dashboard</p>
       </div>

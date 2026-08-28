@@ -32,10 +32,10 @@ export default function About() {
             id="about-heading"
             className="font-display text-3xl sm:text-4xl font-bold text-white mb-3"
           >
-            About me
+            About
           </h2>
           <p className="text-brand-400 font-medium">
-            {site.name} — freelance web developer & designer, Boston MA
+            {site.name} · {site.personName}, Boston MA
           </p>
           <p className="text-slate-400 text-sm sm:text-base mt-3 leading-relaxed">
             {site.yearsExperience}+ years building sites that get traffic, reach local customers, and give you the data to grow.
