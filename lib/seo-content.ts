@@ -4,7 +4,7 @@ export const faqs = [
   {
     question: "How much does a website cost in Boston?",
     answer:
-      "New-client packages start around $799 (Launch) with clear discounts on Grow and Scale. Payment plans available. Book a free call or request a quote and I’ll recommend the right fit.",
+      "New-client packages start around $799 (Launch) with clear discounts on Grow and Scale. Optional Site Care is $59/month. Payment plans available. Book a free call or request a quote and I’ll recommend the right fit.",
   },
   {
     question: "Do you build websites for small businesses in Boston and MetroWest?",

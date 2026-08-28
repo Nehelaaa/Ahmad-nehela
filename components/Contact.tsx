@@ -228,6 +228,7 @@ export default function Contact() {
                         {plan.name} — ${plan.price.toLocaleString()}
                       </option>
                     ))}
+                    <option value="Site Care — $59/mo">Site Care — $59/mo</option>
                   </select>
                 </label>
                 <label className="block">

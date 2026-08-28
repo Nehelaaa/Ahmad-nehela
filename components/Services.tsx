@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { pricingDeal, services } from "@/lib/content";
+import { careSubscription, pricingDeal, services } from "@/lib/content";
 
 export default function Services() {
   const reduceMotion = useReducedMotion();
@@ -135,6 +135,50 @@ export default function Services() {
             );
           })}
         </div>
+
+        {/* Monthly care — separate from project packages */}
+        <motion.div
+          {...anim}
+          viewport={{ once: true, margin: "-40px" }}
+          className="mt-12 sm:mt-14 rounded-2xl border border-slate-700/60 bg-surface-elevated px-6 py-8 sm:px-10 sm:py-9"
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div className="max-w-xl">
+              <p className="text-brand-400 text-xs font-semibold uppercase tracking-wide mb-2">
+                Optional after launch
+              </p>
+              <h3 className="font-display text-2xl font-bold text-white">
+                {careSubscription.name}
+              </h3>
+              <p className="text-slate-400 text-sm mt-2 leading-relaxed">
+                {careSubscription.description}
+              </p>
+              <ul className="mt-5 grid sm:grid-cols-2 gap-2">
+                {careSubscription.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
+                    <span className="text-brand-500 shrink-0" aria-hidden>
+                      ✓
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="shrink-0 text-center lg:text-right">
+              <p className="font-display text-4xl font-bold text-white tabular-nums">
+                ${careSubscription.price}
+                <span className="text-lg font-medium text-slate-500">/mo</span>
+              </p>
+              <p className="text-slate-500 text-sm mt-1">{careSubscription.tagline}</p>
+              <Link
+                href="/#contact"
+                className="mt-5 inline-flex rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-400"
+              >
+                {careSubscription.cta}
+              </Link>
+            </div>
+          </div>
+        </motion.div>
 
         <p className="text-center text-slate-500 text-sm mt-10">
           Not sure which fits?{" "}

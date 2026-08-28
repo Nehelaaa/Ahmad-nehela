@@ -57,6 +57,23 @@ export const pricingDeal = {
   note: "New-client rates · 50/50 payment plan available · Free strategy call",
 };
 
+/** Public site care / maintenance — flat monthly (shown under packages) */
+export const careSubscription = {
+  name: "Site Care",
+  price: 59,
+  interval: "month" as const,
+  tagline: "Keep your site safe, updated, and working",
+  description:
+    "Ongoing maintenance for sites I build — updates, backups, security checks, and small fixes so you don’t have to worry about the tech.",
+  features: [
+    "WordPress / hosting updates & security checks",
+    "Backups monitored",
+    "Small content & bug fixes each month",
+    "Priority email support",
+  ],
+  cta: "Add Site Care",
+};
+
 export const services = [
   {
     name: "Launch",
