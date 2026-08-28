@@ -28,6 +28,8 @@ export default async function SiteDetailPage({
         businessName={site.business_name}
         clientId={site.client_id}
         hasPassword={hasPassword}
+        clientPhone={site.client_phone}
+        clientEmail={site.client_email}
       />
     </div>
   );

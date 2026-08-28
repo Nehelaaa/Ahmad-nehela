@@ -1,54 +1,154 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import CopyPaymentLink from "./CopyPaymentLink";
-import { adminProposalOffers, publicOffers } from "@/lib/admin/stripe-catalog";
+import { STRIPE_OFFERS, type StripeOffer } from "@/lib/admin/stripe-catalog";
 
-export default function SendPaymentOffers() {
+export default function SendPaymentOffers({
+  siteId,
+  clientPhone,
+  clientEmail,
+}: {
+  siteId: string;
+  clientPhone: string | null;
+  clientEmail: string | null;
+}) {
+  const router = useRouter();
+  const [offerId, setOfferId] = useState("starter");
+  const [sendSms, setSendSms] = useState(Boolean(clientPhone));
+  const [sendEmail, setSendEmail] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const selected = STRIPE_OFFERS.find((o) => o.id === offerId) as StripeOffer;
+
+  async function handleSend() {
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    const channels: Array<"sms" | "email"> = [];
+    if (sendSms) channels.push("sms");
+    if (sendEmail) channels.push("email");
+    if (channels.length === 0) {
+      setError("Choose text, email, or both");
+      setLoading(false);
+      return;
+    }
+
+    const res = await fetch(`/api/admin/sites/${siteId}/send-offer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ offerId, channels }),
+    });
+    const data = await res.json().catch(() => ({}));
+    setLoading(false);
+
+    if (!res.ok) {
+      setError(data.error || "Could not send");
+      return;
+    }
+
+    const parts = [
+      data.sent?.sms ? `Texted ${data.sent.sms}` : null,
+      data.sent?.email ? `Emailed ${data.sent.email}` : null,
+    ].filter(Boolean);
+    setMessage(
+      `${parts.join(" · ")}. Link for ${data.offer?.name} is on its way.`
+    );
+    router.refresh();
+  }
+
   return (
-    <div className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-6 space-y-6">
+    <div className="rounded-2xl border border-brand-500/30 bg-surface-elevated p-6 space-y-5">
       <div>
-        <h2 className="font-semibold text-white">Send payment link</h2>
+        <h2 className="font-semibold text-white">Send offer</h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          Copy a link and text/email it to the client — they pay on Stripe Checkout
+          Pick a plan — we text (and/or email) the Stripe checkout link to the client
         </p>
       </div>
 
-      <div>
-        <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">Packages & care</p>
-        <div className="space-y-2">
-          {publicOffers().map((offer) => (
-            <div
-              key={offer.id}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700/50 px-3 py-2.5"
-            >
-              <div>
-                <p className="text-sm text-white">{offer.name}</p>
-                <p className="text-xs text-slate-500">{offer.summary}</p>
-              </div>
-              <CopyPaymentLink offer={offer} compact />
-            </div>
-          ))}
-        </div>
+      <label className="block">
+        <span className="text-sm text-slate-400 mb-1.5 block">Plan</span>
+        <select
+          value={offerId}
+          onChange={(e) => setOfferId(e.target.value)}
+          className="w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white"
+        >
+          <optgroup label="Proposal plans (recommended)">
+            {STRIPE_OFFERS.filter((o) => o.visibility === "admin").map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name} — {o.summary}
+              </option>
+            ))}
+          </optgroup>
+          <optgroup label="Public packages & care">
+            {STRIPE_OFFERS.filter((o) => o.visibility === "public").map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name} — {o.summary}
+              </option>
+            ))}
+          </optgroup>
+        </select>
+      </label>
+
+      <div className="rounded-xl border border-slate-700/60 bg-surface px-4 py-3 text-sm">
+        <p className="text-white font-medium">{selected.name}</p>
+        <p className="text-slate-500 text-xs mt-0.5">{selected.summary}</p>
       </div>
 
-      <div>
-        <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">
-          Proposal plans (admin only)
-        </p>
-        <div className="space-y-2">
-          {adminProposalOffers().map((offer) => (
-            <div
-              key={offer.id}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-700/50 px-3 py-2.5"
-            >
-              <div>
-                <p className="text-sm text-white">{offer.name}</p>
-                <p className="text-xs text-slate-500">{offer.summary}</p>
-              </div>
-              <CopyPaymentLink offer={offer} compact />
-            </div>
-          ))}
-        </div>
+      <div className="space-y-3">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={sendSms}
+            onChange={(e) => setSendSms(e.target.checked)}
+            className="mt-1"
+          />
+          <span>
+            <span className="text-sm text-white">Text message</span>
+            <span className="block text-xs text-slate-500">
+              {clientPhone
+                ? `To ${clientPhone}`
+                : "No phone on file — add one on the client first"}
+            </span>
+          </span>
+        </label>
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={sendEmail}
+            onChange={(e) => setSendEmail(e.target.checked)}
+            className="mt-1"
+          />
+          <span>
+            <span className="text-sm text-white">Email</span>
+            <span className="block text-xs text-slate-500">
+              {clientEmail
+                ? `To ${clientEmail}`
+                : "No email on file — add one on the client first"}
+            </span>
+          </span>
+        </label>
+      </div>
+
+      <button
+        type="button"
+        onClick={handleSend}
+        disabled={loading || (!sendSms && !sendEmail)}
+        className="w-full rounded-xl bg-brand-500 py-3 text-sm font-semibold text-white hover:bg-brand-400 disabled:opacity-50"
+      >
+        {loading ? "Sending…" : "Send checkout link"}
+      </button>
+
+      {error && <p className="text-sm text-red-400">{error}</p>}
+      {message && <p className="text-sm text-emerald-400">{message}</p>}
+
+      <div className="border-t border-slate-700/60 pt-4">
+        <p className="text-xs text-slate-500 mb-2">Or copy manually</p>
+        <CopyPaymentLink offer={selected} compact />
       </div>
     </div>
   );

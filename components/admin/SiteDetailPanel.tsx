@@ -23,11 +23,15 @@ export default function SiteDetailPanel({
   businessName,
   clientId,
   hasPassword,
+  clientPhone,
+  clientEmail,
 }: {
   site: SitePublic;
   businessName: string;
   clientId: string;
   hasPassword: boolean;
+  clientPhone: string | null;
+  clientEmail: string | null;
 }) {
   const router = useRouter();
   const [editing, setEditing] = useState(false);
@@ -244,7 +248,11 @@ export default function SiteDetailPanel({
             )}
           </div>
 
-          <SendPaymentOffers />
+          <SendPaymentOffers
+            siteId={site.id}
+            clientPhone={clientPhone}
+            clientEmail={clientEmail}
+          />
         </>
       )}
     </div>
