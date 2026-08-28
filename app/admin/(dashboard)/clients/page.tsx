@@ -1,78 +1,82 @@
 import Link from "next/link";
 import StatusBadge from "@/components/admin/StatusBadge";
-import { listClients } from "@/lib/admin/queries";
+import { listClientsWithSites } from "@/lib/admin/queries";
 import { formatDate } from "@/lib/admin/types";
 
 export default async function ClientsPage() {
-  const clients = await listClients();
+  const clients = await listClientsWithSites();
 
   return (
     <>
       <header className="border-b border-slate-800 px-6 py-5 lg:px-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Clients</h1>
-          <p className="text-slate-500 text-sm mt-1">{clients.length} total</p>
+          <p className="text-slate-500 text-sm mt-1">
+            Businesses you work with — each client can have one or more websites
+          </p>
         </div>
         <Link
           href="/admin/clients/new"
           className="inline-flex items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400"
         >
-          + Add client
+          + Add client & website
         </Link>
       </header>
 
       <div className="p-6 lg:p-8">
         {clients.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-700 p-12 text-center">
-            <p className="text-slate-400 mb-4">No clients yet.</p>
-            <Link href="/admin/clients/new" className="text-brand-400 hover:text-brand-300">
-              Add your first client →
+          <div className="rounded-2xl border border-dashed border-slate-700 p-12 text-center max-w-lg mx-auto">
+            <p className="text-white font-medium mb-2">No clients yet</p>
+            <p className="text-slate-500 text-sm mb-6">
+              Add a business and their website in one step — contact info, domain, and login details.
+            </p>
+            <Link
+              href="/admin/clients/new"
+              className="inline-flex rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-400"
+            >
+              Add first client
             </Link>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-700/60">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-700 bg-surface-elevated text-left text-slate-500">
-                  <th className="px-4 py-3 font-medium">Business</th>
-                  <th className="px-4 py-3 font-medium hidden sm:table-cell">Contact</th>
-                  <th className="px-4 py-3 font-medium hidden md:table-cell">Email</th>
-                  <th className="px-4 py-3 font-medium">Status</th>
-                  <th className="px-4 py-3 font-medium hidden lg:table-cell">Updated</th>
-                  <th className="px-4 py-3 font-medium" />
-                </tr>
-              </thead>
-              <tbody>
-                {clients.map((c) => (
-                  <tr
-                    key={c.id}
-                    className="border-b border-slate-800/80 hover:bg-surface-elevated/50"
-                  >
-                    <td className="px-4 py-3 font-medium text-white">{c.business_name}</td>
-                    <td className="px-4 py-3 text-slate-400 hidden sm:table-cell">
-                      {c.contact_name || "—"}
-                    </td>
-                    <td className="px-4 py-3 text-slate-400 hidden md:table-cell">
-                      {c.email || "—"}
-                    </td>
-                    <td className="px-4 py-3">
-                      <StatusBadge status={c.status} />
-                    </td>
-                    <td className="px-4 py-3 text-slate-500 hidden lg:table-cell">
-                      {formatDate(c.updated_at)}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <Link
-                        href={`/admin/clients/${c.id}`}
-                        className="text-brand-400 hover:text-brand-300"
-                      >
-                        View
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {clients.map((c) => (
+              <Link
+                key={c.id}
+                href={`/admin/clients/${c.id}`}
+                className="group rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 hover:border-brand-500/40 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <h2 className="font-semibold text-white group-hover:text-brand-400 transition-colors">
+                    {c.business_name}
+                  </h2>
+                  <StatusBadge status={c.status} />
+                </div>
+                {c.contact_name && (
+                  <p className="text-sm text-slate-400 mb-1">{c.contact_name}</p>
+                )}
+                {c.email && (
+                  <p className="text-xs text-slate-500 truncate">{c.email}</p>
+                )}
+                <div className="mt-4 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs">
+                  {c.site_count > 0 ? (
+                    <span className="text-slate-400">
+                      {c.site_count} website{c.site_count !== 1 ? "s" : ""}
+                      {c.primary_domain && (
+                        <span className="text-brand-400/80"> · {c.primary_domain}</span>
+                      )}
+                    </span>
+                  ) : (
+                    <span className="text-amber-400/90 font-medium">No website yet</span>
+                  )}
+                  {c.primary_stage && (
+                    <StatusBadge status={c.primary_stage} />
+                  )}
+                </div>
+                <p className="text-[11px] text-slate-600 mt-2">
+                  Updated {formatDate(c.updated_at)}
+                </p>
+              </Link>
+            ))}
           </div>
         )}
       </div>

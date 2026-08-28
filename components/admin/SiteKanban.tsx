@@ -79,10 +79,10 @@ export default function SiteKanban({ sites }: { sites: SiteWithClient[] }) {
                     ))}
                   </select>
                   <Link
-                    href={`/admin/clients/${site.client_id}`}
-                    className="block text-xs text-brand-400 hover:text-brand-300"
+                    href={`/admin/sites/${site.id}`}
+                    className="block text-xs text-brand-400 hover:text-brand-300 font-medium"
                   >
-                    View client →
+                    Open website →
                   </Link>
                 </article>
               ))}

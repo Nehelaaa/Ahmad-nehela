@@ -45,6 +45,12 @@ CREATE TABLE IF NOT EXISTS sites (
   care_status TEXT NOT NULL DEFAULT 'none'
     CHECK (care_status IN ('none', 'sent', 'active', 'past_due', 'canceled')),
   tech_stack TEXT,
+  platform TEXT DEFAULT 'wordpress',
+  admin_url TEXT,
+  login_username TEXT,
+  login_password_enc TEXT,
+  hosting_provider TEXT,
+  site_notes TEXT,
   launch_date DATE,
   checklist JSONB NOT NULL DEFAULT '{}',
   stripe_invoice_id TEXT,

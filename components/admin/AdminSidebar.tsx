@@ -6,8 +6,8 @@ import LogoutButton from "./LogoutButton";
 
 const nav = [
   { href: "/admin", label: "Overview", icon: "◉" },
-  { href: "/admin/clients", label: "Clients", icon: "◎" },
-  { href: "/admin/sites", label: "Sites", icon: "◫" },
+  { href: "/admin/clients", label: "Clients", icon: "◎", hint: "Businesses" },
+  { href: "/admin/sites", label: "Websites", icon: "◫", hint: "Projects" },
   { href: "/admin/billing", label: "Billing", icon: "◈" },
   { href: "/admin/insights", label: "Insights", icon: "◔" },
 ];
@@ -42,7 +42,14 @@ export default function AdminSidebar() {
               <span className="text-xs opacity-70" aria-hidden>
                 {item.icon}
               </span>
-              {item.label}
+              <span>
+                {item.label}
+                {"hint" in item && item.hint && (
+                  <span className="block text-[10px] font-normal text-slate-600">
+                    {item.hint}
+                  </span>
+                )}
+              </span>
             </Link>
           );
         })}

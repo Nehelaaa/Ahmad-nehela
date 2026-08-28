@@ -14,20 +14,26 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    if (!body.client_id || !body.name?.trim()) {
+    if (!body.client_id || !(body.name?.trim() || body.domain?.trim())) {
       return NextResponse.json(
-        { error: "Client and site name are required" },
+        { error: "Client and domain are required" },
         { status: 400 }
       );
     }
-    const quoted = body.project_price_quoted_cents;
+    const quoted = body.project_price_quoted_cents ?? body.project_price_cents;
     const site = await createSite({
       client_id: body.client_id,
-      name: body.name.trim(),
+      name: body.name?.trim() || body.domain?.trim(),
       domain: body.domain?.trim(),
       staging_url: body.staging_url?.trim(),
       stage: body.stage,
       package: body.package,
+      platform: body.platform,
+      admin_url: body.admin_url?.trim(),
+      login_username: body.login_username?.trim(),
+      login_password: body.login_password,
+      hosting_provider: body.hosting_provider?.trim(),
+      site_notes: body.site_notes?.trim(),
       project_price_quoted_cents:
         quoted != null ? Math.round(Number(quoted)) : undefined,
       project_price_final_cents:

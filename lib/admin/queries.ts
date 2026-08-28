@@ -1,8 +1,10 @@
 import { getSql } from "@/lib/db";
+import { decryptPassword, encryptPassword } from "@/lib/credentials";
 import type {
   ActivityItem,
   CarePlan,
   Client,
+  ClientWithSites,
   DashboardStats,
   Site,
   SiteStage,
@@ -10,12 +12,23 @@ import type {
 } from "@/lib/admin/types";
 
 export async function listClients(): Promise<Client[]> {
+  const rows = await listClientsWithSites();
+  return rows;
+}
+
+export async function listClientsWithSites(): Promise<ClientWithSites[]> {
   const sql = getSql();
   const rows = await sql`
-    SELECT * FROM clients
-    ORDER BY updated_at DESC
+    SELECT c.*,
+      COUNT(s.id)::int AS site_count,
+      (SELECT domain FROM sites WHERE client_id = c.id ORDER BY updated_at DESC LIMIT 1) AS primary_domain,
+      (SELECT stage FROM sites WHERE client_id = c.id ORDER BY updated_at DESC LIMIT 1) AS primary_stage
+    FROM clients c
+    LEFT JOIN sites s ON s.client_id = c.id
+    GROUP BY c.id
+    ORDER BY c.updated_at DESC
   `;
-  return rows as Client[];
+  return rows as ClientWithSites[];
 }
 
 export async function getClient(id: string): Promise<Client | null> {
@@ -125,6 +138,41 @@ export async function listSitesForClient(clientId: string): Promise<Site[]> {
   return rows as Site[];
 }
 
+export async function createClientWithSite(
+  clientData: {
+    business_name: string;
+    contact_name?: string;
+    email?: string;
+    phone?: string;
+    notes?: string;
+    source?: string;
+    status?: string;
+  },
+  siteData: {
+    name: string;
+    domain?: string;
+    staging_url?: string;
+    platform?: string;
+    admin_url?: string;
+    login_username?: string;
+    login_password?: string;
+    hosting_provider?: string;
+    site_notes?: string;
+    stage?: SiteStage;
+    package?: string;
+    project_price_cents?: number;
+  }
+): Promise<{ client: Client; site: Site }> {
+  const client = await createClient(clientData);
+  const site = await createSite({
+    client_id: client.id,
+    ...siteData,
+    project_price_quoted_cents: siteData.project_price_cents,
+    project_price_final_cents: siteData.project_price_cents,
+  });
+  return { client, site };
+}
+
 export async function createSite(data: {
   client_id: string;
   name: string;
@@ -132,14 +180,25 @@ export async function createSite(data: {
   staging_url?: string;
   stage?: SiteStage;
   package?: string;
+  platform?: string;
+  admin_url?: string;
+  login_username?: string;
+  login_password?: string;
+  hosting_provider?: string;
+  site_notes?: string;
   project_price_quoted_cents?: number;
   project_price_final_cents?: number;
   tech_stack?: string;
 }): Promise<Site> {
   const sql = getSql();
+  const passwordEnc = data.login_password
+    ? encryptPassword(data.login_password)
+    : null;
   const rows = await sql`
     INSERT INTO sites (
       client_id, name, domain, staging_url, stage, package,
+      platform, admin_url, login_username, login_password_enc,
+      hosting_provider, site_notes,
       project_price_quoted_cents, project_price_final_cents, tech_stack
     ) VALUES (
       ${data.client_id},
@@ -148,6 +207,12 @@ export async function createSite(data: {
       ${data.staging_url ?? null},
       ${data.stage ?? "lead"},
       ${data.package ?? "launch"},
+      ${data.platform ?? "wordpress"},
+      ${data.admin_url ?? null},
+      ${data.login_username ?? null},
+      ${passwordEnc},
+      ${data.hosting_provider ?? null},
+      ${data.site_notes ?? null},
       ${data.project_price_quoted_cents ?? null},
       ${data.project_price_final_cents ?? null},
       ${data.tech_stack ?? null}
@@ -159,19 +224,49 @@ export async function createSite(data: {
     client_id: site.client_id,
     site_id: site.id,
     type: "site_created",
-    description: `Added site ${site.name}`,
+    description: `Added website ${site.domain || site.name}`,
   });
   return site;
 }
 
+export async function getSiteCredentials(siteId: string): Promise<{
+  login_username: string | null;
+  login_password: string;
+} | null> {
+  const sql = getSql();
+  const rows = await sql`
+    SELECT login_username, login_password_enc
+    FROM sites WHERE id = ${siteId} LIMIT 1
+  `;
+  const row = rows[0] as
+    | { login_username: string | null; login_password_enc: string | null }
+    | undefined;
+  if (!row) return null;
+  return {
+    login_username: row.login_username,
+    login_password: row.login_password_enc
+      ? decryptPassword(row.login_password_enc)
+      : "",
+  };
+}
+
 export async function updateSite(
   id: string,
-  data: Partial<Omit<Site, "id" | "created_at" | "updated_at">>
+  data: Partial<Omit<Site, "id" | "created_at" | "updated_at">> & {
+    login_password?: string;
+  }
 ): Promise<Site | null> {
   const sql = getSql();
   const existingRows = await sql`SELECT * FROM sites WHERE id = ${id} LIMIT 1`;
   const existing = existingRows[0] as Site | undefined;
   if (!existing) return null;
+
+  const passwordEnc =
+    data.login_password !== undefined
+      ? data.login_password
+        ? encryptPassword(data.login_password)
+        : null
+      : existing.login_password_enc;
 
   const rows = await sql`
     UPDATE sites SET
@@ -180,6 +275,12 @@ export async function updateSite(
       staging_url = ${data.staging_url !== undefined ? data.staging_url : existing.staging_url},
       stage = ${data.stage ?? existing.stage},
       package = ${data.package ?? existing.package},
+      platform = ${data.platform !== undefined ? data.platform : existing.platform},
+      admin_url = ${data.admin_url !== undefined ? data.admin_url : existing.admin_url},
+      login_username = ${data.login_username !== undefined ? data.login_username : existing.login_username},
+      login_password_enc = ${passwordEnc},
+      hosting_provider = ${data.hosting_provider !== undefined ? data.hosting_provider : existing.hosting_provider},
+      site_notes = ${data.site_notes !== undefined ? data.site_notes : existing.site_notes},
       project_price_quoted_cents = ${data.project_price_quoted_cents !== undefined ? data.project_price_quoted_cents : existing.project_price_quoted_cents},
       project_price_final_cents = ${data.project_price_final_cents !== undefined ? data.project_price_final_cents : existing.project_price_final_cents},
       project_payment_status = ${data.project_payment_status ?? existing.project_payment_status},

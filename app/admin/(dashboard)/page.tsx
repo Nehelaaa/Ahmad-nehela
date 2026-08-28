@@ -59,7 +59,7 @@ export default async function AdminOverviewPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-white">Action queue</h2>
               <Link href="/admin/sites" className="text-xs text-brand-400 hover:text-brand-300">
-                All sites →
+                All websites →
               </Link>
             </div>
             {actions.length === 0 ? (
@@ -123,13 +123,13 @@ export default async function AdminOverviewPage() {
             href="/admin/clients/new"
             className="inline-flex items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400"
           >
-            + Add client
+            + Add client & website
           </Link>
           <Link
             href="/admin/sites"
             className="inline-flex items-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-white hover:border-brand-500"
           >
-            View site pipeline
+            View website pipeline
           </Link>
         </div>
       </div>

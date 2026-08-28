@@ -32,6 +32,12 @@ export interface Site {
   staging_url: string | null;
   stage: SiteStage;
   package: SitePackage;
+  platform: string | null;
+  admin_url: string | null;
+  login_username: string | null;
+  login_password_enc: string | null;
+  hosting_provider: string | null;
+  site_notes: string | null;
   project_price_quoted_cents: number | null;
   project_price_final_cents: number | null;
   project_payment_status: ProjectPaymentStatus;
@@ -45,6 +51,15 @@ export interface Site {
   stripe_subscription_id: string | null;
   created_at: string;
   updated_at: string;
+}
+
+/** Site data safe to pass to client components (no encrypted password blob). */
+export type SitePublic = Omit<Site, "login_password_enc">;
+
+export interface ClientWithSites extends Client {
+  site_count: number;
+  primary_domain: string | null;
+  primary_stage: SiteStage | null;
 }
 
 export interface SiteWithClient extends Site {
