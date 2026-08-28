@@ -5,7 +5,7 @@ import { PLATFORMS } from "@/lib/admin/platforms";
 import { SITE_STAGES } from "@/lib/admin/types";
 
 const inputClass =
-  "w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20";
+  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-paper placeholder-paper/30 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/20";
 
 export default function AddWebsiteForm({
   clientId,
@@ -69,7 +69,7 @@ export default function AddWebsiteForm({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="w-full rounded-xl border-2 border-dashed border-brand-500/40 bg-brand-500/5 py-4 text-sm font-medium text-brand-400 hover:bg-brand-500/10"
+        className="w-full rounded-xl border-2 border-dashed border-gold-500/40 bg-gold-500/5 py-4 text-sm font-medium text-gold-400 hover:bg-gold-500/10"
       >
         {existingCount > 0 ? "+ Add another website" : "+ Add website for this client"}
       </button>
@@ -79,23 +79,23 @@ export default function AddWebsiteForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 space-y-4"
+      className="rounded-2xl border border-line bg-surface-elevated p-5 space-y-4"
     >
       <div>
-        <h3 className="font-semibold text-white">New website</h3>
-        <p className="text-xs text-slate-500 mt-1">
-          Already live? Set status to <strong className="text-slate-400">Live</strong> below.
+        <h3 className="font-semibold text-paper">New website</h3>
+        <p className="text-xs text-paper/40 mt-1">
+          Already live? Set status to <strong className="text-paper/50">Live</strong> below.
         </p>
       </div>
 
       <label className="block">
-        <span className="text-sm text-slate-400 mb-1 block">Live domain *</span>
+        <span className="text-sm text-paper/50 mb-1 block">Live domain *</span>
         <input name="domain" required className={inputClass} placeholder="domain.com" />
       </label>
 
       <div className="grid sm:grid-cols-2 gap-3">
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Platform</span>
+          <span className="text-sm text-paper/50 mb-1 block">Platform</span>
           <select name="platform" defaultValue="nextjs" className={inputClass}>
             {PLATFORMS.map((p) => (
               <option key={p.id} value={p.id}>
@@ -105,7 +105,7 @@ export default function AddWebsiteForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Status</span>
+          <span className="text-sm text-paper/50 mb-1 block">Status</span>
           <select name="stage" defaultValue="live" className={inputClass}>
             {SITE_STAGES.map((s) => (
               <option key={s.id} value={s.id}>
@@ -117,17 +117,17 @@ export default function AddWebsiteForm({
       </div>
 
       <label className="block">
-        <span className="text-sm text-slate-400 mb-1 block">Admin / login URL</span>
+        <span className="text-sm text-paper/50 mb-1 block">Admin / login URL</span>
         <input name="admin_url" className={inputClass} placeholder="https://site.com/wp-admin" />
       </label>
 
       <div className="grid grid-cols-2 gap-3">
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Username</span>
+          <span className="text-sm text-paper/50 mb-1 block">Username</span>
           <input name="login_username" autoComplete="off" className={inputClass} />
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Password</span>
+          <span className="text-sm text-paper/50 mb-1 block">Password</span>
           <input
             name="login_password"
             type="password"
@@ -151,7 +151,7 @@ export default function AddWebsiteForm({
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 rounded-lg bg-brand-500 py-2.5 text-sm font-semibold text-white hover:bg-brand-400 disabled:opacity-60"
+          className="flex-1 rounded-lg bg-gold-500 py-2.5 text-sm font-semibold text-paper hover:bg-gold-400 disabled:opacity-60"
         >
           {loading ? "Saving…" : "Save website"}
         </button>
@@ -161,7 +161,7 @@ export default function AddWebsiteForm({
             setOpen(false);
             setError("");
           }}
-          className="px-4 rounded-lg border border-slate-600 text-sm text-slate-400 hover:text-white"
+          className="px-4 rounded-lg border border-line text-sm text-paper/50 hover:text-paper"
         >
           Cancel
         </button>

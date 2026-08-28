@@ -23,9 +23,9 @@ export default async function InsightsPage() {
 
   return (
     <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8">
-        <h1 className="font-display text-2xl font-bold text-white">Insights</h1>
-        <p className="text-slate-500 text-sm mt-1">Business health at a glance</p>
+      <header className="border-b border-line px-6 py-5 lg:px-8">
+        <h1 className="font-display text-2xl font-bold text-paper">Insights</h1>
+        <p className="text-paper/40 text-sm mt-1">Business health at a glance</p>
       </header>
 
       <div className="p-6 lg:p-8 space-y-8">
@@ -44,21 +44,21 @@ export default async function InsightsPage() {
           />
         </div>
 
-        <section className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-          <h2 className="font-semibold text-white mb-4">Sites by package</h2>
+        <section className="rounded-xl border border-line bg-surface-elevated p-5">
+          <h2 className="font-semibold text-paper mb-4">Sites by package</h2>
           <ul className="space-y-2">
             {Object.entries(PACKAGE_LABELS).map(([key, label]) => (
               <li key={key} className="flex justify-between text-sm">
-                <span className="text-slate-400">{label}</span>
-                <span className="text-white tabular-nums">{packageCounts[key] ?? 0}</span>
+                <span className="text-paper/50">{label}</span>
+                <span className="text-paper tabular-nums">{packageCounts[key] ?? 0}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-          <h2 className="font-semibold text-white mb-2">Pipeline</h2>
-          <p className="text-sm text-slate-400">
+        <section className="rounded-xl border border-line bg-surface-elevated p-5">
+          <h2 className="font-semibold text-paper mb-2">Pipeline</h2>
+          <p className="text-sm text-paper/50">
             {stats.leadsInPipeline} leads · {stats.inBuild} in build · {stats.liveSites} live
           </p>
         </section>

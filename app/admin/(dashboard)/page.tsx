@@ -20,9 +20,9 @@ export default async function AdminOverviewPage() {
 
   return (
     <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8">
-        <h1 className="font-display text-2xl font-bold text-white">Overview</h1>
-        <p className="text-slate-500 text-sm mt-1">
+      <header className="border-b border-line px-6 py-5 lg:px-8">
+        <h1 className="font-display text-2xl font-bold text-paper">Overview</h1>
+        <p className="text-paper/40 text-sm mt-1">
           Your business at a glance — clients, sites, and billing
         </p>
       </header>
@@ -55,15 +55,15 @@ export default async function AdminOverviewPage() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <section className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
+          <section className="rounded-xl border border-line bg-surface-elevated p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-semibold text-white">Action queue</h2>
-              <Link href="/admin/sites" className="text-xs text-brand-400 hover:text-brand-300">
+              <h2 className="font-semibold text-paper">Action queue</h2>
+              <Link href="/admin/sites" className="text-xs text-gold-400 hover:text-gold-300">
                 All websites →
               </Link>
             </div>
             {actions.length === 0 ? (
-              <p className="text-sm text-slate-500 py-6 text-center">
+              <p className="text-sm text-paper/40 py-6 text-center">
                 All caught up — no urgent items.
               </p>
             ) : (
@@ -71,11 +71,11 @@ export default async function AdminOverviewPage() {
                 {actions.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-start justify-between gap-3 rounded-lg border border-slate-700/50 bg-surface p-3"
+                    className="flex items-start justify-between gap-3 rounded-lg border border-line bg-surface p-3"
                   >
                     <div>
-                      <p className="text-sm font-medium text-white">{item.name}</p>
-                      <p className="text-xs text-slate-500">{item.business_name}</p>
+                      <p className="text-sm font-medium text-paper">{item.name}</p>
+                      <p className="text-xs text-paper/40">{item.business_name}</p>
                       <div className="flex gap-2 mt-2">
                         <StatusBadge status={item.stage} />
                         <StatusBadge status={item.project_payment_status} />
@@ -86,7 +86,7 @@ export default async function AdminOverviewPage() {
                     </div>
                     <Link
                       href={`/admin/clients/${item.client_id}`}
-                      className="text-xs text-brand-400 shrink-0"
+                      className="text-xs text-gold-400 shrink-0"
                     >
                       Open
                     </Link>
@@ -96,18 +96,18 @@ export default async function AdminOverviewPage() {
             )}
           </section>
 
-          <section className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-            <h2 className="font-semibold text-white mb-4">Recent activity</h2>
+          <section className="rounded-xl border border-line bg-surface-elevated p-5">
+            <h2 className="font-semibold text-paper mb-4">Recent activity</h2>
             {activity.length === 0 ? (
-              <p className="text-sm text-slate-500 py-6 text-center">
+              <p className="text-sm text-paper/40 py-6 text-center">
                 Activity will appear as you add clients and sites.
               </p>
             ) : (
               <ul className="space-y-3">
                 {activity.map((a) => (
-                  <li key={a.id} className="text-sm border-b border-slate-800 pb-3 last:border-0">
-                    <p className="text-slate-300">{a.description}</p>
-                    <p className="text-xs text-slate-500 mt-1">
+                  <li key={a.id} className="text-sm border-b border-line pb-3 last:border-0">
+                    <p className="text-paper/70">{a.description}</p>
+                    <p className="text-xs text-paper/40 mt-1">
                       {formatDate(a.created_at)}
                       {a.business_name ? ` · ${a.business_name}` : ""}
                     </p>
@@ -121,13 +121,13 @@ export default async function AdminOverviewPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/clients/new"
-            className="inline-flex items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400"
+            className="inline-flex items-center rounded-full bg-gold-500 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-gold-400"
           >
             + Add client & website
           </Link>
           <Link
             href="/admin/sites"
-            className="inline-flex items-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-white hover:border-brand-500"
+            className="inline-flex items-center rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-paper hover:border-gold-500"
           >
             View websites
           </Link>

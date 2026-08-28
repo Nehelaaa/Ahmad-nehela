@@ -101,7 +101,7 @@ export interface ActivityItem {
 }
 
 export const SITE_STAGES: { id: SiteStage; label: string; color: string }[] = [
-  { id: "lead", label: "Lead", color: "bg-slate-600" },
+  { id: "lead", label: "Lead", color: "bg-paper/40" },
   { id: "building", label: "Building", color: "bg-blue-600" },
   { id: "review", label: "Review", color: "bg-violet-600" },
   { id: "live", label: "Live", color: "bg-emerald-600" },

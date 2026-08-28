@@ -12,15 +12,13 @@ export default function AdminBreadcrumb({ items }: { items: BreadcrumbItem[] }) 
         const isLast = i === items.length - 1;
         return (
           <span key={`${item.label}-${i}`} className="flex items-center gap-1.5">
-            {i > 0 && <span className="text-slate-600">/</span>}
+            {i > 0 && <span className="text-paper/25">/</span>}
             {item.href && !isLast ? (
-              <Link href={item.href} className="text-slate-500 hover:text-brand-400">
+              <Link href={item.href} className="text-paper/40 hover:text-gold-300 transition-colors">
                 {item.label}
               </Link>
             ) : (
-              <span className={isLast ? "text-slate-300" : "text-slate-500"}>
-                {item.label}
-              </span>
+              <span className={isLast ? "text-paper/70" : "text-paper/40"}>{item.label}</span>
             )}
           </span>
         );

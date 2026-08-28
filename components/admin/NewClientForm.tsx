@@ -16,13 +16,13 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-700/60 bg-surface-elevated overflow-hidden">
-      <div className="px-5 py-4 border-b border-slate-700/60 bg-surface/50">
-        <p className="text-brand-400 text-xs font-semibold uppercase tracking-wide mb-1">
+    <section className="rounded-2xl border border-line bg-surface-elevated overflow-hidden">
+      <div className="px-5 py-4 border-b border-line bg-surface/50">
+        <p className="text-gold-400 text-xs font-semibold uppercase tracking-wide mb-1">
           Step {step}
         </p>
-        <h2 className="font-display text-lg font-bold text-white">{title}</h2>
-        <p className="text-slate-500 text-sm mt-0.5">{subtitle}</p>
+        <h2 className="font-display text-lg font-bold text-paper">{title}</h2>
+        <p className="text-paper/40 text-sm mt-0.5">{subtitle}</p>
       </div>
       <div className="p-5 space-y-4">{children}</div>
     </section>
@@ -30,7 +30,7 @@ function Section({
 }
 
 const inputClass =
-  "w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20";
+  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-paper placeholder-paper/30 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/20";
 
 export default function NewClientForm() {
   const [loading, setLoading] = useState(false);
@@ -98,30 +98,30 @@ export default function NewClientForm() {
         subtitle="Who you're working with — contact & notes"
       >
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Business name *</span>
+          <span className="text-sm text-paper/50 mb-1 block">Business name *</span>
           <input name="business_name" required className={inputClass} />
         </label>
         <div className="grid sm:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Contact name</span>
+            <span className="text-sm text-paper/50 mb-1 block">Contact name</span>
             <input name="contact_name" className={inputClass} />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Phone</span>
+            <span className="text-sm text-paper/50 mb-1 block">Phone</span>
             <input name="phone" type="tel" className={inputClass} />
           </label>
         </div>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Email</span>
+          <span className="text-sm text-paper/50 mb-1 block">Email</span>
           <input name="email" type="email" className={inputClass} />
         </label>
         <div className="grid sm:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Lead source</span>
+            <span className="text-sm text-paper/50 mb-1 block">Lead source</span>
             <input name="source" placeholder="Referral, Google…" className={inputClass} />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Client status</span>
+            <span className="text-sm text-paper/50 mb-1 block">Client status</span>
             <select name="status" defaultValue="lead" className={inputClass}>
               <option value="lead">Lead</option>
               <option value="active">Active</option>
@@ -130,7 +130,7 @@ export default function NewClientForm() {
           </label>
         </div>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Client notes</span>
+          <span className="text-sm text-paper/50 mb-1 block">Client notes</span>
           <textarea name="client_notes" rows={2} className={`${inputClass} resize-none`} />
         </label>
       </Section>
@@ -141,7 +141,7 @@ export default function NewClientForm() {
         subtitle="Project details, URLs, and login info you need to manage the site"
       >
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Website name</span>
+          <span className="text-sm text-paper/50 mb-1 block">Website name</span>
           <input
             name="site_name"
             placeholder="e.g. Main site, Shop site…"
@@ -150,7 +150,7 @@ export default function NewClientForm() {
         </label>
         <div className="grid sm:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Live domain *</span>
+            <span className="text-sm text-paper/50 mb-1 block">Live domain *</span>
             <input
               name="domain"
               required
@@ -159,7 +159,7 @@ export default function NewClientForm() {
             />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Staging URL</span>
+            <span className="text-sm text-paper/50 mb-1 block">Staging URL</span>
             <input
               name="staging_url"
               placeholder="staging.netlify.app…"
@@ -169,7 +169,7 @@ export default function NewClientForm() {
         </div>
         <div className="grid sm:grid-cols-3 gap-4">
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Platform</span>
+            <span className="text-sm text-paper/50 mb-1 block">Platform</span>
             <select name="platform" defaultValue="wordpress" className={inputClass}>
               {PLATFORMS.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -179,7 +179,7 @@ export default function NewClientForm() {
             </select>
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Package</span>
+            <span className="text-sm text-paper/50 mb-1 block">Package</span>
             <select name="package" defaultValue="launch" className={inputClass}>
               <option value="launch">Launch</option>
               <option value="grow">Grow</option>
@@ -188,7 +188,7 @@ export default function NewClientForm() {
             </select>
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Pipeline stage</span>
+            <span className="text-sm text-paper/50 mb-1 block">Pipeline stage</span>
             <select name="stage" defaultValue="live" className={inputClass}>
               <option value="lead">Lead — not started yet</option>
               <option value="building">Building</option>
@@ -198,7 +198,7 @@ export default function NewClientForm() {
           </label>
         </div>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Project price ($)</span>
+          <span className="text-sm text-paper/50 mb-1 block">Project price ($)</span>
           <input
             name="project_price"
             type="number"
@@ -209,13 +209,13 @@ export default function NewClientForm() {
           />
         </label>
 
-        <div className="rounded-xl border border-slate-700/80 bg-surface p-4 space-y-4">
-          <p className="text-sm font-medium text-white">Admin login</p>
-          <p className="text-xs text-slate-500 -mt-2">
+        <div className="rounded-xl border border-line bg-surface p-4 space-y-4">
+          <p className="text-sm font-medium text-paper">Admin login</p>
+          <p className="text-xs text-paper/40 -mt-2">
             Stored encrypted — only visible to you in the dashboard
           </p>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Admin / login URL</span>
+            <span className="text-sm text-paper/50 mb-1 block">Admin / login URL</span>
             <input
               name="admin_url"
               placeholder="https://site.com/wp-admin"
@@ -224,11 +224,11 @@ export default function NewClientForm() {
           </label>
           <div className="grid sm:grid-cols-2 gap-4">
             <label className="block">
-              <span className="text-sm text-slate-400 mb-1 block">Username</span>
+              <span className="text-sm text-paper/50 mb-1 block">Username</span>
               <input name="login_username" autoComplete="off" className={inputClass} />
             </label>
             <label className="block">
-              <span className="text-sm text-slate-400 mb-1 block">Password</span>
+              <span className="text-sm text-paper/50 mb-1 block">Password</span>
               <input
                 name="login_password"
                 type="password"
@@ -238,7 +238,7 @@ export default function NewClientForm() {
             </label>
           </div>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Hosting provider</span>
+            <span className="text-sm text-paper/50 mb-1 block">Hosting provider</span>
             <input
               name="hosting_provider"
               placeholder="Netlify, GoDaddy, WP Engine…"
@@ -247,7 +247,7 @@ export default function NewClientForm() {
           </label>
         </div>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Site notes</span>
+          <span className="text-sm text-paper/50 mb-1 block">Site notes</span>
           <textarea
             name="site_notes"
             rows={2}
@@ -263,13 +263,13 @@ export default function NewClientForm() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-full bg-brand-500 px-8 py-3 font-semibold text-white hover:bg-brand-400 disabled:opacity-60"
+          className="rounded-full bg-gold-500 px-8 py-3 font-semibold text-paper hover:bg-gold-400 disabled:opacity-60"
         >
           {loading ? "Saving…" : "Save client & website"}
         </button>
         <Link
           href="/admin/clients"
-          className="rounded-full border border-slate-600 px-6 py-3 text-sm text-slate-400 hover:text-white"
+          className="rounded-full border border-line px-6 py-3 text-sm text-paper/50 hover:text-paper"
         >
           Cancel
         </Link>

@@ -9,21 +9,21 @@ export const metadata: Metadata = {
 
 export default function SmsTermsPage() {
   return (
-    <main className="min-h-screen bg-surface text-slate-300">
+    <main className="min-h-screen bg-surface text-paper/70">
       <div className="max-w-2xl mx-auto px-6 py-16 sm:py-20">
-        <Link href="/" className="text-sm text-brand-400 hover:text-brand-300">
+        <Link href="/" className="text-sm text-gold-400 hover:text-gold-300">
           ← {site.name}
         </Link>
-        <h1 className="font-display text-3xl font-bold text-white mt-6 mb-2">
+        <h1 className="font-display text-3xl  text-paper mt-6 mb-2">
           SMS Terms &amp; Conditions
         </h1>
-        <p className="text-sm text-slate-500 mb-10">
+        <p className="text-sm text-paper/40 mb-10">
           Program: {site.name} · Last updated: August 28, 2026
         </p>
 
         <div className="space-y-6 text-sm leading-relaxed">
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">Program description</h2>
+            <h2 className="text-paper font-semibold text-base mb-2">Program description</h2>
             <p>
               This SMS program sends transactional messages about website projects,
               proposals, and payment / checkout links for clients of {site.name}.
@@ -31,7 +31,7 @@ export default function SmsTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">Message frequency</h2>
+            <h2 className="text-paper font-semibold text-base mb-2">Message frequency</h2>
             <p>
               Message frequency varies based on your project (typically a small
               number of texts when a payment link or update is needed).
@@ -39,21 +39,21 @@ export default function SmsTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">Rates</h2>
+            <h2 className="text-paper font-semibold text-base mb-2">Rates</h2>
             <p>
               Message and data rates may apply. Check your carrier plan for details.
             </p>
           </section>
 
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">
+            <h2 className="text-paper font-semibold text-base mb-2">
               Opt out &amp; help
             </h2>
             <p>
-              Reply <strong className="text-white">STOP</strong> to cancel. Reply{" "}
-              <strong className="text-white">HELP</strong> for help. You may also
+              Reply <strong className="text-paper">STOP</strong> to cancel. Reply{" "}
+              <strong className="text-paper">HELP</strong> for help. You may also
               email{" "}
-              <a className="text-brand-400" href={`mailto:${site.email}`}>
+              <a className="text-gold-400" href={`mailto:${site.email}`}>
                 {site.email}
               </a>{" "}
               or call {site.phone}.
@@ -61,7 +61,7 @@ export default function SmsTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">Consent</h2>
+            <h2 className="text-paper font-semibold text-base mb-2">Consent</h2>
             <p>
               By providing your phone number when requesting a quote, proposal, or
               payment link (on our website, by phone, or in person), you consent to
@@ -71,10 +71,10 @@ export default function SmsTermsPage() {
           </section>
 
           <section>
-            <h2 className="text-white font-semibold text-base mb-2">Privacy</h2>
+            <h2 className="text-paper font-semibold text-base mb-2">Privacy</h2>
             <p>
               See our{" "}
-              <Link href="/privacy" className="text-brand-400">
+              <Link href="/privacy" className="text-gold-400">
                 Privacy Policy
               </Link>
               .

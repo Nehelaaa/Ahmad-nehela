@@ -19,8 +19,8 @@ export default function BillingOffers() {
       )}
 
       <section>
-        <h2 className="font-semibold text-white mb-1">Public packages & Site Care</h2>
-        <p className="text-sm text-slate-500 mb-4">
+        <h2 className="font-semibold text-paper mb-1">Public packages & Site Care</h2>
+        <p className="text-sm text-paper/40 mb-4">
           Project packages plus required $59/mo Site Care — send the package link and/or care link
         </p>
         <div className="grid sm:grid-cols-2 gap-3">
@@ -31,8 +31,8 @@ export default function BillingOffers() {
       </section>
 
       <section>
-        <h2 className="font-semibold text-white mb-1">Proposal plans (admin only)</h2>
-        <p className="text-sm text-slate-500 mb-4">
+        <h2 className="font-semibold text-paper mb-1">Proposal plans (admin only)</h2>
+        <p className="text-sm text-paper/40 mb-4">
           Down payment + monthly care in one checkout — not shown on the public site
         </p>
         <div className="grid md:grid-cols-3 gap-4">
@@ -42,20 +42,20 @@ export default function BillingOffers() {
             return (
               <article
                 key={plan.id}
-                className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 flex flex-col"
+                className="rounded-2xl border border-line bg-surface-elevated p-5 flex flex-col"
               >
-                <h3 className="font-display text-lg font-bold text-white">{plan.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 mb-3">{plan.tagline}</p>
-                <p className="text-white mb-1">
+                <h3 className="font-display text-lg font-bold text-paper">{plan.name}</h3>
+                <p className="text-xs text-paper/40 mt-1 mb-3">{plan.tagline}</p>
+                <p className="text-paper mb-1">
                   <span className="font-display text-2xl font-bold tabular-nums">
                     ${plan.downPayment.toLocaleString()}
                   </span>
-                  <span className="text-slate-500 text-sm"> down</span>
+                  <span className="text-paper/40 text-sm"> down</span>
                 </p>
-                <p className="text-brand-400 font-medium tabular-nums mb-3">
+                <p className="text-gold-400 font-medium tabular-nums mb-3">
                   + ${plan.monthly}/mo
                 </p>
-                <p className="text-xs text-slate-500 mb-4 flex-1">{plan.bestFor}</p>
+                <p className="text-xs text-paper/40 mb-4 flex-1">{plan.bestFor}</p>
                 {plan.includesClientAdmin && (
                   <p className="text-xs font-medium text-emerald-400/90 mb-3">
                     Includes client admin access

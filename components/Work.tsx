@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/lib/content";
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 /** Desktop/tablet only — auto-advance is off on small screens so links are easy to tap. */
 const SLIDE_INTERVAL_MS = 8000;
 
@@ -72,7 +74,7 @@ export default function Work() {
   return (
     <section
       id="work"
-      className="py-20 sm:py-28 bg-surface border-t border-slate-700/50"
+      className="py-24 sm:py-32 bg-surface-elevated border-t border-line"
       aria-labelledby="work-heading"
     >
       <div className="section-container">
@@ -80,17 +82,16 @@ export default function Work() {
           initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: reduceMotion ? 0.2 : 0.3 }}
-          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
+          transition={{ duration: reduceMotion ? 0.2 : 0.5, ease }}
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
         >
-          <h2
-            id="work-heading"
-            className="font-display text-3xl sm:text-4xl font-bold text-white mb-4"
-          >
-            Web design and development projects
+          <p className="eyebrow justify-center mb-4">Selected work</p>
+          <h2 id="work-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
+            {projects.length}+ real projects, live today.
           </h2>
-          <p className="text-slate-400 px-1">
-            From education and healthcare to local business and e‑commerce: a selection of recent projects.
+          <p className="text-paper/55 px-1">
+            From education and healthcare to local business and e‑commerce — every project below is a real,
+            deployed client site.
           </p>
         </motion.div>
 
@@ -101,7 +102,7 @@ export default function Work() {
               animate={{ x: `${-slideIndex * 100}%` }}
               transition={{
                 type: "tween",
-                duration: reduceMotion ? 0 : transitionEnabled ? 0.5 : 0,
+                duration: reduceMotion ? 0 : transitionEnabled ? 0.6 : 0,
                 ease: "easeInOut",
               }}
             >
@@ -116,39 +117,37 @@ export default function Work() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group block h-fit rounded-2xl overflow-hidden bg-surface-elevated border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 card-hover hover:shadow-xl hover:shadow-brand-500/10 touch-manipulation"
+                      className="group block h-fit rounded-2xl overflow-hidden bg-surface border border-line hover:border-gold-500/40 transition-all duration-500 ease-premium card-hover touch-manipulation"
                     >
-                      <div className="aspect-video relative shrink-0 bg-slate-800 overflow-hidden">
+                      <div className="aspect-video relative shrink-0 bg-surface-high overflow-hidden">
                         {!failedImages.has(project.image) ? (
                           <Image
                             src={project.image}
                             alt={`${project.title} - project by Top Web Developer`}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                            className="object-cover object-center transition-transform duration-700 ease-premium group-hover:scale-105"
                             onError={() =>
-                              setFailedImages((prev) =>
-                                new Set(prev).add(project.image)
-                              )
+                              setFailedImages((prev) => new Set(prev).add(project.image))
                             }
                           />
                         ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 to-slate-700 flex items-center justify-center p-4">
-                            <span className="text-brand-400 font-display font-bold text-center text-sm sm:text-base">
+                          <div className="absolute inset-0 bg-gradient-to-br from-gold-900/40 to-surface-high flex items-center justify-center p-4">
+                            <span className="text-gold-400 font-display text-center text-sm sm:text-base">
                               {project.title}
                             </span>
                           </div>
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                        <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-brand-500/90 text-white text-xs font-medium">
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur-sm ring-1 ring-white/10 text-paper text-[11px] font-medium tracking-wide">
                           {project.category}
                         </span>
                       </div>
                       <div className="p-4">
-                        <h3 className="font-display font-semibold text-white group-hover:text-brand-400 transition-colors">
+                        <h3 className="font-display text-paper group-hover:text-gold-300 transition-colors">
                           {project.title}
                         </h3>
-                        <p className="text-slate-500 text-sm mt-1 line-clamp-2 leading-snug">
+                        <p className="text-paper/45 text-sm mt-1 line-clamp-2 leading-snug">
                           {project.description}
                         </p>
                       </div>
@@ -160,23 +159,21 @@ export default function Work() {
           </div>
 
           {totalSlides > 1 && (
-            <div className="flex justify-center items-center gap-1 mt-6 flex-wrap px-2">
+            <div className="flex justify-center items-center gap-1 mt-8 flex-wrap px-2">
               {slides.map((_, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => goTo(i)}
                   className={`rounded-full transition-all duration-200 touch-manipulation min-w-[44px] min-h-[44px] inline-flex items-center justify-center ${
-                    i === slideIndex ? "text-brand-500" : "text-slate-600"
+                    i === slideIndex ? "text-gold-400" : "text-paper/25"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                   aria-current={i === slideIndex ? "true" : undefined}
                 >
                   <span
-                    className={`rounded-full transition-all duration-200 ${
-                      i === slideIndex
-                        ? "bg-brand-500 w-5 h-2"
-                        : "bg-slate-600 w-2 h-2"
+                    className={`rounded-full transition-all duration-300 ${
+                      i === slideIndex ? "bg-gold-500 w-6 h-1.5" : "bg-paper/20 w-1.5 h-1.5"
                     }`}
                   />
                 </button>

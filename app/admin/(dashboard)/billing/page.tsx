@@ -8,34 +8,34 @@ export default async function BillingPage() {
 
   return (
     <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8">
-        <h1 className="font-display text-2xl font-bold text-white">Billing</h1>
-        <p className="text-slate-500 text-sm mt-1">
+      <header className="border-b border-line px-6 py-5 lg:px-8">
+        <h1 className="font-display text-2xl font-bold text-paper">Billing</h1>
+        <p className="text-paper/40 text-sm mt-1">
           Copy a Stripe payment link and send it to your client
         </p>
       </header>
 
       <div className="p-6 lg:p-8 max-w-4xl space-y-10">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-            <p className="text-xs uppercase text-slate-500 mb-1">Outstanding projects</p>
+          <div className="rounded-xl border border-line bg-surface-elevated p-5">
+            <p className="text-xs uppercase text-paper/40 mb-1">Outstanding projects</p>
             <p className="text-2xl font-bold text-amber-400 tabular-nums">
               {formatCents(stats.unpaidProjectCents)}
             </p>
-            <p className="text-xs text-slate-500 mt-1">{stats.unpaidProjects} awaiting payment</p>
+            <p className="text-xs text-paper/40 mt-1">{stats.unpaidProjects} awaiting payment</p>
           </div>
-          <div className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-            <p className="text-xs uppercase text-slate-500 mb-1">Monthly care (MRR)</p>
-            <p className="text-2xl font-bold text-brand-400 tabular-nums">
+          <div className="rounded-xl border border-line bg-surface-elevated p-5">
+            <p className="text-xs uppercase text-paper/40 mb-1">Monthly care (MRR)</p>
+            <p className="text-2xl font-bold text-gold-400 tabular-nums">
               {formatCents(stats.mrrCents)}
             </p>
-            <p className="text-xs text-slate-500 mt-1">{stats.activeCare} active</p>
+            <p className="text-xs text-paper/40 mt-1">{stats.activeCare} active</p>
           </div>
         </div>
 
         <BillingOffers />
 
-        <Link href="/admin/clients" className="text-brand-400 hover:text-brand-300 text-sm">
+        <Link href="/admin/clients" className="text-gold-400 hover:text-gold-300 text-sm">
           Manage clients →
         </Link>
       </div>

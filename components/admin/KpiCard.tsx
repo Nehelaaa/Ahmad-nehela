@@ -6,11 +6,11 @@ interface KpiCardProps {
 }
 
 const accentMap = {
-  brand: "text-brand-400",
+  brand: "text-gold-400",
   green: "text-emerald-400",
   amber: "text-amber-400",
   red: "text-red-400",
-  default: "text-white",
+  default: "text-paper",
 };
 
 export default function KpiCard({
@@ -20,14 +20,14 @@ export default function KpiCard({
   accent = "default",
 }: KpiCardProps) {
   return (
-    <div className="rounded-xl border border-slate-700/60 bg-surface-elevated p-5">
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-500 mb-2">
+    <div className="rounded-2xl border border-line bg-surface-elevated p-5 hover:border-paper/15 transition-colors duration-300">
+      <p className="text-xs font-medium uppercase tracking-wide text-paper/40 mb-2">
         {label}
       </p>
-      <p className={`text-2xl sm:text-3xl font-bold tabular-nums ${accentMap[accent]}`}>
+      <p className={`font-display text-2xl sm:text-3xl tabular-nums ${accentMap[accent]}`}>
         {value}
       </p>
-      {hint && <p className="text-xs text-slate-500 mt-2">{hint}</p>}
+      {hint && <p className="text-xs text-paper/40 mt-2">{hint}</p>}
     </div>
   );
 }

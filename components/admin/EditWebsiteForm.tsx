@@ -10,7 +10,7 @@ import {
 } from "@/lib/admin/types";
 
 const inputClass =
-  "w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20";
+  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-paper placeholder-paper/30 focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/20";
 
 export default function EditWebsiteForm({
   site,
@@ -81,7 +81,7 @@ export default function EditWebsiteForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <label className="block sm:col-span-2">
-          <span className="text-sm text-slate-400 mb-1 block">Live domain *</span>
+          <span className="text-sm text-paper/50 mb-1 block">Live domain *</span>
           <input
             name="domain"
             required
@@ -91,7 +91,7 @@ export default function EditWebsiteForm({
           />
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Staging URL</span>
+          <span className="text-sm text-paper/50 mb-1 block">Staging URL</span>
           <input
             name="staging_url"
             defaultValue={site.staging_url ?? ""}
@@ -100,7 +100,7 @@ export default function EditWebsiteForm({
           />
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Status</span>
+          <span className="text-sm text-paper/50 mb-1 block">Status</span>
           <select name="stage" defaultValue={site.stage} className={inputClass}>
             {SITE_STAGES.map((s) => (
               <option key={s.id} value={s.id}>
@@ -113,7 +113,7 @@ export default function EditWebsiteForm({
 
       <div className="grid sm:grid-cols-3 gap-4">
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Platform</span>
+          <span className="text-sm text-paper/50 mb-1 block">Platform</span>
           <select name="platform" defaultValue={site.platform ?? "wordpress"} className={inputClass}>
             {PLATFORMS.map((p) => (
               <option key={p.id} value={p.id}>
@@ -123,7 +123,7 @@ export default function EditWebsiteForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Package</span>
+          <span className="text-sm text-paper/50 mb-1 block">Package</span>
           <select name="package" defaultValue={site.package} className={inputClass}>
             {Object.entries(PACKAGE_LABELS).map(([id, label]) => (
               <option key={id} value={id}>
@@ -133,7 +133,7 @@ export default function EditWebsiteForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Project price ($)</span>
+          <span className="text-sm text-paper/50 mb-1 block">Project price ($)</span>
           <input
             name="project_price"
             type="number"
@@ -149,10 +149,10 @@ export default function EditWebsiteForm({
         </label>
       </div>
 
-      <div className="rounded-xl border border-slate-700/80 bg-surface p-4 space-y-4">
-        <p className="text-sm font-medium text-white">Admin login</p>
+      <div className="rounded-xl border border-line bg-surface p-4 space-y-4">
+        <p className="text-sm font-medium text-paper">Admin login</p>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Admin / login URL</span>
+          <span className="text-sm text-paper/50 mb-1 block">Admin / login URL</span>
           <input
             name="admin_url"
             defaultValue={site.admin_url ?? ""}
@@ -162,7 +162,7 @@ export default function EditWebsiteForm({
         </label>
         <div className="grid sm:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">Username</span>
+            <span className="text-sm text-paper/50 mb-1 block">Username</span>
             <input
               name="login_username"
               defaultValue={site.login_username ?? ""}
@@ -171,7 +171,7 @@ export default function EditWebsiteForm({
             />
           </label>
           <label className="block">
-            <span className="text-sm text-slate-400 mb-1 block">New password</span>
+            <span className="text-sm text-paper/50 mb-1 block">New password</span>
             <input
               name="login_password"
               type="password"
@@ -182,7 +182,7 @@ export default function EditWebsiteForm({
           </label>
         </div>
         <label className="block">
-          <span className="text-sm text-slate-400 mb-1 block">Hosting provider</span>
+          <span className="text-sm text-paper/50 mb-1 block">Hosting provider</span>
           <input
             name="hosting_provider"
             defaultValue={site.hosting_provider ?? ""}
@@ -193,7 +193,7 @@ export default function EditWebsiteForm({
       </div>
 
       <label className="block">
-        <span className="text-sm text-slate-400 mb-1 block">Site notes</span>
+        <span className="text-sm text-paper/50 mb-1 block">Site notes</span>
         <textarea
           name="site_notes"
           rows={3}
@@ -209,7 +209,7 @@ export default function EditWebsiteForm({
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400 disabled:opacity-60"
+          className="rounded-lg bg-gold-500 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-gold-400 disabled:opacity-60"
         >
           {loading ? "Saving…" : "Save changes"}
         </button>
@@ -217,7 +217,7 @@ export default function EditWebsiteForm({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg border border-slate-600 px-4 py-2.5 text-sm text-slate-400 hover:text-white"
+            className="rounded-lg border border-line px-4 py-2.5 text-sm text-paper/50 hover:text-paper"
           >
             Cancel
           </button>

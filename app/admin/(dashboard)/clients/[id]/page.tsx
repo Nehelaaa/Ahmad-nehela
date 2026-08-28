@@ -25,7 +25,7 @@ export default async function ClientDetailPage({
 
   return (
     <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8">
+      <header className="border-b border-line px-6 py-5 lg:px-8">
         <AdminBreadcrumb
           items={[
             { label: "Clients", href: "/admin/clients" },
@@ -34,13 +34,13 @@ export default async function ClientDetailPage({
         />
         <div className="flex flex-wrap items-start justify-between gap-4 mt-3">
           <div>
-            <h1 className="font-display text-2xl font-bold text-white">
+            <h1 className="font-display text-2xl font-bold text-paper">
               {client.business_name}
             </h1>
             <div className="flex flex-wrap gap-2 mt-2">
               <StatusBadge status={client.status} />
               {sites.length > 0 && (
-                <span className="text-xs text-slate-500 self-center">
+                <span className="text-xs text-paper/40 self-center">
                   {sites.length} website{sites.length !== 1 ? "s" : ""}
                 </span>
               )}
@@ -48,7 +48,7 @@ export default async function ClientDetailPage({
           </div>
           <Link
             href="/admin/sites"
-            className="text-sm text-brand-400 hover:text-brand-300"
+            className="text-sm text-gold-400 hover:text-gold-300"
           >
             All websites →
           </Link>
@@ -62,30 +62,30 @@ export default async function ClientDetailPage({
           </div>
         )}
         <aside className="lg:col-span-1 space-y-6">
-          <section className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 space-y-3 text-sm">
-            <h2 className="font-semibold text-white text-base">Contact</h2>
+          <section className="rounded-2xl border border-line bg-surface-elevated p-5 space-y-3 text-sm">
+            <h2 className="font-semibold text-paper text-base">Contact</h2>
             {client.contact_name && (
-              <p className="text-slate-300">{client.contact_name}</p>
+              <p className="text-paper/70">{client.contact_name}</p>
             )}
             {client.email && (
-              <a href={`mailto:${client.email}`} className="block text-brand-400">
+              <a href={`mailto:${client.email}`} className="block text-gold-400">
                 {client.email}
               </a>
             )}
             {client.phone && (
-              <a href={`tel:${client.phone}`} className="block text-brand-400">
+              <a href={`tel:${client.phone}`} className="block text-gold-400">
                 {client.phone}
               </a>
             )}
             {client.source && (
-              <p className="text-slate-500">Source: {client.source}</p>
+              <p className="text-paper/40">Source: {client.source}</p>
             )}
             {client.notes && (
-              <p className="text-slate-400 whitespace-pre-wrap border-t border-slate-700 pt-3">
+              <p className="text-paper/50 whitespace-pre-wrap border-t border-line pt-3">
                 {client.notes}
               </p>
             )}
-            <p className="text-xs text-slate-600 pt-2">
+            <p className="text-xs text-paper/30 pt-2">
               Added {formatDate(client.created_at)}
             </p>
           </section>
@@ -93,10 +93,10 @@ export default async function ClientDetailPage({
 
         <div className="lg:col-span-2 space-y-6">
           <div>
-            <h2 className="font-display text-xl font-bold text-white mb-1">
+            <h2 className="font-display text-xl font-bold text-paper mb-1">
               Websites
             </h2>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-paper/40">
               Click a website to view, edit credentials, or change status
             </p>
           </div>
@@ -104,7 +104,7 @@ export default async function ClientDetailPage({
           {sites.length === 0 ? (
             <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6">
               <p className="text-amber-200/90 font-medium mb-1">No website yet</p>
-              <p className="text-slate-500 text-sm">
+              <p className="text-paper/40 text-sm">
                 Add the live domain and login info below.
               </p>
             </div>
@@ -113,26 +113,26 @@ export default async function ClientDetailPage({
               {sites.map((site) => (
                 <li
                   key={site.id}
-                  className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5"
+                  className="rounded-2xl border border-line bg-surface-elevated p-5"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <Link
                         href={`/admin/sites/${site.id}`}
-                        className="font-semibold text-white hover:text-brand-400 transition-colors text-lg"
+                        className="font-semibold text-paper hover:text-gold-400 transition-colors text-lg"
                       >
                         {displayDomain(site.domain || site.name)}
                       </Link>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-paper/40 mt-0.5">
                         {platformLabel(site.platform)} · {PACKAGE_LABELS[site.package]}
                       </p>
                     </div>
                     <StatusBadge status={site.stage} />
                   </div>
-                  <div className="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-slate-700/60">
+                  <div className="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-line">
                     <Link
                       href={`/admin/sites/${site.id}`}
-                      className="rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-400"
+                      className="rounded-lg bg-gold-500 px-4 py-2 text-sm font-semibold text-paper hover:bg-gold-400"
                     >
                       Open & edit
                     </Link>
@@ -141,12 +141,12 @@ export default async function ClientDetailPage({
                         href={domainToUrl(site.domain)!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-slate-400 hover:text-white"
+                        className="text-sm text-paper/50 hover:text-paper"
                       >
                         Live site ↗
                       </a>
                     )}
-                    <span className="text-xs text-slate-500 ml-auto">
+                    <span className="text-xs text-paper/40 ml-auto">
                       {formatCents(site.project_price_final_cents)}
                     </span>
                   </div>

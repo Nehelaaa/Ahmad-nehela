@@ -7,16 +7,16 @@ export default async function SitesPage() {
 
   return (
     <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8 flex flex-wrap items-center justify-between gap-4">
+      <header className="border-b border-line px-6 py-5 lg:px-8 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-white">Websites</h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <h1 className="font-display text-2xl font-bold text-paper">Websites</h1>
+          <p className="text-paper/40 text-sm mt-1">
             {sites.length} {sites.length === 1 ? "site" : "sites"}
           </p>
         </div>
         <Link
           href="/admin/clients/new"
-          className="inline-flex items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400"
+          className="inline-flex items-center rounded-full bg-gold-500 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-gold-400"
         >
           + Add
         </Link>
@@ -24,14 +24,14 @@ export default async function SitesPage() {
 
       <div className="p-6 lg:p-8 max-w-4xl">
         {sites.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-700 p-12 text-center">
-            <p className="text-white font-medium mb-2">No websites yet</p>
-            <p className="text-slate-500 text-sm mb-6">
+          <div className="rounded-2xl border border-dashed border-line p-12 text-center">
+            <p className="text-paper font-medium mb-2">No websites yet</p>
+            <p className="text-paper/40 text-sm mb-6">
               Add a client and their site together.
             </p>
             <Link
               href="/admin/clients/new"
-              className="inline-flex rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-400"
+              className="inline-flex rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-paper hover:bg-gold-400"
             >
               Add client & website
             </Link>

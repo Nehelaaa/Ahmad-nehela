@@ -78,8 +78,8 @@ export default function SiteDetailPanel({
 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-white">{domain}</h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <h1 className="font-display text-2xl font-bold text-paper">{domain}</h1>
+          <p className="text-paper/40 text-sm mt-1">
             {platformLabel(site.platform)} · {PACKAGE_LABELS[site.package]}
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function SiteDetailPanel({
             <button
               type="button"
               onClick={() => setEditing(true)}
-              className="rounded-lg border border-brand-500/50 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-400 hover:bg-brand-500/20"
+              className="rounded-lg border border-gold-500/50 bg-gold-500/10 px-4 py-2 text-sm font-medium text-gold-400 hover:bg-gold-500/20"
             >
               Edit website
             </button>
@@ -100,13 +100,13 @@ export default function SiteDetailPanel({
       <div className="flex flex-wrap gap-2 text-sm">
         <Link
           href={`/admin/clients/${clientId}`}
-          className="rounded-lg border border-slate-700 px-3 py-1.5 text-slate-400 hover:border-brand-500/40 hover:text-brand-400"
+          className="rounded-lg border border-line px-3 py-1.5 text-paper/50 hover:border-gold-500/40 hover:text-gold-400"
         >
           ← {businessName}
         </Link>
         <Link
           href="/admin/sites"
-          className="rounded-lg border border-slate-700 px-3 py-1.5 text-slate-400 hover:border-brand-500/40 hover:text-brand-400"
+          className="rounded-lg border border-line px-3 py-1.5 text-paper/50 hover:border-gold-500/40 hover:text-gold-400"
         >
           All websites
         </Link>
@@ -115,7 +115,7 @@ export default function SiteDetailPanel({
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-brand-400 hover:border-brand-500/40"
+            className="rounded-lg border border-line px-3 py-1.5 text-gold-400 hover:border-gold-500/40"
           >
             Open live site ↗
           </a>
@@ -123,8 +123,8 @@ export default function SiteDetailPanel({
       </div>
 
       {editing ? (
-        <div className="rounded-2xl border border-brand-500/30 bg-surface-elevated p-6">
-          <h2 className="font-semibold text-white mb-4">Edit website details</h2>
+        <div className="rounded-2xl border border-gold-500/30 bg-surface-elevated p-6">
+          <h2 className="font-semibold text-paper mb-4">Edit website details</h2>
           <EditWebsiteForm
             site={site}
             onCancel={() => setEditing(false)}
@@ -133,13 +133,13 @@ export default function SiteDetailPanel({
         </div>
       ) : (
         <>
-          <div className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-6">
+          <div className="rounded-2xl border border-line bg-surface-elevated p-6">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm mb-6">
               <Info label="Status">
                 <select
                   value={site.stage}
                   onChange={(e) => changeStage(e.target.value as SiteStage)}
-                  className="mt-1 w-full rounded-lg border border-slate-700 bg-surface px-3 py-2 text-sm text-white"
+                  className="mt-1 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-paper"
                 >
                   {SITE_STAGES.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -162,7 +162,7 @@ export default function SiteDetailPanel({
             </div>
 
             {(site.staging_url || site.admin_url) && (
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-slate-700/60">
+              <div className="flex flex-wrap gap-3 pt-4 border-t border-line">
                 {site.staging_url && (
                   <a
                     href={
@@ -172,7 +172,7 @@ export default function SiteDetailPanel({
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-slate-400 hover:text-white"
+                    className="text-sm text-paper/50 hover:text-paper"
                   >
                     Staging ↗
                   </a>
@@ -186,7 +186,7 @@ export default function SiteDetailPanel({
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-slate-400 hover:text-white"
+                    className="text-sm text-paper/50 hover:text-paper"
                   >
                     Admin login ↗
                   </a>
@@ -195,33 +195,33 @@ export default function SiteDetailPanel({
             )}
           </div>
 
-          <div className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-6">
+          <div className="rounded-2xl border border-line bg-surface-elevated p-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div>
-                <h2 className="font-semibold text-white">Login credentials</h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <h2 className="font-semibold text-paper">Login credentials</h2>
+                <p className="text-xs text-paper/40 mt-0.5">
                   Encrypted at rest · click Edit to update username or password
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setEditing(true)}
-                className="text-xs text-brand-400 hover:text-brand-300"
+                className="text-xs text-gold-400 hover:text-gold-300"
               >
                 Edit credentials →
               </button>
             </div>
             <dl className="grid sm:grid-cols-2 gap-4 text-sm">
               <div>
-                <dt className="text-slate-500 mb-1">Username</dt>
-                <dd className="text-white font-mono text-sm bg-surface rounded-lg px-3 py-2 border border-slate-700">
+                <dt className="text-paper/40 mb-1">Username</dt>
+                <dd className="text-paper font-mono text-sm bg-surface rounded-lg px-3 py-2 border border-line">
                   {site.login_username || "Not set — click Edit to add"}
                 </dd>
               </div>
               <div>
-                <dt className="text-slate-500 mb-1">Password</dt>
+                <dt className="text-paper/40 mb-1">Password</dt>
                 <dd className="flex items-center gap-2">
-                  <span className="flex-1 text-white font-mono text-sm bg-surface rounded-lg px-3 py-2 border border-slate-700">
+                  <span className="flex-1 text-paper font-mono text-sm bg-surface rounded-lg px-3 py-2 border border-line">
                     {showPw && password !== null
                       ? password || "Not set"
                       : hasPassword
@@ -233,7 +233,7 @@ export default function SiteDetailPanel({
                       type="button"
                       onClick={revealPassword}
                       disabled={loadingPw}
-                      className="shrink-0 rounded-lg border border-slate-600 px-3 py-2 text-xs text-slate-300 hover:border-brand-500 hover:text-brand-400"
+                      className="shrink-0 rounded-lg border border-line px-3 py-2 text-xs text-paper/70 hover:border-gold-500 hover:text-gold-400"
                     >
                       {loadingPw ? "…" : showPw ? "Hide" : "Show"}
                     </button>
@@ -242,7 +242,7 @@ export default function SiteDetailPanel({
               </div>
             </dl>
             {site.site_notes && (
-              <p className="mt-4 text-sm text-slate-400 border-t border-slate-700/60 pt-4 whitespace-pre-wrap">
+              <p className="mt-4 text-sm text-paper/50 border-t border-line pt-4 whitespace-pre-wrap">
                 {site.site_notes}
               </p>
             )}
@@ -270,8 +270,8 @@ function Info({
 }) {
   return (
     <div>
-      <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">{label}</p>
-      <div className="text-white">{children ?? value}</div>
+      <p className="text-paper/40 text-xs uppercase tracking-wide mb-1">{label}</p>
+      <div className="text-paper">{children ?? value}</div>
     </div>
   );
 }

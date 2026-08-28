@@ -1,21 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: "#0a0a0b",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -92,10 +95,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${dmSans.variable}`}
+      className={`${fraunces.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-body min-h-screen bg-surface text-slate-100">
+      <body className="font-body min-h-screen bg-surface text-paper">
         {children}
       </body>
     </html>

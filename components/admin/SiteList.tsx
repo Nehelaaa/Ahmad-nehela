@@ -12,7 +12,7 @@ import {
 import { displayDomain, domainToUrl } from "@/lib/admin/normalize";
 
 const stageDot: Record<SiteStage, string> = {
-  lead: "bg-slate-400",
+  lead: "bg-paper/40",
   building: "bg-blue-400",
   review: "bg-violet-400",
   live: "bg-emerald-400",
@@ -63,11 +63,11 @@ export default function SiteList({ sites }: { sites: SiteWithClient[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <p className="text-sm text-slate-500 py-12 text-center">
+        <p className="text-sm text-paper/40 py-12 text-center">
           No websites in this status.
         </p>
       ) : (
-        <ul className="divide-y divide-slate-800 rounded-2xl border border-slate-800 overflow-hidden bg-surface-elevated/40">
+        <ul className="divide-y divide-line rounded-2xl border border-line overflow-hidden bg-surface-elevated/40">
           {visible.map((site) => {
             const domain = displayDomain(site.domain || site.name);
             const liveUrl = domainToUrl(site.domain);
@@ -79,17 +79,17 @@ export default function SiteList({ sites }: { sites: SiteWithClient[] }) {
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/admin/sites/${site.id}`}
-                    className="font-medium text-white hover:text-brand-400 transition-colors"
+                    className="font-medium text-paper hover:text-gold-400 transition-colors"
                   >
                     {domain}
                   </Link>
-                  <p className="text-sm text-slate-500 truncate mt-0.5">
+                  <p className="text-sm text-paper/40 truncate mt-0.5">
                     {site.business_name}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 sm:gap-5 shrink-0">
-                  <p className="text-sm text-slate-400 tabular-nums w-20">
+                  <p className="text-sm text-paper/50 tabular-nums w-20">
                     {formatCents(site.project_price_final_cents)}
                   </p>
                   <label className="relative">
@@ -102,7 +102,7 @@ export default function SiteList({ sites }: { sites: SiteWithClient[] }) {
                       onChange={(e) =>
                         moveSite(site.id, e.target.value as SiteStage)
                       }
-                      className="appearance-none rounded-lg border border-slate-700 bg-surface pl-6 pr-7 py-1.5 text-xs text-slate-300"
+                      className="appearance-none rounded-lg border border-line bg-surface pl-6 pr-7 py-1.5 text-xs text-paper/70"
                       aria-label={`Status for ${domain}`}
                     >
                       {SITE_STAGES.map((s) => (
@@ -117,14 +117,14 @@ export default function SiteList({ sites }: { sites: SiteWithClient[] }) {
                       href={liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-slate-500 hover:text-white"
+                      className="text-xs text-paper/40 hover:text-paper"
                     >
                       Live ↗
                     </a>
                   )}
                   <Link
                     href={`/admin/sites/${site.id}`}
-                    className="text-xs font-medium text-brand-400 hover:text-brand-300"
+                    className="text-xs font-medium text-gold-400 hover:text-gold-300"
                   >
                     Edit
                   </Link>
@@ -155,12 +155,12 @@ function FilterChip({
       onClick={onClick}
       className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
         active
-          ? "bg-white text-slate-900"
-          : "text-slate-400 hover:text-white hover:bg-white/5"
+          ? "bg-gold-500 text-surface"
+          : "text-paper/50 hover:text-paper hover:bg-white/5"
       }`}
     >
       {label}
-      <span className={`ml-1.5 tabular-nums ${active ? "text-slate-500" : "text-slate-600"}`}>
+      <span className={`ml-1.5 tabular-nums ${active ? "text-surface/60" : "text-paper/30"}`}>
         {count}
       </span>
     </button>

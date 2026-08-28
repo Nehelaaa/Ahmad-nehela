@@ -5,6 +5,8 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { stats } from "@/lib/content";
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 function AnimatedNumber({
   value,
   suffix,
@@ -51,39 +53,31 @@ export default function Stats() {
   return (
     <section
       ref={ref}
-      className="py-16 sm:py-20 bg-slate-900/40 border-y border-slate-700/50"
+      className="py-16 sm:py-20 bg-surface border-y border-line"
       aria-label="Experience and results"
     >
       <div className="section-container">
-        <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: reduceMotion ? 0.2 : 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 text-center"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center sm:divide-x sm:divide-line">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
               whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={vp}
-              transition={{ duration: reduceMotion ? 0.2 : 0.3, delay: reduceMotion ? 0 : i * 0.08 }}
-              className="group"
+              transition={{ duration: reduceMotion ? 0.2 : 0.5, ease, delay: reduceMotion ? 0 : i * 0.08 }}
+              className="group px-2"
             >
-              <p className="font-display text-4xl sm:text-5xl font-bold text-brand-400 mb-1 tabular-nums">
-                <AnimatedNumber
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  inView={inView}
-                />
+              <p className="font-display text-5xl sm:text-6xl text-paper mb-1.5 tabular-nums">
+                <span className="text-gold-400">
+                  <AnimatedNumber value={stat.value} suffix={stat.suffix} inView={inView} />
+                </span>
               </p>
-              <p className="text-slate-400 text-sm sm:text-base font-medium">
+              <p className="text-paper/45 text-[13px] sm:text-sm font-medium uppercase tracking-[0.14em]">
                 {stat.label}
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

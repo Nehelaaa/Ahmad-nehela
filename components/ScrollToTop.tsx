@@ -20,7 +20,7 @@ export default function ScrollToTop() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-40 flex h-12 w-12 min-w-[48px] min-h-[48px] items-center justify-center rounded-full bg-brand-500 text-white shadow-lg hover:bg-brand-400 active:scale-95 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-surface [bottom:max(1.5rem,env(safe-area-inset-bottom))] [right:max(1.5rem,env(safe-area-inset-right))]"
+          className="fixed bottom-6 right-6 z-40 flex h-12 w-12 min-w-[48px] min-h-[48px] items-center justify-center rounded-full bg-gold-500 text-surface shadow-lg shadow-black/30 hover:bg-gold-400 active:scale-95 transition-all duration-300 ease-premium hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-surface [bottom:max(1.5rem,env(safe-area-inset-bottom))] [right:max(1.5rem,env(safe-area-inset-right))]"
           aria-label="Scroll to top"
         >
           <svg
