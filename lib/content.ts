@@ -48,31 +48,37 @@ export const processSteps = [
   },
   {
     step: 4,
-    title: "Launch & support",
-    description: "We go live, and I make sure you know how to update content. Optional ongoing support available.",
+    title: "Launch & care",
+    description:
+      "We go live, and Site Care keeps your site updated, secure, and working every month.",
   },
 ];
 
 /** Shared note under pricing (keep cards uncluttered) */
 export const pricingDeal = {
-  note: "New-client rates · 50/50 payment plan available · Free strategy call",
+  note: "New-client rates · Every plan includes $59/mo Site Care · Free strategy call",
 };
 
-/** Public site care / maintenance — flat monthly (shown under packages) */
+/** Monthly Site Care — included with every package (not optional) */
 export const careSubscription = {
   name: "Site Care",
   price: 59,
   interval: "month" as const,
-  tagline: "Keep your site safe, updated, and working",
+  tagline: "Included with every plan",
   description:
-    "Ongoing maintenance for sites I build — updates, backups, security checks, and small fixes so you don’t have to worry about the tech.",
+    "Required monthly maintenance so your site stays secure, fast, and up to date after launch.",
   features: [
-    "WordPress / hosting updates & security checks",
-    "Backups monitored",
+    "WordPress / hosting updates & security patches",
+    "Malware & uptime monitoring",
+    "Automated backups + restore if needed",
+    "SSL & domain renewal reminders",
+    "Plugin / theme compatibility checks",
+    "Speed & broken-link checks",
     "Small content & bug fixes each month",
-    "Priority email support",
+    "Form & contact troubleshooting",
+    "Priority email & text support",
+    "Monthly health check summary",
   ],
-  cta: "Add Site Care",
 };
 
 export const services = [
@@ -89,6 +95,7 @@ export const services = [
       "Click-to-call & social links",
       "Logo polish + 30 days of small tweaks",
       "1 round of revisions",
+      "Site Care included — $59/mo",
     ],
     cta: "Get Launch",
     highlighted: false,
@@ -107,6 +114,7 @@ export const services = [
       "WordPress so you can update content",
       "Booking-ready forms",
       "2 rounds of revisions",
+      "Site Care included — $59/mo",
     ],
     cta: "Get Grow",
     highlighted: true,
@@ -125,6 +133,7 @@ export const services = [
       "Google Ads setup guidance",
       "Team training + priority support",
       "3 rounds of revisions",
+      "Site Care included — $59/mo",
     ],
     cta: "Get Scale",
     highlighted: false,

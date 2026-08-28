@@ -224,11 +224,10 @@ export default function Contact() {
                   >
                     <option value="">Select a plan (optional)</option>
                     {services.map((plan) => (
-                      <option key={plan.name} value={`${plan.name} — $${plan.price.toLocaleString()}`}>
-                        {plan.name} — ${plan.price.toLocaleString()}
+                      <option key={plan.name} value={`${plan.name} — $${plan.price.toLocaleString()} + $59/mo care`}>
+                        {plan.name} — ${plan.price.toLocaleString()} + $59/mo care
                       </option>
                     ))}
-                    <option value="Site Care — $59/mo">Site Care — $59/mo</option>
                   </select>
                 </label>
                 <label className="block">

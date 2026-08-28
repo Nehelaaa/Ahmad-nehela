@@ -19,9 +19,9 @@ export default function BillingOffers() {
       )}
 
       <section>
-        <h2 className="font-semibold text-white mb-1">Public packages & care</h2>
+        <h2 className="font-semibold text-white mb-1">Public packages & Site Care</h2>
         <p className="text-sm text-slate-500 mb-4">
-          Match the website — send these when a client picks Launch / Grow / Scale or Site Care
+          Project packages plus required $59/mo Site Care — send the package link and/or care link
         </p>
         <div className="grid sm:grid-cols-2 gap-3">
           {publicOffers.map((offer) => (

@@ -29,7 +29,7 @@ export default function Services() {
             Simple packages
           </h2>
           <p className="text-slate-400 leading-relaxed">
-            Clear prices for local businesses. Pick a plan — we&apos;ll refine the details on a free call.
+            Clear project price plus monthly Site Care so your site stays secure and working.
           </p>
           <p className="text-sm text-slate-500 mt-2">{pricingDeal.note}</p>
         </motion.div>
@@ -66,19 +66,21 @@ export default function Services() {
                 )}
 
                 <div className="flex flex-col flex-1 p-6 sm:p-8">
-                  <div className="mb-8">
+                  <div className="mb-6">
                     <h3 className="font-display text-xl font-bold text-white">
                       {plan.name}
                     </h3>
                     <p className="text-slate-500 text-sm mt-1">{plan.tagline}</p>
                   </div>
 
-                  {/* One clean price stack */}
-                  <div className="mb-8">
+                  <div className="mb-6">
                     <p className="flex items-end gap-1">
                       <span className="font-display text-4xl sm:text-[2.75rem] font-bold text-white leading-none tracking-tight tabular-nums">
                         ${plan.price.toLocaleString()}
                       </span>
+                    </p>
+                    <p className="mt-2 text-sm text-brand-400 font-medium tabular-nums">
+                      + ${careSubscription.price}/mo Site Care
                     </p>
 
                     {plan.regularPrice != null && percentOff > 0 && (
@@ -102,7 +104,7 @@ export default function Services() {
                     )}
                   </div>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
                     {plan.description}
                   </p>
 
@@ -136,48 +138,26 @@ export default function Services() {
           })}
         </div>
 
-        {/* Monthly care — separate from project packages */}
+        {/* What's in Site Care — one shared list under the plans */}
         <motion.div
           {...anim}
           viewport={{ once: true, margin: "-40px" }}
-          className="mt-12 sm:mt-14 rounded-2xl border border-slate-700/60 bg-surface-elevated px-6 py-8 sm:px-10 sm:py-9"
+          className="mt-10 sm:mt-12 max-w-3xl mx-auto"
         >
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-            <div className="max-w-xl">
-              <p className="text-brand-400 text-xs font-semibold uppercase tracking-wide mb-2">
-                Optional after launch
-              </p>
-              <h3 className="font-display text-2xl font-bold text-white">
-                {careSubscription.name}
-              </h3>
-              <p className="text-slate-400 text-sm mt-2 leading-relaxed">
-                {careSubscription.description}
-              </p>
-              <ul className="mt-5 grid sm:grid-cols-2 gap-2">
-                {careSubscription.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
-                    <span className="text-brand-500 shrink-0" aria-hidden>
-                      ✓
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="shrink-0 text-center lg:text-right">
-              <p className="font-display text-4xl font-bold text-white tabular-nums">
-                ${careSubscription.price}
-                <span className="text-lg font-medium text-slate-500">/mo</span>
-              </p>
-              <p className="text-slate-500 text-sm mt-1">{careSubscription.tagline}</p>
-              <Link
-                href="/#contact"
-                className="mt-5 inline-flex rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-400"
-              >
-                {careSubscription.cta}
-              </Link>
-            </div>
-          </div>
+          <p className="text-center text-sm text-slate-400 mb-5">
+            Every plan includes <span className="text-white font-medium">Site Care</span>{" "}
+            (${careSubscription.price}/mo) — required so your site stays protected after launch
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+            {careSubscription.features.map((f) => (
+              <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
+                <span className="text-brand-500 shrink-0" aria-hidden>
+                  ✓
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
         <p className="text-center text-slate-500 text-sm mt-10">
