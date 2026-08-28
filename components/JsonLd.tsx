@@ -10,7 +10,7 @@ const telephone =
 const person = {
   "@type": "Person",
   "@id": "https://ahmadnehela.com/#person",
-  name: site.name,
+  name: site.personName,
   url: "https://ahmadnehela.com",
   image: "https://ahmadnehela.com/images/profile-3.jpeg",
   jobTitle: "Web Developer & Designer",
@@ -34,12 +34,14 @@ const person = {
     "Small Business Websites",
     "Local SEO Boston",
   ],
+  worksFor: { "@id": "https://ahmadnehela.com/#business" },
 };
 
 const localBusiness = {
   "@type": ["ProfessionalService", "LocalBusiness"],
   "@id": "https://ahmadnehela.com/#business",
-  name: `${site.name} — Web Development & Design`,
+  name: site.name,
+  alternateName: site.personName,
   url: "https://ahmadnehela.com",
   image: "https://ahmadnehela.com/og-image.png",
   description:
