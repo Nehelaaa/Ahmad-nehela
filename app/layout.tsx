@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import SmoothHashScroll from "@/components/SmoothHashScroll";
-import JsonLd from "@/components/JsonLd";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -99,13 +94,8 @@ export default function RootLayout({
       className={`${syne.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-body min-h-screen flex flex-col bg-surface text-slate-100">
-        <JsonLd />
-        <SmoothHashScroll />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollToTop />
+      <body className="font-body min-h-screen bg-surface text-slate-100">
+        {children}
       </body>
     </html>
   );
