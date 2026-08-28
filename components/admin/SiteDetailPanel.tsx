@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import AdminBreadcrumb from "./AdminBreadcrumb";
 import EditWebsiteForm from "./EditWebsiteForm";
+import SendPaymentOffers from "./SendPaymentOffers";
 import StatusBadge from "./StatusBadge";
 import {
   formatCents,
@@ -242,6 +243,8 @@ export default function SiteDetailPanel({
               </p>
             )}
           </div>
+
+          <SendPaymentOffers />
         </>
       )}
     </div>

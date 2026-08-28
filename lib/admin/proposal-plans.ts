@@ -64,3 +64,6 @@ export const PROPOSAL_PLANS: ProposalPlan[] = [
 export function formatProposalPlan(plan: ProposalPlan): string {
   return `${plan.name}: $${plan.downPayment.toLocaleString()} down + $${plan.monthly}/mo`;
 }
+
+/** Maps proposal plan id → Stripe offer id (same ids). */
+export const PROPOSAL_STRIPE_OFFER_IDS = ["starter", "standard", "full_access"] as const;
