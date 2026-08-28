@@ -50,7 +50,7 @@ export default async function ClientDetailPage({
             href="/admin/sites"
             className="text-sm text-brand-400 hover:text-brand-300"
           >
-            View pipeline →
+            All websites →
           </Link>
         </div>
       </header>

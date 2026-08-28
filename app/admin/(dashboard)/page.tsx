@@ -129,7 +129,7 @@ export default async function AdminOverviewPage() {
             href="/admin/sites"
             className="inline-flex items-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-white hover:border-brand-500"
           >
-            View website pipeline
+            View websites
           </Link>
         </div>
       </div>

@@ -103,7 +103,7 @@ export default function SiteDetailPanel({
           href="/admin/sites"
           className="rounded-lg border border-slate-700 px-3 py-1.5 text-slate-400 hover:border-brand-500/40 hover:text-brand-400"
         >
-          Website pipeline
+          All websites
         </Link>
         {liveUrl && (
           <a

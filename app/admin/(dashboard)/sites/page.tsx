@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SiteKanban from "@/components/admin/SiteKanban";
+import SiteList from "@/components/admin/SiteList";
 import { listSitesWithClients } from "@/lib/admin/queries";
 
 export default async function SitesPage() {
@@ -11,29 +11,33 @@ export default async function SitesPage() {
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Websites</h1>
           <p className="text-slate-500 text-sm mt-1">
-            {sites.length} website{sites.length !== 1 ? "s" : ""} in pipeline
+            {sites.length} {sites.length === 1 ? "site" : "sites"}
           </p>
         </div>
         <Link
           href="/admin/clients/new"
           className="inline-flex items-center rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-400"
         >
-          + Add client & website
+          + Add
         </Link>
       </header>
 
-      <div className="p-6 lg:p-8">
+      <div className="p-6 lg:p-8 max-w-4xl">
         {sites.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-700 p-12 text-center">
-            <p className="text-slate-400 mb-4">
-              No websites yet. Add a client and their site in one step.
+          <div className="rounded-2xl border border-dashed border-slate-700 p-12 text-center">
+            <p className="text-white font-medium mb-2">No websites yet</p>
+            <p className="text-slate-500 text-sm mb-6">
+              Add a client and their site together.
             </p>
-            <Link href="/admin/clients/new" className="text-brand-400 hover:text-brand-300">
-              Add client & website →
+            <Link
+              href="/admin/clients/new"
+              className="inline-flex rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-400"
+            >
+              Add client & website
             </Link>
           </div>
         ) : (
-          <SiteKanban sites={sites} />
+          <SiteList sites={sites} />
         )}
       </div>
     </>
