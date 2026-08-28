@@ -7,3 +7,16 @@
 
 [build.environment]
   NODE_VERSION = "18"
+
+# Admin dashboard must never be cached at the CDN (stale client lists).
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "private, no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+
+[[headers]]
+  for = "/api/admin/*"
+  [headers.values]
+    Cache-Control = "private, no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"

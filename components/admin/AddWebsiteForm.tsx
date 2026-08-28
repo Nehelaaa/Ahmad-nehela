@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { PLATFORMS } from "@/lib/admin/platforms";
 import { SITE_STAGES } from "@/lib/admin/types";
 
@@ -17,7 +16,6 @@ export default function AddWebsiteForm({
   businessName: string;
   existingCount?: number;
 }) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -63,8 +61,7 @@ export default function AddWebsiteForm({
     }
 
     const site = await res.json();
-    router.push(`/admin/sites/${site.id}?saved=1`);
-    router.refresh();
+    window.location.href = `/admin/sites/${site.id}?saved=1`;
   }
 
   if (!open) {

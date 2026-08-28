@@ -4,6 +4,15 @@ import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "admin_session";
 
+const NO_CACHE = "private, no-cache, no-store, max-age=0, must-revalidate";
+
+function withNoCache(response: NextResponse) {
+  response.headers.set("Cache-Control", NO_CACHE);
+  response.headers.set("Pragma", "no-cache");
+  response.headers.set("Expires", "0");
+  return response;
+}
+
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   if (!token) return false;
@@ -24,19 +33,22 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/admin/login") ||
     pathname.startsWith("/api/admin/login")
   ) {
-    return NextResponse.next();
+    return withNoCache(NextResponse.next());
   }
 
   if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
     const authed = await isAuthenticated(request);
     if (!authed) {
       if (pathname.startsWith("/api/admin")) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        return withNoCache(
+          NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+        );
       }
       const loginUrl = new URL("/admin/login", request.url);
       loginUrl.searchParams.set("from", pathname);
-      return NextResponse.redirect(loginUrl);
+      return withNoCache(NextResponse.redirect(loginUrl));
     }
+    return withNoCache(NextResponse.next());
   }
 
   return NextResponse.next();

@@ -14,6 +14,7 @@ import {
   type SiteStage,
 } from "@/lib/admin/types";
 import { platformLabel } from "@/lib/admin/platforms";
+import { displayDomain, domainToUrl } from "@/lib/admin/normalize";
 import { useRouter } from "next/navigation";
 
 export default function SiteDetailPanel({
@@ -33,7 +34,8 @@ export default function SiteDetailPanel({
   const [loadingPw, setLoadingPw] = useState(false);
   const [showPw, setShowPw] = useState(false);
 
-  const domain = site.domain || site.name;
+  const domain = displayDomain(site.domain || site.name);
+  const liveUrl = domainToUrl(site.domain);
 
   async function revealPassword() {
     if (password !== null) {
@@ -103,9 +105,9 @@ export default function SiteDetailPanel({
         >
           Website pipeline
         </Link>
-        {site.domain && (
+        {liveUrl && (
           <a
-            href={`https://${site.domain.replace(/^https?:\/\//, "")}`}
+            href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg border border-slate-700 px-3 py-1.5 text-brand-400 hover:border-brand-500/40"

@@ -10,6 +10,7 @@ import {
   type SiteStage,
   type SiteWithClient,
 } from "@/lib/admin/types";
+import { displayDomain } from "@/lib/admin/normalize";
 
 export default function SiteKanban({ sites }: { sites: SiteWithClient[] }) {
   const router = useRouter();
@@ -49,12 +50,12 @@ export default function SiteKanban({ sites }: { sites: SiteWithClient[] }) {
                 >
                   <div>
                     <p className="font-medium text-white text-sm leading-snug">
-                      {site.name}
+                      {displayDomain(site.domain || site.name)}
                     </p>
                     <p className="text-xs text-slate-500">{site.business_name}</p>
                   </div>
-                  {site.domain && (
-                    <p className="text-xs text-brand-400/80 truncate">{site.domain}</p>
+                  {site.domain && site.name !== displayDomain(site.domain) && (
+                    <p className="text-xs text-slate-600 truncate">{site.name}</p>
                   )}
                   <div className="flex flex-wrap gap-1.5">
                     <StatusBadge

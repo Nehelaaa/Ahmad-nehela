@@ -1,5 +1,7 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { getSql } from "@/lib/db";
 import { decryptPassword, encryptPassword } from "@/lib/credentials";
+import { normalizeDomain } from "@/lib/admin/normalize";
 import type {
   ActivityItem,
   CarePlan,
@@ -17,6 +19,7 @@ export async function listClients(): Promise<Client[]> {
 }
 
 export async function listClientsWithSites(): Promise<ClientWithSites[]> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT c.*,
@@ -32,6 +35,7 @@ export async function listClientsWithSites(): Promise<ClientWithSites[]> {
 }
 
 export async function getClient(id: string): Promise<Client | null> {
+  noStore();
   const sql = getSql();
   const rows = await sql`SELECT * FROM clients WHERE id = ${id} LIMIT 1`;
   return (rows[0] as Client) ?? null;
@@ -100,6 +104,7 @@ export async function updateClient(
 }
 
 export async function listSitesWithClients(): Promise<SiteWithClient[]> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT s.*,
@@ -115,6 +120,7 @@ export async function listSitesWithClients(): Promise<SiteWithClient[]> {
 }
 
 export async function getSite(id: string): Promise<SiteWithClient | null> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT s.*,
@@ -131,6 +137,7 @@ export async function getSite(id: string): Promise<SiteWithClient | null> {
 }
 
 export async function listSitesForClient(clientId: string): Promise<Site[]> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT * FROM sites WHERE client_id = ${clientId} ORDER BY created_at DESC
@@ -191,6 +198,7 @@ export async function createSite(data: {
   tech_stack?: string;
 }): Promise<Site> {
   const sql = getSql();
+  const domain = normalizeDomain(data.domain);
   const passwordEnc = data.login_password
     ? encryptPassword(data.login_password)
     : null;
@@ -203,7 +211,7 @@ export async function createSite(data: {
     ) VALUES (
       ${data.client_id},
       ${data.name},
-      ${data.domain ?? null},
+      ${domain},
       ${data.staging_url ?? null},
       ${data.stage ?? "lead"},
       ${data.package ?? "launch"},
@@ -261,6 +269,9 @@ export async function updateSite(
   const existing = existingRows[0] as Site | undefined;
   if (!existing) return null;
 
+  const domain =
+    data.domain !== undefined ? normalizeDomain(data.domain) : existing.domain;
+
   const passwordEnc =
     data.login_password !== undefined
       ? data.login_password
@@ -271,7 +282,7 @@ export async function updateSite(
   const rows = await sql`
     UPDATE sites SET
       name = ${data.name ?? existing.name},
-      domain = ${data.domain !== undefined ? data.domain : existing.domain},
+      domain = ${domain},
       staging_url = ${data.staging_url !== undefined ? data.staging_url : existing.staging_url},
       stage = ${data.stage ?? existing.stage},
       package = ${data.package ?? existing.package},
@@ -309,6 +320,7 @@ export async function updateSite(
 }
 
 export async function getDashboardStats(): Promise<DashboardStats> {
+  noStore();
   const sql = getSql();
   const [row] = await sql`
     SELECT
@@ -336,6 +348,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 }
 
 export async function getActionQueue(): Promise<SiteWithClient[]> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT s.*,
@@ -364,6 +377,7 @@ export async function getActionQueue(): Promise<SiteWithClient[]> {
 }
 
 export async function listRecentActivity(limit = 8): Promise<ActivityItem[]> {
+  noStore();
   const sql = getSql();
   const rows = await sql`
     SELECT a.*, c.business_name

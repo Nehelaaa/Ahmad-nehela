@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { listClientsWithSites } from "@/lib/admin/queries";
+import { displayDomain } from "@/lib/admin/normalize";
 import { formatDate } from "@/lib/admin/types";
 
 export default async function ClientsPage() {
@@ -12,7 +13,7 @@ export default async function ClientsPage() {
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Clients</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Businesses you work with — each client can have one or more websites
+            {clients.length} business{clients.length !== 1 ? "es" : ""} — each can have one or more websites
           </p>
         </div>
         <Link
@@ -62,7 +63,7 @@ export default async function ClientsPage() {
                     <span className="text-slate-400">
                       {c.site_count} website{c.site_count !== 1 ? "s" : ""}
                       {c.primary_domain && (
-                        <span className="text-brand-400/80"> · {c.primary_domain}</span>
+                        <span className="text-brand-400/80"> · {displayDomain(c.primary_domain)}</span>
                       )}
                     </span>
                   ) : (

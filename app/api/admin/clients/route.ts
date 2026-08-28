@@ -1,11 +1,26 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createClient, createClientWithSite } from "@/lib/admin/queries";
+
+function revalidateClientPaths(clientId: string, siteId?: string) {
+  revalidatePath("/admin");
+  revalidatePath("/admin/clients");
+  revalidatePath(`/admin/clients/${clientId}`);
+  revalidatePath("/admin/sites");
+  if (siteId) {
+    revalidatePath(`/admin/sites/${siteId}`);
+  }
+}
 
 export async function GET() {
   try {
     const { listClientsWithSites } = await import("@/lib/admin/queries");
     const clients = await listClientsWithSites();
-    return NextResponse.json(clients);
+    return NextResponse.json(clients, {
+      headers: {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+      },
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Failed to load clients" }, { status: 500 });
@@ -50,10 +65,12 @@ export async function POST(request: Request) {
         package: body.site.package,
         project_price_cents: body.site.project_price_cents,
       });
+      revalidateClientPaths(client.id, site.id);
       return NextResponse.json({ client, site }, { status: 201 });
     }
 
     const client = await createClient(clientPayload);
+    revalidateClientPaths(client.id);
     return NextResponse.json({ client, site: null }, { status: 201 });
   } catch (error) {
     console.error(error);

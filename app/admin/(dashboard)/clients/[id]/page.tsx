@@ -9,12 +9,15 @@ import {
   PACKAGE_LABELS,
 } from "@/lib/admin/types";
 import { platformLabel } from "@/lib/admin/platforms";
+import { displayDomain, domainToUrl } from "@/lib/admin/normalize";
 import { getClient, listSitesForClient } from "@/lib/admin/queries";
 
 export default async function ClientDetailPage({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { saved?: string };
 }) {
   const client = await getClient(params.id);
   if (!client) notFound();
@@ -53,6 +56,11 @@ export default async function ClientDetailPage({
       </header>
 
       <div className="p-6 lg:p-8 grid lg:grid-cols-3 gap-8">
+        {searchParams.saved === "1" && (
+          <div className="lg:col-span-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+            Saved successfully. Your client and website are in the dashboard.
+          </div>
+        )}
         <aside className="lg:col-span-1 space-y-6">
           <section className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 space-y-3 text-sm">
             <h2 className="font-semibold text-white text-base">Contact</h2>
@@ -113,7 +121,7 @@ export default async function ClientDetailPage({
                         href={`/admin/sites/${site.id}`}
                         className="font-semibold text-white hover:text-brand-400 transition-colors text-lg"
                       >
-                        {site.domain || site.name}
+                        {displayDomain(site.domain || site.name)}
                       </Link>
                       <p className="text-xs text-slate-500 mt-0.5">
                         {platformLabel(site.platform)} · {PACKAGE_LABELS[site.package]}
@@ -128,9 +136,9 @@ export default async function ClientDetailPage({
                     >
                       Open & edit
                     </Link>
-                    {site.domain && (
+                    {domainToUrl(site.domain) && (
                       <a
-                        href={`https://${site.domain.replace(/^https?:\/\//, "")}`}
+                        href={domainToUrl(site.domain)!}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-slate-400 hover:text-white"

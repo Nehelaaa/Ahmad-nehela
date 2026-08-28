@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PLATFORMS } from "@/lib/admin/platforms";
 
@@ -34,7 +33,6 @@ const inputClass =
   "w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20";
 
 export default function NewClientForm() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -83,8 +81,13 @@ export default function NewClientForm() {
       return;
     }
     const data = await res.json();
-    router.push(`/admin/sites/${data.site.id}`);
-    router.refresh();
+    if (data.site?.id) {
+      window.location.href = `/admin/sites/${data.site.id}?saved=1`;
+    } else if (data.client?.id) {
+      window.location.href = `/admin/clients/${data.client.id}?saved=1`;
+    } else {
+      window.location.href = "/admin/clients";
+    }
   }
 
   return (

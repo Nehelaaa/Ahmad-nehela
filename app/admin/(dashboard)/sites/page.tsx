@@ -11,7 +11,7 @@ export default async function SitesPage() {
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Websites</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Project pipeline — each card is a site tied to a client
+            {sites.length} website{sites.length !== 1 ? "s" : ""} in pipeline
           </p>
         </div>
         <Link
