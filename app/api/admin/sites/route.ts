@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createSite, listSitesWithClients } from "@/lib/admin/queries";
+
+function revalidateSitePaths(clientId: string, siteId: string) {
+  revalidatePath("/admin/clients");
+  revalidatePath(`/admin/clients/${clientId}`);
+  revalidatePath("/admin/sites");
+  revalidatePath(`/admin/sites/${siteId}`);
+  revalidatePath("/admin");
+}
 
 export async function GET() {
   try {
@@ -44,6 +53,7 @@ export async function POST(request: Request) {
             : undefined,
       tech_stack: body.tech_stack?.trim(),
     });
+    revalidateSitePaths(site.client_id, site.id);
     return NextResponse.json(site, { status: 201 });
   } catch (error) {
     console.error(error);

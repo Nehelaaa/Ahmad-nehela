@@ -186,11 +186,11 @@ export default function NewClientForm() {
           </label>
           <label className="block">
             <span className="text-sm text-slate-400 mb-1 block">Pipeline stage</span>
-            <select name="stage" defaultValue="lead" className={inputClass}>
-              <option value="lead">Lead</option>
+            <select name="stage" defaultValue="live" className={inputClass}>
+              <option value="lead">Lead — not started yet</option>
               <option value="building">Building</option>
               <option value="review">Review</option>
-              <option value="live">Live</option>
+              <option value="live">Live — site is already launched</option>
             </select>
           </label>
         </div>

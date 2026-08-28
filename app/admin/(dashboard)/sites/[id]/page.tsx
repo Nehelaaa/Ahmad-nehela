@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteDetailPanel from "@/components/admin/SiteDetailPanel";
 import { getSite } from "@/lib/admin/queries";
@@ -6,32 +5,30 @@ import type { SitePublic } from "@/lib/admin/types";
 
 export default async function SiteDetailPage({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { saved?: string };
 }) {
   const site = await getSite(params.id);
   if (!site) notFound();
 
-  const { login_password_enc: _, ...siteSafe } = site;
+  const { login_password_enc, ...siteSafe } = site;
+  const hasPassword = Boolean(login_password_enc);
 
   return (
-    <>
-      <header className="border-b border-slate-800 px-6 py-5 lg:px-8">
-        <Link href="/admin/sites" className="text-xs text-slate-500 hover:text-brand-400">
-          ← Websites
-        </Link>
-        <p className="text-xs text-brand-400 uppercase tracking-wide font-medium mt-2 mb-1">
-          Website project
-        </p>
-      </header>
-
-      <div className="p-6 lg:p-8 max-w-3xl">
-        <SiteDetailPanel
-          site={siteSafe as SitePublic}
-          businessName={site.business_name}
-          clientId={site.client_id}
-        />
-      </div>
-    </>
+    <div className="p-6 lg:p-8 max-w-3xl">
+      {searchParams.saved === "1" && (
+        <div className="mb-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+          Website saved. You can edit details and credentials below anytime.
+        </div>
+      )}
+      <SiteDetailPanel
+        site={siteSafe as SitePublic}
+        businessName={site.business_name}
+        clientId={site.client_id}
+        hasPassword={hasPassword}
+      />
+    </div>
   );
 }

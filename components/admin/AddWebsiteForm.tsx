@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PLATFORMS } from "@/lib/admin/platforms";
+import { SITE_STAGES } from "@/lib/admin/types";
 
 const inputClass =
   "w-full rounded-xl border border-slate-600 bg-surface px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20";
@@ -10,17 +11,22 @@ const inputClass =
 export default function AddWebsiteForm({
   clientId,
   businessName,
+  existingCount = 0,
 }: {
   clientId: string;
   businessName: string;
+  existingCount?: number;
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+    setError("");
+
     const fd = new FormData(e.currentTarget);
     const price = fd.get("project_price");
     const cents =
@@ -42,17 +48,23 @@ export default function AddWebsiteForm({
         login_password: fd.get("login_password"),
         hosting_provider: fd.get("hosting_provider"),
         site_notes: fd.get("site_notes"),
-        package: fd.get("package"),
-        stage: fd.get("stage"),
+        package: fd.get("package") || "launch",
+        stage: fd.get("stage") || "live",
         project_price_cents: cents,
       }),
     });
+
     setLoading(false);
-    if (res.ok) {
-      const site = await res.json();
-      router.push(`/admin/sites/${site.id}`);
-      router.refresh();
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || "Could not save website — try again");
+      return;
     }
+
+    const site = await res.json();
+    router.push(`/admin/sites/${site.id}?saved=1`);
+    router.refresh();
   }
 
   if (!open) {
@@ -62,7 +74,7 @@ export default function AddWebsiteForm({
         onClick={() => setOpen(true)}
         className="w-full rounded-xl border-2 border-dashed border-brand-500/40 bg-brand-500/5 py-4 text-sm font-medium text-brand-400 hover:bg-brand-500/10"
       >
-        + Add website for this client
+        {existingCount > 0 ? "+ Add another website" : "+ Add website for this client"}
       </button>
     );
   }
@@ -72,33 +84,88 @@ export default function AddWebsiteForm({
       onSubmit={handleSubmit}
       className="rounded-2xl border border-slate-700/60 bg-surface-elevated p-5 space-y-4"
     >
-      <h3 className="font-semibold text-white">New website</h3>
+      <div>
+        <h3 className="font-semibold text-white">New website</h3>
+        <p className="text-xs text-slate-500 mt-1">
+          Already live? Set status to <strong className="text-slate-400">Live</strong> below.
+        </p>
+      </div>
+
       <label className="block">
         <span className="text-sm text-slate-400 mb-1 block">Live domain *</span>
         <input name="domain" required className={inputClass} placeholder="domain.com" />
       </label>
-      <label className="block">
-        <span className="text-sm text-slate-400 mb-1 block">Platform</span>
-        <select name="platform" defaultValue="wordpress" className={inputClass}>
-          {PLATFORMS.map((p) => (
-            <option key={p.id} value={p.id}>{p.label}</option>
-          ))}
-        </select>
-      </label>
-      <label className="block">
-        <span className="text-sm text-slate-400 mb-1 block">Admin URL</span>
-        <input name="admin_url" className={inputClass} placeholder="/wp-admin" />
-      </label>
-      <div className="grid grid-cols-2 gap-3">
-        <input name="login_username" placeholder="Username" className={inputClass} />
-        <input name="login_password" type="password" placeholder="Password" className={inputClass} />
+
+      <div className="grid sm:grid-cols-2 gap-3">
+        <label className="block">
+          <span className="text-sm text-slate-400 mb-1 block">Platform</span>
+          <select name="platform" defaultValue="nextjs" className={inputClass}>
+            {PLATFORMS.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="text-sm text-slate-400 mb-1 block">Status</span>
+          <select name="stage" defaultValue="live" className={inputClass}>
+            {SITE_STAGES.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.label}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
-      <input name="hosting_provider" placeholder="Hosting" className={inputClass} />
+
+      <label className="block">
+        <span className="text-sm text-slate-400 mb-1 block">Admin / login URL</span>
+        <input name="admin_url" className={inputClass} placeholder="https://site.com/wp-admin" />
+      </label>
+
+      <div className="grid grid-cols-2 gap-3">
+        <label className="block">
+          <span className="text-sm text-slate-400 mb-1 block">Username</span>
+          <input name="login_username" autoComplete="off" className={inputClass} />
+        </label>
+        <label className="block">
+          <span className="text-sm text-slate-400 mb-1 block">Password</span>
+          <input
+            name="login_password"
+            type="password"
+            autoComplete="new-password"
+            className={inputClass}
+          />
+        </label>
+      </div>
+
+      <input name="hosting_provider" placeholder="Hosting (Netlify, GoDaddy…)" className={inputClass} />
+      <textarea
+        name="site_notes"
+        rows={2}
+        placeholder="Notes (optional)"
+        className={`${inputClass} resize-none`}
+      />
+
+      {error && <p className="text-red-400 text-sm">{error}</p>}
+
       <div className="flex gap-2">
-        <button type="submit" disabled={loading} className="flex-1 rounded-lg bg-brand-500 py-2 text-sm font-semibold text-white">
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex-1 rounded-lg bg-brand-500 py-2.5 text-sm font-semibold text-white hover:bg-brand-400 disabled:opacity-60"
+        >
           {loading ? "Saving…" : "Save website"}
         </button>
-        <button type="button" onClick={() => setOpen(false)} className="px-4 rounded-lg border border-slate-600 text-sm text-slate-400">
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(false);
+            setError("");
+          }}
+          className="px-4 rounded-lg border border-slate-600 text-sm text-slate-400 hover:text-white"
+        >
           Cancel
         </button>
       </div>
