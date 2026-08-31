@@ -101,9 +101,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fraunces.variable} ${inter.variable}`}
+      style={{ backgroundColor: "#0a0a0b", colorScheme: "dark" }}
       suppressHydrationWarning
     >
-      <body className="font-body min-h-screen bg-surface text-paper">
+      <body
+        className="font-body min-h-screen bg-surface text-paper"
+        style={{ backgroundColor: "#0a0a0b", color: "#f3efe6" }}
+      >
         {children}
       </body>
     </html>
