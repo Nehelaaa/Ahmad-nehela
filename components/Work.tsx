@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Reveal from "@/components/Reveal";
 import { projects } from "@/lib/content";
 
 /** Desktop/tablet only — auto-advance is off on small screens so links are easy to tap. */
@@ -67,14 +66,17 @@ export default function Work() {
     setSlideIndex(Math.max(0, Math.min(index, totalSlides - 1)));
   };
 
+  // Mobile: only current slide images. Desktop: current + neighbors.
+  const preloadRadius = cardsPerSlide === 1 ? 0 : 1;
+
   return (
     <section
       id="work"
-      className="py-24 sm:py-32 bg-surface-elevated border-t border-line"
+      className="section-defer py-24 sm:py-32 bg-surface-elevated border-t border-line"
       aria-labelledby="work-heading"
     >
       <div className="section-container">
-        <Reveal className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <p className="eyebrow justify-center mb-4">Selected work</p>
           <h2 id="work-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
             {projects.length}+ real projects, live today.
@@ -83,22 +85,19 @@ export default function Work() {
             From education and healthcare to local business and e‑commerce — every project below is a real,
             deployed client site.
           </p>
-        </Reveal>
+        </div>
 
         <div className="relative">
           <div className="overflow-hidden">
             <div
-              className="flex items-start will-change-transform"
+              className="flex items-start"
               style={{
                 transform: `translateX(${-slideIndex * 100}%)`,
-                transition: transitionEnabled
-                  ? "transform 0.6s ease-in-out"
-                  : "none",
+                transition: transitionEnabled ? "transform 0.45s ease-out" : "none",
               }}
             >
               {slides.map((slideProjects, slideIdx) => {
-                // Only mount images for current + adjacent slides to avoid a first-load image flood
-                const shouldLoad = Math.abs(slideIdx - slideIndex) <= 1;
+                const shouldLoad = Math.abs(slideIdx - slideIndex) <= preloadRadius;
                 return (
                   <div
                     key={slideIdx}
@@ -112,7 +111,7 @@ export default function Work() {
                         target="_blank"
                         rel="noopener noreferrer"
                         tabIndex={slideIdx === slideIndex ? undefined : -1}
-                        className="group block h-fit rounded-2xl overflow-hidden bg-surface border border-line hover:border-gold-500/40 transition-all duration-500 ease-premium card-hover touch-manipulation"
+                        className="group block h-fit rounded-2xl overflow-hidden bg-surface border border-line hover:border-gold-500/40 transition-colors duration-200 touch-manipulation"
                       >
                         <div className="aspect-video relative shrink-0 bg-surface-high overflow-hidden">
                           {shouldLoad && !failedImages.has(project.image) ? (
@@ -121,8 +120,9 @@ export default function Work() {
                               alt={`${project.title} - project by Top Web Developer`}
                               fill
                               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                              className="object-cover object-center transition-transform duration-700 ease-premium group-hover:scale-105"
+                              className="object-cover object-center"
                               loading={slideIdx === 0 ? "eager" : "lazy"}
+                              quality={65}
                               onError={() =>
                                 setFailedImages((prev) => new Set(prev).add(project.image))
                               }
@@ -136,8 +136,7 @@ export default function Work() {
                               </span>
                             </div>
                           )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                          <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur-sm ring-1 ring-white/10 text-paper text-[11px] font-medium tracking-wide">
+                          <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-surface/90 ring-1 ring-white/10 text-paper text-[11px] font-medium tracking-wide">
                             {project.category}
                           </span>
                         </div>
@@ -164,14 +163,14 @@ export default function Work() {
                   key={i}
                   type="button"
                   onClick={() => goTo(i)}
-                  className={`rounded-full transition-all duration-200 touch-manipulation min-w-[44px] min-h-[44px] inline-flex items-center justify-center ${
+                  className={`rounded-full transition-colors duration-200 touch-manipulation min-w-[44px] min-h-[44px] inline-flex items-center justify-center ${
                     i === slideIndex ? "text-gold-400" : "text-paper/25"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                   aria-current={i === slideIndex ? "true" : undefined}
                 >
                   <span
-                    className={`rounded-full transition-all duration-300 ${
+                    className={`rounded-full transition-all duration-200 ${
                       i === slideIndex ? "bg-gold-500 w-6 h-1.5" : "bg-paper/20 w-1.5 h-1.5"
                     }`}
                   />

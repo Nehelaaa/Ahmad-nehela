@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Reveal from "@/components/Reveal";
 import {
   getPhoneDisplay,
   getPhoneHref,
@@ -44,12 +43,12 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 sm:py-32 bg-surface-elevated border-t border-line"
+      className="section-defer py-24 sm:py-32 bg-surface-elevated border-t border-line"
       aria-labelledby="contact-heading"
     >
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <Reveal>
+          <div>
             <p className="eyebrow mb-4">Get in touch</p>
             <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
               Book a call or get a quote.
@@ -107,9 +106,9 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal className="rounded-3xl bg-surface border border-line p-6 sm:p-8">
+          <div className="rounded-3xl bg-surface border border-line p-6 sm:p-8">
             <h3 className="font-display text-xl text-paper mb-2">Send a message</h3>
             <p className="text-paper/45 text-sm mb-6">
               Choose book a call or get a quote below. I typically reply within one business day.
@@ -234,7 +233,7 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

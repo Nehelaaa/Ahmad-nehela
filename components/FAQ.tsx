@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Reveal from "@/components/Reveal";
 import { faqs } from "@/lib/seo-content";
 
 export default function FAQ() {
@@ -10,11 +9,11 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-24 sm:py-32 bg-surface border-t border-line"
+      className="section-defer py-24 sm:py-32 bg-surface border-t border-line"
       aria-labelledby="faq-heading"
     >
       <div className="section-container max-w-3xl mx-auto">
-        <Reveal className="text-center mb-14">
+        <div className="text-center mb-14">
           <p className="eyebrow justify-center mb-4">FAQ</p>
           <h2 id="faq-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
             Questions about hiring a web developer in Boston.
@@ -22,17 +21,15 @@ export default function FAQ() {
           <p className="text-paper/55">
             Straight answers for local business owners ready to get found online.
           </p>
-        </Reveal>
+        </div>
 
         <ul className="space-y-3">
           {faqs.map((item, i) => {
             const open = openIndex === i;
             return (
-              <Reveal
+              <li
                 key={item.question}
-                as="li"
-                delayMs={i * 30}
-                className={`rounded-2xl border overflow-hidden transition-colors duration-300 ${
+                className={`rounded-2xl border overflow-hidden transition-colors duration-200 ${
                   open ? "border-gold-500/40 bg-surface-elevated" : "border-line bg-surface-elevated/60"
                 }`}
               >
@@ -44,7 +41,7 @@ export default function FAQ() {
                 >
                   <span>{item.question}</span>
                   <span
-                    className={`text-gold-400 shrink-0 text-xl leading-none transition-transform duration-300 ${
+                    className={`text-gold-400 shrink-0 text-xl leading-none transition-transform duration-200 ${
                       open ? "rotate-45" : ""
                     }`}
                     aria-hidden
@@ -57,7 +54,7 @@ export default function FAQ() {
                     {item.answer}
                   </div>
                 )}
-              </Reveal>
+              </li>
             );
           })}
         </ul>

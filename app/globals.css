@@ -118,42 +118,26 @@ body {
 }
 
 /*
- * Hero entrance: transform-only so text is readable on first paint
- * (no opacity:0 waiting for JS — that caused the blank Google landing).
+ * Hero entrance: short transform-only motion (readable on first paint).
+ * Disabled on small screens / reduced-motion to keep mobile paint cheap.
  */
 .hero-rise {
-  animation: heroRise 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes heroRise {
   from {
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     transform: translateY(0);
   }
 }
 
-/*
- * Scroll reveal: visible by default (SSR / no-JS).
- * Only .reveal-pending (off-screen, after hydration) is hidden briefly.
- */
-.reveal {
-  opacity: 1;
-  transform: none;
-}
-
-.reveal.reveal-pending {
-  opacity: 0;
-  transform: translateY(16px);
-}
-
-.reveal.reveal-shown {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* Skip rendering work for off-screen sections (big mobile win) */
+.section-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
 }
 
 /* Respect reduced motion and improve mobile scroll performance */
@@ -170,11 +154,24 @@ body {
     animation: none !important;
     transform: none !important;
   }
-  .reveal,
-  .reveal.reveal-pending,
-  .reveal.reveal-shown {
-    opacity: 1 !important;
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Phones: drop continuous animations and expensive filters */
+@media (max-width: 767px) {
+  .hero-rise {
+    animation: none !important;
     transform: none !important;
-    transition: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .animate-float {
+    animation: none !important;
+  }
+  .grain {
+    display: none !important;
   }
 }

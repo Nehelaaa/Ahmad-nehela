@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Reveal from "@/components/Reveal";
 import { stats } from "@/lib/content";
 
 function AnimatedNumber({
@@ -13,11 +12,18 @@ function AnimatedNumber({
   suffix: string;
   inView: boolean;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
   useEffect(() => {
     if (!inView) return;
-    const duration = 1500;
-    const steps = 30;
+    // Prefer reduced work on mobile: snap to value if user prefers reduced motion
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setCount(value);
+      return;
+    }
+    setCount(0);
+    const duration = 900;
+    const steps = 18;
     const step = value / steps;
     const stepDuration = duration / steps;
     let current = 0;
@@ -55,7 +61,7 @@ export default function Stats() {
           io.disconnect();
         }
       },
-      { rootMargin: "-80px", threshold: 0.2 }
+      { rootMargin: "0px", threshold: 0.15 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -64,13 +70,13 @@ export default function Stats() {
   return (
     <section
       ref={ref}
-      className="py-16 sm:py-20 bg-surface border-y border-line"
+      className="section-defer py-16 sm:py-20 bg-surface border-y border-line"
       aria-label="Experience and results"
     >
       <div className="section-container">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center sm:divide-x sm:divide-line">
-          {stats.map((stat, i) => (
-            <Reveal key={stat.label} delayMs={i * 80} className="group px-2">
+          {stats.map((stat) => (
+            <div key={stat.label} className="group px-2">
               <p className="font-display text-5xl sm:text-6xl text-paper mb-1.5 tabular-nums">
                 <span className="text-gold-400">
                   <AnimatedNumber value={stat.value} suffix={stat.suffix} inView={inView} />
@@ -79,7 +85,7 @@ export default function Stats() {
               <p className="text-paper/45 text-[13px] sm:text-sm font-medium uppercase tracking-[0.14em]">
                 {stat.label}
               </p>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

@@ -81,9 +81,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-premium ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         headerSolid
-          ? "bg-surface/85 backdrop-blur-xl py-3 border-b border-line"
+          ? "bg-surface/95 md:bg-surface/85 md:backdrop-blur-xl py-3 border-b border-line"
           : "py-5 sm:py-6"
       }`}
     >

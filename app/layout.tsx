@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
-/* Lean font subset — variable axes + italic previously added ~270KB before paint */
+/* Minimal fonts for mobile first paint — one display + one body file each */
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "600"],
+  weight: ["400"],
   style: ["normal", "italic"],
   preload: true,
   adjustFontFallback: true,
@@ -17,7 +17,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   preload: true,
   adjustFontFallback: true,
 });

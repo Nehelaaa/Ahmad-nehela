@@ -1,8 +1,14 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import SmoothHashScroll from "@/components/SmoothHashScroll";
 import JsonLd from "@/components/JsonLd";
+
+const SmoothHashScroll = dynamic(() => import("@/components/SmoothHashScroll"), {
+  ssr: false,
+});
+const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"), {
+  ssr: false,
+});
 
 export default function SiteLayout({
   children,
