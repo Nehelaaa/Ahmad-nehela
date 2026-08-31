@@ -1,12 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { areasServed } from "@/lib/seo-content";
 import { site } from "@/lib/content";
-
-const vp = { once: true, margin: "-40px" as const };
-const ease = [0.16, 1, 0.3, 1] as const;
 
 const seoLinks = [
   { href: "/web-developer-boston", label: "Web developer Boston" },
@@ -16,8 +13,6 @@ const seoLinks = [
 ];
 
 export default function LocalSeo() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section
       id="areas"
@@ -25,13 +20,7 @@ export default function LocalSeo() {
       aria-labelledby="areas-heading"
     >
       <div className="section-container">
-        <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.5, ease }}
-          className="text-center max-w-2xl mx-auto mb-12"
-        >
+        <Reveal className="text-center max-w-2xl mx-auto mb-12">
           <p className="eyebrow justify-center mb-4">Service area</p>
           <h2 id="areas-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
             Serving {site.serviceArea}.
@@ -40,7 +29,7 @@ export default function LocalSeo() {
             Local businesses hire me to get found on Google, look professional online, and turn
             visitors into calls and bookings. Based in Boston — serving nearby cities and towns.
           </p>
-        </motion.div>
+        </Reveal>
 
         <ul className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-14">
           {areasServed.map((area) => (

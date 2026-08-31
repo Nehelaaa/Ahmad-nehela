@@ -117,6 +117,45 @@ body {
   @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-400;
 }
 
+/*
+ * Hero entrance: transform-only so text is readable on first paint
+ * (no opacity:0 waiting for JS — that caused the blank Google landing).
+ */
+.hero-rise {
+  animation: heroRise 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroRise {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Scroll reveal: visible by default (SSR / no-JS).
+ * Only .reveal-pending (off-screen, after hydration) is hidden briefly.
+ */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal.reveal-pending {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.reveal.reveal-shown {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Respect reduced motion and improve mobile scroll performance */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -126,5 +165,16 @@ body {
   }
   html {
     scroll-behavior: auto;
+  }
+  .hero-rise {
+    animation: none !important;
+    transform: none !important;
+  }
+  .reveal,
+  .reveal.reveal-pending,
+  .reveal.reveal-shown {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

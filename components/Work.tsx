@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { projects } from "@/lib/content";
-
-const ease = [0.16, 1, 0.3, 1] as const;
 
 /** Desktop/tablet only — auto-advance is off on small screens so links are easy to tap. */
 const SLIDE_INTERVAL_MS = 8000;
@@ -22,7 +20,6 @@ export default function Work() {
   const [transitionEnabled, setTransitionEnabled] = useState(true);
   const [autoAdvanceEnabled, setAutoAdvanceEnabled] = useState(false);
   const [cardsPerSlide, setCardsPerSlide] = useState(1);
-  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const sync = () => {
@@ -39,7 +36,6 @@ export default function Work() {
     projects.slice(i * cardsPerSlide, (i + 1) * cardsPerSlide)
   );
 
-  // Keep current slide in range when layout breakpoints change
   useEffect(() => {
     setSlideIndex((prev) => Math.min(prev, totalSlides - 1));
   }, [totalSlides]);
@@ -78,13 +74,7 @@ export default function Work() {
       aria-labelledby="work-heading"
     >
       <div className="section-container">
-        <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: reduceMotion ? 0.2 : 0.5, ease }}
-          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
-        >
+        <Reveal className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <p className="eyebrow justify-center mb-4">Selected work</p>
           <h2 id="work-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
             {projects.length}+ real projects, live today.
@@ -93,69 +83,78 @@ export default function Work() {
             From education and healthcare to local business and e‑commerce — every project below is a real,
             deployed client site.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="relative">
           <div className="overflow-hidden">
-            <motion.div
-              className="flex items-start"
-              animate={{ x: `${-slideIndex * 100}%` }}
-              transition={{
-                type: "tween",
-                duration: reduceMotion ? 0 : transitionEnabled ? 0.6 : 0,
-                ease: "easeInOut",
+            <div
+              className="flex items-start will-change-transform"
+              style={{
+                transform: `translateX(${-slideIndex * 100}%)`,
+                transition: transitionEnabled
+                  ? "transform 0.6s ease-in-out"
+                  : "none",
               }}
             >
-              {slides.map((slideProjects, slideIdx) => (
-                <div
-                  key={slideIdx}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 flex-shrink-0 w-full items-start"
-                >
-                  {slideProjects.map((project) => (
-                    <a
-                      key={project.title}
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block h-fit rounded-2xl overflow-hidden bg-surface border border-line hover:border-gold-500/40 transition-all duration-500 ease-premium card-hover touch-manipulation"
-                    >
-                      <div className="aspect-video relative shrink-0 bg-surface-high overflow-hidden">
-                        {!failedImages.has(project.image) ? (
-                          <Image
-                            src={project.image}
-                            alt={`${project.title} - project by Top Web Developer`}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover object-center transition-transform duration-700 ease-premium group-hover:scale-105"
-                            onError={() =>
-                              setFailedImages((prev) => new Set(prev).add(project.image))
-                            }
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-gold-900/40 to-surface-high flex items-center justify-center p-4">
-                            <span className="text-gold-400 font-display text-center text-sm sm:text-base">
-                              {project.title}
-                            </span>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur-sm ring-1 ring-white/10 text-paper text-[11px] font-medium tracking-wide">
-                          {project.category}
-                        </span>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-display text-paper group-hover:text-gold-300 transition-colors">
-                          {project.title}
-                        </h3>
-                        <p className="text-paper/45 text-sm mt-1 line-clamp-2 leading-snug">
-                          {project.description}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              ))}
-            </motion.div>
+              {slides.map((slideProjects, slideIdx) => {
+                // Only mount images for current + adjacent slides to avoid a first-load image flood
+                const shouldLoad = Math.abs(slideIdx - slideIndex) <= 1;
+                return (
+                  <div
+                    key={slideIdx}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 flex-shrink-0 w-full items-start"
+                    aria-hidden={slideIdx !== slideIndex}
+                  >
+                    {slideProjects.map((project) => (
+                      <a
+                        key={project.title}
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={slideIdx === slideIndex ? undefined : -1}
+                        className="group block h-fit rounded-2xl overflow-hidden bg-surface border border-line hover:border-gold-500/40 transition-all duration-500 ease-premium card-hover touch-manipulation"
+                      >
+                        <div className="aspect-video relative shrink-0 bg-surface-high overflow-hidden">
+                          {shouldLoad && !failedImages.has(project.image) ? (
+                            <Image
+                              src={project.image}
+                              alt={`${project.title} - project by Top Web Developer`}
+                              fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              className="object-cover object-center transition-transform duration-700 ease-premium group-hover:scale-105"
+                              loading={slideIdx === 0 ? "eager" : "lazy"}
+                              onError={() =>
+                                setFailedImages((prev) => new Set(prev).add(project.image))
+                              }
+                            />
+                          ) : !shouldLoad ? (
+                            <div className="absolute inset-0 bg-surface-high" />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-gold-900/40 to-surface-high flex items-center justify-center p-4">
+                              <span className="text-gold-400 font-display text-center text-sm sm:text-base">
+                                {project.title}
+                              </span>
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                          <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur-sm ring-1 ring-white/10 text-paper text-[11px] font-medium tracking-wide">
+                            {project.category}
+                          </span>
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-display text-paper group-hover:text-gold-300 transition-colors">
+                            {project.title}
+                          </h3>
+                          <p className="text-paper/45 text-sm mt-1 line-clamp-2 leading-snug">
+                            {project.description}
+                          </p>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {totalSlides > 1 && (

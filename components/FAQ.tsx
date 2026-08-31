@@ -1,15 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { faqs } from "@/lib/seo-content";
-
-const vp = { once: true, margin: "-40px" as const };
-const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const reduceMotion = useReducedMotion();
 
   return (
     <section
@@ -18,13 +14,7 @@ export default function FAQ() {
       aria-labelledby="faq-heading"
     >
       <div className="section-container max-w-3xl mx-auto">
-        <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.5, ease }}
-          className="text-center mb-14"
-        >
+        <Reveal className="text-center mb-14">
           <p className="eyebrow justify-center mb-4">FAQ</p>
           <h2 id="faq-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
             Questions about hiring a web developer in Boston.
@@ -32,18 +22,16 @@ export default function FAQ() {
           <p className="text-paper/55">
             Straight answers for local business owners ready to get found online.
           </p>
-        </motion.div>
+        </Reveal>
 
         <ul className="space-y-3">
           {faqs.map((item, i) => {
             const open = openIndex === i;
             return (
-              <motion.li
+              <Reveal
                 key={item.question}
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-                whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.4, ease, delay: reduceMotion ? 0 : i * 0.03 }}
+                as="li"
+                delayMs={i * 30}
                 className={`rounded-2xl border overflow-hidden transition-colors duration-300 ${
                   open ? "border-gold-500/40 bg-surface-elevated" : "border-line bg-surface-elevated/60"
                 }`}
@@ -69,7 +57,7 @@ export default function FAQ() {
                     {item.answer}
                   </div>
                 )}
-              </motion.li>
+              </Reveal>
             );
           })}
         </ul>

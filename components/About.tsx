@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { site, projects } from "@/lib/content";
 
 const highlights = [
@@ -10,19 +10,11 @@ const highlights = [
   { title: "Paid that converts", line: "Google Ads & landing pages that turn clicks into leads." },
 ];
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 // Real categories from delivered projects — a factual, always-accurate ticker.
 const categories = Array.from(new Set(projects.map((p) => p.category)));
 const marqueeItems = [...categories, ...categories];
 
 export default function About() {
-  const reduceMotion = useReducedMotion();
-  const vp = { once: true, margin: "-40px" as const };
-  const anim = reduceMotion
-    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, ease } };
-
   return (
     <section
       id="about"
@@ -30,11 +22,7 @@ export default function About() {
       aria-labelledby="about-heading"
     >
       <div className="section-container">
-        <motion.div
-          {...anim}
-          viewport={vp}
-          className="text-center max-w-2xl mx-auto mb-14"
-        >
+        <Reveal className="text-center max-w-2xl mx-auto mb-14">
           <p className="eyebrow justify-center mb-4">About</p>
           <h2
             id="about-heading"
@@ -48,22 +36,19 @@ export default function About() {
             nonprofits, and local companies — from idea to launch, with clear communication and
             a focus on results you can measure.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
           {highlights.map((item, i) => (
-            <motion.div
+            <Reveal
               key={item.title}
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: reduceMotion ? 0.2 : 0.5, ease, delay: reduceMotion ? 0 : i * 0.07 }}
+              delayMs={i * 70}
               className="group rounded-2xl bg-surface border border-line p-5 hover:border-gold-500/40 transition-all duration-500 ease-premium hover:-translate-y-0.5"
             >
               <span className="block w-8 h-px bg-gold-500/50 mb-4 group-hover:w-12 transition-all duration-500" />
               <p className="font-display text-paper text-base mb-1.5">{item.title}</p>
               <p className="text-paper/50 text-sm leading-snug">{item.line}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 

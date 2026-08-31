@@ -1,16 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/lib/content";
 
 const headlineWords = ["Websites", "that", "make", "your", "business", "the", "obvious", "choice."];
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section
       id="home"
@@ -32,57 +25,45 @@ export default function Hero() {
 
       <div className="section-container relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease }}
-            className="eyebrow justify-center mb-7"
-          >
+          {/* CSS-only entrance — content stays readable without waiting for JS hydration */}
+          <div className="eyebrow justify-center mb-7 hero-rise" style={{ animationDelay: "0ms" }}>
             <span className="h-px w-6 bg-gold-500/60" />
             Boston &amp; MetroWest · Free 15-min consult
             <span className="h-px w-6 bg-gold-500/60" />
-          </motion.div>
+          </div>
 
           <h1 className="font-display text-[2.6rem] leading-[1.05] sm:text-6xl sm:leading-[1.05] md:text-7xl md:leading-[1.02] tracking-tightest text-paper mb-7">
             {headlineWords.map((word, i) => (
-              <motion.span
+              <span
                 key={word + i}
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
-                animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.7, ease, delay: reduceMotion ? 0 : 0.08 * i }}
-                className={`inline-block mr-[0.28em] ${
+                className={`hero-rise inline-block mr-[0.28em] ${
                   word === "obvious" ? "italic text-gold-400" : ""
                 }`}
+                style={{ animationDelay: `${80 + i * 55}ms` }}
               >
                 {word}
-              </motion.span>
+              </span>
             ))}
           </h1>
 
-          <motion.p
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.7 }}
-            className="max-w-xl mx-auto text-paper/60 text-base sm:text-lg leading-relaxed mb-3"
+          <p
+            className="hero-rise max-w-xl mx-auto text-paper/60 text-base sm:text-lg leading-relaxed mb-3"
+            style={{ animationDelay: "520ms" }}
           >
             {site.name} — custom sites, built and designed by {site.personName}, with SEO, WordPress, and
             analytics built in from day one.
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.78 }}
-            className="text-paper/40 text-sm mb-10"
+          <p
+            className="hero-rise text-paper/40 text-sm mb-10"
+            style={{ animationDelay: "600ms" }}
           >
             So the next neighbor who searches for what you do finds you first — and books.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.86 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3"
+          <div
+            className="hero-rise flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3"
+            style={{ animationDelay: "680ms" }}
           >
             <Link
               href="/#contact"
@@ -99,7 +80,7 @@ export default function Hero() {
             >
               View the work
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

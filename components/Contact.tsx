@@ -1,16 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import {
   getPhoneDisplay,
   getPhoneHref,
   site,
   services,
 } from "@/lib/content";
-
-const vp = { once: true, margin: "-40px" as const };
-const ease = [0.16, 1, 0.3, 1] as const;
 
 const inputClass =
   "w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-base text-paper placeholder-paper/30 focus:border-gold-500/60 focus:outline-none focus:ring-2 focus:ring-gold-500/15 transition-colors";
@@ -19,16 +16,8 @@ export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
   );
-  const reduceMotion = useReducedMotion();
   const phoneHref = getPhoneHref();
   const phoneDisplay = getPhoneDisplay();
-
-  const animLeft = reduceMotion
-    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: -24 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.5, ease } };
-  const animRight = reduceMotion
-    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: 24 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.5, ease } };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -60,7 +49,7 @@ export default function Contact() {
     >
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <motion.div {...animLeft} viewport={vp}>
+          <Reveal>
             <p className="eyebrow mb-4">Get in touch</p>
             <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tightest text-paper mb-4">
               Book a call or get a quote.
@@ -118,13 +107,9 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </Reveal>
 
-          <motion.div
-            {...animRight}
-            viewport={vp}
-            className="rounded-3xl bg-surface border border-line p-6 sm:p-8"
-          >
+          <Reveal className="rounded-3xl bg-surface border border-line p-6 sm:p-8">
             <h3 className="font-display text-xl text-paper mb-2">Send a message</h3>
             <p className="text-paper/45 text-sm mb-6">
               Choose book a call or get a quote below. I typically reply within one business day.
@@ -249,7 +234,7 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

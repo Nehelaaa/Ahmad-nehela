@@ -1,17 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { careSubscription, pricingDeal, services } from "@/lib/content";
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 export default function Services() {
-  const reduceMotion = useReducedMotion();
-  const anim = reduceMotion
-    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, ease } };
-
   return (
     <section
       id="services"
@@ -19,11 +12,7 @@ export default function Services() {
       aria-labelledby="services-heading"
     >
       <div className="section-container">
-        <motion.div
-          {...anim}
-          viewport={{ once: true, margin: "-40px" }}
-          className="text-center max-w-lg mx-auto mb-16"
-        >
+        <Reveal className="text-center max-w-lg mx-auto mb-16">
           <p className="eyebrow justify-center mb-4">Pricing</p>
           <h2
             id="services-heading"
@@ -35,19 +24,17 @@ export default function Services() {
             One clear project price. Site Care keeps it running after launch.
           </p>
           <p className="text-paper/35 text-sm mt-3">{pricingDeal.note}</p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid md:grid-cols-3 gap-5 items-stretch">
           {services.map((plan, i) => {
             const savings = plan.regularPrice != null ? plan.regularPrice - plan.price : 0;
 
             return (
-              <motion.article
+              <Reveal
                 key={plan.name}
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: reduceMotion ? 0.2 : 0.55, ease, delay: reduceMotion ? 0 : i * 0.08 }}
+                as="article"
+                delayMs={i * 80}
                 className={`relative flex flex-col rounded-3xl p-7 sm:p-8 transition-all duration-500 ease-premium ${
                   plan.highlighted
                     ? "bg-gradient-to-b from-surface-high to-surface-elevated ring-1 ring-gold-500/50 shadow-[0_0_60px_-20px_rgba(192,138,52,0.5)] md:-mt-3 md:mb-3 md:pt-9"
@@ -106,16 +93,12 @@ export default function Services() {
                 >
                   {plan.cta}
                 </Link>
-              </motion.article>
+              </Reveal>
             );
           })}
         </div>
 
-        <motion.div
-          {...anim}
-          viewport={{ once: true, margin: "-40px" }}
-          className="mt-14 rounded-3xl ring-1 ring-line bg-surface-elevated/60 px-6 py-9 sm:px-9"
-        >
+        <Reveal className="mt-14 rounded-3xl ring-1 ring-line bg-surface-elevated/60 px-6 py-9 sm:px-9">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-7">
             <div>
               <p className="eyebrow mb-2">Included with every plan</p>
@@ -135,7 +118,7 @@ export default function Services() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </Reveal>
 
         <p className="text-center text-paper/45 text-sm mt-10">
           Not sure which fits?{" "}
