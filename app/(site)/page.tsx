@@ -1,13 +1,16 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Stats from "@/components/Stats";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
 import WhatIBuild from "@/components/WhatIBuild";
-import Work from "@/components/Work";
 import LocalSeo from "@/components/LocalSeo";
-import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
+
+/* Interactive / heavier client islands — code-split so mobile parses less JS up front */
+const Stats = dynamic(() => import("@/components/Stats"));
+const Work = dynamic(() => import("@/components/Work"));
+const FAQ = dynamic(() => import("@/components/FAQ"));
+const Contact = dynamic(() => import("@/components/Contact"));
 
 export default function Home() {
   return (

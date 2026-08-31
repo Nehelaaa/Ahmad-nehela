@@ -117,6 +117,29 @@ body {
   @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-400;
 }
 
+/*
+ * Hero entrance: short transform-only motion (readable on first paint).
+ * Disabled on small screens / reduced-motion to keep mobile paint cheap.
+ */
+.hero-rise {
+  animation: heroRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroRise {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Skip rendering work for off-screen sections (big mobile win) */
+.section-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 /* Respect reduced motion and improve mobile scroll performance */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -126,5 +149,29 @@ body {
   }
   html {
     scroll-behavior: auto;
+  }
+  .hero-rise {
+    animation: none !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Phones: drop continuous animations and expensive filters */
+@media (max-width: 767px) {
+  .hero-rise {
+    animation: none !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .animate-float {
+    animation: none !important;
+  }
+  .grain {
+    display: none !important;
   }
 }

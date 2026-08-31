@@ -1,11 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { stats } from "@/lib/content";
-
-const ease = [0.16, 1, 0.3, 1] as const;
 
 function AnimatedNumber({
   value,
@@ -16,11 +12,18 @@ function AnimatedNumber({
   suffix: string;
   inView: boolean;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
   useEffect(() => {
     if (!inView) return;
-    const duration = 1500;
-    const steps = 30;
+    // Prefer reduced work on mobile: snap to value if user prefers reduced motion
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setCount(value);
+      return;
+    }
+    setCount(0);
+    const duration = 900;
+    const steps = 18;
     const step = value / steps;
     const stepDuration = duration / steps;
     let current = 0;
@@ -45,28 +48,35 @@ function AnimatedNumber({
 }
 
 export default function Stats() {
-  const ref = useRef(null);
-  const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const vp = { once: true, margin: "-40px" as const };
+  const ref = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px", threshold: 0.15 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section
       ref={ref}
-      className="py-16 sm:py-20 bg-surface border-y border-line"
+      className="section-defer py-16 sm:py-20 bg-surface border-y border-line"
       aria-label="Experience and results"
     >
       <div className="section-container">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center sm:divide-x sm:divide-line">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: reduceMotion ? 0.2 : 0.5, ease, delay: reduceMotion ? 0 : i * 0.08 }}
-              className="group px-2"
-            >
+          {stats.map((stat) => (
+            <div key={stat.label} className="group px-2">
               <p className="font-display text-5xl sm:text-6xl text-paper mb-1.5 tabular-nums">
                 <span className="text-gold-400">
                   <AnimatedNumber value={stat.value} suffix={stat.suffix} inView={inView} />
@@ -75,7 +85,7 @@ export default function Stats() {
               <p className="text-paper/45 text-[13px] sm:text-sm font-medium uppercase tracking-[0.14em]">
                 {stat.label}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

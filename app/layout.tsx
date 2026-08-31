@@ -2,18 +2,24 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
+/* Minimal fonts for mobile first paint — one display + one body file each */
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["400"],
   style: ["normal", "italic"],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  weight: ["400", "600"],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {
@@ -95,9 +101,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fraunces.variable} ${inter.variable}`}
+      style={{ backgroundColor: "#0a0a0b", colorScheme: "dark" }}
       suppressHydrationWarning
     >
-      <body className="font-body min-h-screen bg-surface text-paper">
+      <body
+        className="font-body min-h-screen bg-surface text-paper"
+        style={{ backgroundColor: "#0a0a0b", color: "#f3efe6" }}
+      >
         {children}
       </body>
     </html>

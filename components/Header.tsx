@@ -3,7 +3,6 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { getPhoneDisplay, getPhoneHref } from "@/lib/content";
 import { homeHash, scrollToHash } from "@/lib/nav";
 
@@ -50,7 +49,6 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
-  // Close drawer if viewport grows to desktop nav
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
     const onChange = () => {
@@ -64,7 +62,6 @@ export default function Header() {
     const hash = `#${id}`;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wasOpen = mobileOpen;
-    // Instant scroll after closing the drawer so the target lands under the fixed header
     const behavior: ScrollBehavior = reduced || wasOpen ? "auto" : "smooth";
 
     if (pathname === "/") {
@@ -84,9 +81,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-premium ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         headerSolid
-          ? "bg-surface/85 backdrop-blur-xl py-3 border-b border-line"
+          ? "bg-surface/95 md:bg-surface/85 md:backdrop-blur-xl py-3 border-b border-line"
           : "py-5 sm:py-6"
       }`}
     >
@@ -196,59 +193,55 @@ export default function Header() {
         </div>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            id="mobile-nav"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden bg-surface border-t border-line max-h-[min(70dvh,calc(100dvh-4.5rem))] overflow-y-auto overscroll-contain"
-          >
-            <ul className="section-container flex flex-col py-3 gap-0.5 pb-[max(1rem,env(safe-area-inset-bottom))]">
-              {mobileLinks.map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={homeHash(link.id)}
-                    onClick={(e) => goToSection(e, link.id)}
-                    className="block py-3.5 min-h-[48px] flex items-center text-paper/75 hover:text-paper font-medium active:text-paper text-base"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              {phoneHref && (
-                <li>
-                  <a
-                    href={phoneHref}
-                    className="block py-3.5 min-h-[48px] flex items-center text-gold-300 font-medium text-base"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    Call {phoneDisplay}
-                  </a>
-                </li>
-              )}
-              <li className="pt-3 space-y-2">
-                <Link
-                  href={homeHash("contact")}
-                  onClick={(e) => goToSection(e, "contact")}
-                  className="block text-center rounded-full border border-line py-3.5 min-h-[48px] flex items-center justify-center text-paper font-semibold whitespace-nowrap"
-                >
-                  Book a free call
-                </Link>
-                <Link
-                  href={homeHash("contact")}
-                  onClick={(e) => goToSection(e, "contact")}
-                  className="block text-center rounded-full bg-gold-500 py-3.5 min-h-[48px] flex items-center justify-center text-surface font-semibold whitespace-nowrap"
-                >
-                  Get a quote
-                </Link>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        id="mobile-nav"
+        className={`lg:hidden bg-surface border-t border-line overflow-hidden transition-[max-height,opacity] duration-300 ease-premium ${
+          mobileOpen
+            ? "max-h-[min(70dvh,calc(100dvh-4.5rem))] opacity-100"
+            : "max-h-0 opacity-0 pointer-events-none border-t-0"
+        }`}
+      >
+        <ul className="section-container flex flex-col py-3 gap-0.5 pb-[max(1rem,env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain max-h-[min(70dvh,calc(100dvh-4.5rem))]">
+          {mobileLinks.map((link) => (
+            <li key={link.id}>
+              <Link
+                href={homeHash(link.id)}
+                onClick={(e) => goToSection(e, link.id)}
+                className="block py-3.5 min-h-[48px] flex items-center text-paper/75 hover:text-paper font-medium active:text-paper text-base"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          {phoneHref && (
+            <li>
+              <a
+                href={phoneHref}
+                className="block py-3.5 min-h-[48px] flex items-center text-gold-300 font-medium text-base"
+                onClick={() => setMobileOpen(false)}
+              >
+                Call {phoneDisplay}
+              </a>
+            </li>
+          )}
+          <li className="pt-3 space-y-2">
+            <Link
+              href={homeHash("contact")}
+              onClick={(e) => goToSection(e, "contact")}
+              className="block text-center rounded-full border border-line py-3.5 min-h-[48px] flex items-center justify-center text-paper font-semibold whitespace-nowrap"
+            >
+              Book a free call
+            </Link>
+            <Link
+              href={homeHash("contact")}
+              onClick={(e) => goToSection(e, "contact")}
+              className="block text-center rounded-full bg-gold-500 py-3.5 min-h-[48px] flex items-center justify-center text-surface font-semibold whitespace-nowrap"
+            >
+              Get a quote
+            </Link>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }
