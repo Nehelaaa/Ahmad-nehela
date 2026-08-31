@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getPhoneDisplay, site } from "@/lib/content";
 
 export const faqs = [
@@ -56,6 +57,39 @@ export type SeoServicePage = {
   bullets: string[];
   closing: string;
 };
+
+/** Shared SEO metadata for Boston service landers */
+export function servicePageMetadata(page: SeoServicePage): Metadata {
+  const url = `https://ahmadnehela.com/${page.slug}`;
+  return {
+    title: page.metaTitle,
+    description: page.metaDescription,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url,
+      siteName: "Top Web Developer — Boston",
+      title: page.metaTitle,
+      description: page.metaDescription,
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: page.metaTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.metaTitle,
+      description: page.metaDescription,
+      images: ["/og-image.png"],
+    },
+    robots: { index: true, follow: true },
+  };
+}
 
 export const seoServicePages: SeoServicePage[] = [
   {

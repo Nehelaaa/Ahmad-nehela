@@ -15,8 +15,13 @@
     Cache-Control = "private, no-cache, no-store, must-revalidate"
     Pragma = "no-cache"
 
+# Long-cache static media (images rarely change; bump query or filename when they do)
 [[headers]]
-  for = "/api/admin/*"
+  for = "/images/*"
   [headers.values]
-    Cache-Control = "private, no-cache, no-store, must-revalidate"
-    Pragma = "no-cache"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

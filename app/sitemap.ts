@@ -19,10 +19,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     })),
     {
-      url: `${baseUrl}/thank-you`,
+      url: `${baseUrl}/privacy`,
       lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.2,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/sms-terms`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
     },
   ];
 }

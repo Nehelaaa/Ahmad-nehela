@@ -17,16 +17,16 @@ export default function Hero() {
       className="relative overflow-hidden bg-surface pt-36 pb-20 sm:pt-44 sm:pb-28"
       aria-label="Introduction"
     >
-      {/* Generative brand visual: layered radial glows + drifting gradient orbs + grain */}
+      {/* Lighter on mobile: no huge blur orbs (GPU-heavy) */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(192,138,52,0.16),transparent)]" />
-        <div className="absolute -top-24 left-[8%] h-[26rem] w-[26rem] rounded-full bg-gold-500/10 blur-[110px] animate-float" />
+        <div className="hidden sm:block absolute -top-24 left-[8%] h-[26rem] w-[26rem] rounded-full bg-gold-500/10 blur-[110px] animate-float" />
         <div
-          className="absolute top-10 right-[6%] h-[22rem] w-[22rem] rounded-full bg-sage-500/10 blur-[110px] animate-float"
+          className="hidden sm:block absolute top-10 right-[6%] h-[22rem] w-[22rem] rounded-full bg-sage-500/10 blur-[110px] animate-float"
           style={{ animationDelay: "-3.5s" }}
         />
-        <div className="absolute inset-0 opacity-60 hero-pattern" />
-        <div className="absolute inset-0 grain" />
+        <div className="absolute inset-0 opacity-40 sm:opacity-60 hero-pattern" />
+        <div className="hidden sm:block absolute inset-0 grain" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-surface to-transparent" />
       </div>
 
@@ -35,7 +35,7 @@ export default function Hero() {
           <motion.div
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease }}
+            transition={{ duration: 0.45, ease }}
             className="eyebrow justify-center mb-7"
           >
             <span className="h-px w-6 bg-gold-500/60" />
@@ -47,9 +47,21 @@ export default function Hero() {
             {headlineWords.map((word, i) => (
               <motion.span
                 key={word + i}
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
-                animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.7, ease, delay: reduceMotion ? 0 : 0.08 * i }}
+                initial={
+                  reduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, y: 18 }
+                }
+                animate={
+                  reduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: 1, y: 0 }
+                }
+                transition={{
+                  duration: 0.55,
+                  ease,
+                  delay: reduceMotion ? 0 : 0.05 * i,
+                }}
                 className={`inline-block mr-[0.28em] ${
                   word === "obvious" ? "italic text-gold-400" : ""
                 }`}
@@ -60,28 +72,28 @@ export default function Hero() {
           </h1>
 
           <motion.p
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.7 }}
+            transition={{ duration: 0.5, ease, delay: reduceMotion ? 0 : 0.45 }}
             className="max-w-xl mx-auto text-paper/60 text-base sm:text-lg leading-relaxed mb-3"
           >
-            {site.name} — custom sites, built and designed by {site.personName}, with SEO, WordPress, and
-            analytics built in from day one.
+            {site.name} — custom sites, built and designed by {site.personName}, with SEO, WordPress,
+            and analytics built in from day one.
           </motion.p>
 
           <motion.p
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.78 }}
+            transition={{ duration: 0.5, ease, delay: reduceMotion ? 0 : 0.52 }}
             className="text-paper/40 text-sm mb-10"
           >
             So the next neighbor who searches for what you do finds you first — and books.
           </motion.p>
 
           <motion.div
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: reduceMotion ? 0 : 0.86 }}
+            transition={{ duration: 0.5, ease, delay: reduceMotion ? 0 : 0.58 }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3"
           >
             <Link

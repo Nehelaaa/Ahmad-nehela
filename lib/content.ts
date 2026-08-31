@@ -185,7 +185,7 @@ export const projects = [
     description:
       "Local mechanic shop in Franklin serving surrounding cities with a professional, trust-building presence.",
     url: "https://www.franklintireauto.com/",
-    image: "/images/%26%20(1).png",
+    image: "/images/franklin-tire.jpg",
     category: "Local Business",
   },
   {
@@ -193,7 +193,7 @@ export const projects = [
     description:
       "Auto repair shop website built to earn trust and drive calls—services, reviews, and clear contact info.",
     url: "https://expert-auto-boost.lovable.app/",
-    image: "/images/expert-auto-shop.jpg?v=1",
+    image: "/images/expert-auto-shop.jpg",
     category: "Local Business",
   },
   {
@@ -241,7 +241,7 @@ export const projects = [
     description:
       "Auto repair shop in Milford, MA. Trust-building site with services, reviews, and contact—same-day service when you need it.",
     url: "https://rays-auto.vercel.app/",
-    image: "/images/rays-auto.png?v=2",
+    image: "/images/rays-auto.jpg",
     category: "Local Business",
   },
   {
@@ -249,7 +249,7 @@ export const projects = [
     description:
       "Middle Eastern kitchen showcase: shawarma, skewers, and halal grill—bold typography, menu flow, and a warm brand story.",
     url: "https://kebabit.netlify.app/",
-    image: "/images/GK.png",
+    image: "/images/GK.jpg",
     category: "Restaurant",
   },
   {
@@ -273,7 +273,7 @@ export const projects = [
     description:
       "Neighborhood bakery in Lexington, MA on Mass Ave — artisan breads and pastries, menu, story, and visit hours. Slow fermentation, laminated pastries, baked daily.",
     url: "https://nouveau-sweet-lexington.lovable.app/",
-    image: "/images/nouve-bakery.jpg?v=3",
+    image: "/images/nouve-bakery.jpg",
     category: "Food & Hospitality",
   },
   {
@@ -281,7 +281,7 @@ export const projects = [
     description:
       "Family-owned auto repair shop in Waltham, MA. Services, monthly specials, and reviews — built to win local customers and drive calls.",
     url: "https://bill-waltham-revamp.lovable.app/",
-    image: "/images/bills-auto.jpg?v=3",
+    image: "/images/bills-auto.jpg",
     category: "Local Business",
   },
   {
@@ -289,7 +289,7 @@ export const projects = [
     description:
       "Mobile car detailing site — pricing, booking flow, and service highlights tuned for conversions and SEO.",
     url: "https://mk-detailing.lovable.app/",
-    image: "/images/car-detailing.jpg?v=3",
+    image: "/images/car-detailing.jpg",
     category: "Local Business",
   },
   {
@@ -297,7 +297,7 @@ export const projects = [
     description:
       "Mobile car wash and detailing in Massachusetts — ceramic coating, paint correction, and interior detail. Fully mobile: we come to your driveway or office.",
     url: "https://gleam-ride-hub.vercel.app/",
-    image: "/images/kleins-auto-perfection.jpg?v=1",
+    image: "/images/kleins-auto-perfection.jpg",
     category: "Local Business",
   },
   {
@@ -305,7 +305,7 @@ export const projects = [
     description:
       "Luxury barbering atelier — precision cuts, hot towel shaves, booking flow, gallery, and VIP membership. Premium grooming experience, mobile-first design.",
     url: "https://luxe-trim-co.vercel.app/",
-    image: "/images/maison-noir.jpg?v=1",
+    image: "/images/maison-noir.jpg",
     category: "Beauty",
   },
   {
@@ -313,7 +313,7 @@ export const projects = [
     description:
       "Weekly Nissan Rogue rentals in Boston and Greater Boston — fleet, policies, booking, and transparent pricing from $350/week. Insured, licensed in MA.",
     url: "https://www.zoumirentals.com/",
-    image: "/images/zoumi-rentals.jpg?v=2",
+    image: "/images/zoumi-rentals.jpg",
     category: "Local Business",
   },
   {
@@ -321,7 +321,7 @@ export const projects = [
     description:
       "Nationwide luxury limo service from Cambridge, MA — fleet, airport transfers, corporate travel, booking, and 24/7 chauffeur service across all 50 states.",
     url: "https://elite-drive-network.vercel.app/",
-    image: "/images/cambridge-black-limo.jpg?v=2",
+    image: "/images/cambridge-black-limo.jpg",
     category: "Local Business",
   },
   {
@@ -329,7 +329,7 @@ export const projects = [
     description:
       "Native wildflower plant communities in metroWest, MA — proof-of-concept plots, learning resources, and low-maintenance protocols to turn turf back into habitat.",
     url: "https://entoscapes-dream-refresh.vercel.app/",
-    image: "/images/entoscapes.png?v=2",
+    image: "/images/entoscapes.jpg",
     category: "Environmental",
   },
   {
@@ -337,7 +337,7 @@ export const projects = [
     description:
       "Luxury hair, bridal makeup, lashes, facials, and spa in Framingham, MA — services, gallery, booking, and team pages for MetroWest clients.",
     url: "https://suave-salon-space.vercel.app/",
-    image: "/images/amora-leah.jpg?v=1",
+    image: "/images/amora-leah.jpg",
     category: "Beauty",
   },
   {
@@ -345,7 +345,7 @@ export const projects = [
     description:
       "Luxury property showcase site — listings, galleries, and polished presentation built to highlight high-end homes and drive inquiries.",
     url: "https://crest-property-showcase-q6kmxsatd.vercel.app/",
-    image: "/images/crest-property.jpg?v=1",
+    image: "/images/crest-property.jpg",
     category: "Real Estate",
   },
 ];

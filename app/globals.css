@@ -104,6 +104,12 @@ body {
   @apply transition-all duration-500 ease-premium hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40;
 }
 
+/* Skip rendering work for offscreen sections (big mobile win) */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 800px;
+}
+
 /* Continuous horizontal ticker: duplicate the track's children and this scrolls seamlessly */
 .marquee-track {
   animation: marquee 32s linear infinite;
@@ -115,6 +121,14 @@ body {
 /* Reusable "eyebrow" label style */
 .eyebrow {
   @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-400;
+}
+
+/* Phones: pause continuous animations — saves battery + main thread */
+@media (max-width: 639px) {
+  .animate-float,
+  .marquee-track {
+    animation: none !important;
+  }
 }
 
 /* Respect reduced motion and improve mobile scroll performance */
